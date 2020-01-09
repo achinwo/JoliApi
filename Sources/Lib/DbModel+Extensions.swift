@@ -176,6 +176,16 @@ public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, 
     
 }
 
+extension Array where Element: Persisted {
+    
+    static func fromString(_ string: String) -> [Element]? {
+        guard let stringData = string.data(using: .utf8) else {
+            return nil
+        }
+        return try? Element.jsonDecoder().decode([Element].self, from: stringData)
+    }
+}
+
 // MARK: - Builder
 public struct Builder<T:Persisted>: Persistable {
     
