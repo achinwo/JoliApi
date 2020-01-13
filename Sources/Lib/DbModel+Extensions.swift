@@ -178,18 +178,49 @@ public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, 
 
 extension Array where Element: Persisted {
     
-    static func fromString(_ string: String) -> [Element]? {
+    public static func fromString(_ string: String) -> [Element]? {
         guard let stringData = string.data(using: .utf8) else {
             return nil
         }
-        return try? Element.jsonDecoder().decode([Element].self, from: stringData)
+        do {
+            return try Element.jsonDecoder().decode([Element].self, from: stringData)
+        } catch {
+            debugPrint("[\(Element.className())#fromString] error:\(error)")
+            return nil
+        }
     }
+}
+
+@propertyWrapper
+enum Lazy<Value> {
+  case uninitialized(() -> Value)
+  case initialized(Value)
+
+  init(wrappedValue: @autoclosure @escaping () -> Value) {
+    self = .uninitialized(wrappedValue)
+  }
+
+  var wrappedValue: Value {
+    mutating get {
+      switch self {
+      case .uninitialized(let initializer):
+        let value = initializer()
+        self = .initialized(value)
+        return value
+      case .initialized(let value):
+        return value
+      }
+    }
+    set {
+      self = .initialized(newValue)
+    }
+  }
 }
 
 // MARK: - Builder
 public struct Builder<T:Persisted>: Persistable {
     
-    public let properties: T.PropertiesDict
+    public var properties: T.PropertiesDict
     
     public var json: Json {
         let items: [(String, AnyObject)] = properties.map() { ($0.key.stringValue, $0.value) }

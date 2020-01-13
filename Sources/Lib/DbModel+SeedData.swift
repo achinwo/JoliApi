@@ -898,17 +898,6 @@ tracks: [Track].fromString("""
         "uri": "spotify:track:5mN3xSyvCmFy1jkdA98IfS"
     },
     {
-        "id": 2,
-        "created_by_id": 1,
-        "created_at": "2019-10-26T14:00:56Z",
-        "updated_at": "2019-10-26T14:00:56Z",
-        "title": "Stayin' Alive - From \"Saturday Night Fever\" Soundtrack",
-        "track_id": "3mRM4NM8iO7UBqrSigCQFH",
-        "thumbnail_url": "https://i.scdn.co/image/ab67616d00004851d10d09bdf6cf80dbeb5cd171",
-        "artist_name": "Bee Gees",
-        "uri": "spotify:track:3mRM4NM8iO7UBqrSigCQFH"
-    },
-    {
         "id": 3,
         "created_by_id": 2,
         "created_at": "2019-10-29T22:49:37Z",

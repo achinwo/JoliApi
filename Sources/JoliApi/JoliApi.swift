@@ -276,8 +276,22 @@ public class JoliApi: ObservableObject {
         let api = JoliApi(baseUrl: .localhost)
         let url: BaseUrl = api.baseUrl
 
-        let key: KeyPath<JoliApi, BaseUrl> = \.baseUrl
-        print("KEY: \(key) - \(api[keyPath: key])")
+        let res = [Track].fromString("""
+        [
+            {
+                "id": 1,
+                "created_by_id": 1,
+                "created_at": "2019-10-01T09:18:56Z",
+                "updated_at": "2019-10-01T09:18:56Z",
+                "title": "Fever",
+                "track_id": "5mN3xSyvCmFy1jkdA98IfS",
+                "thumbnail_url": "https://i.scdn.co/image/ab67616d000048512e74362b470526cda9f124eb",
+                "artist_name": "WizKid",
+                "uri": "spotify:track:5mN3xSyvCmFy1jkdA98IfS"
+            }
+]
+""")
+        logger.debug("[QT] \(SEED_DATA)")
         return Promise(nil)
         //JoliApi.sharedUrlSession.configuration = JoliApi.sharedUrlSession.configuration
         
