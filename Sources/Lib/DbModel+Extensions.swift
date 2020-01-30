@@ -218,7 +218,7 @@ enum Lazy<Value> {
 }
 
 // MARK: - Builder
-public struct Builder<T:Persisted>: Persistable {
+public struct Builder<T: Persisted>: Persistable {
     
     public var properties: T.PropertiesDict
     
@@ -242,6 +242,7 @@ public struct Builder<T:Persisted>: Persistable {
     
     public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
         let urlComp = "/api/db/\(T.className())"
+        //"/api/db/\(T.className())"
         return HttpMethod.post.fetch(urlString: urlComp,
                                      dataType: T.self,
                                      payload: .json(self.json),
@@ -249,6 +250,21 @@ public struct Builder<T:Persisted>: Persistable {
                                      urlSession: urlSession,
                                      on: on)
     }
+}
+
+
+//extension DefaultStringInterpolation {
+//    mutating func appendInterpolation(_ value: )
+//    {
+//
+//        self.appendInterpolation(
+//            dateComponents.value(for: component)!
+//        )
+//    }
+//}
+
+enum Endpoint {
+    
 }
 
 // MARK: - Playable
@@ -387,7 +403,25 @@ extension Persisted {
     
     static func jsonDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        //decoder.dateDecodingStrategy = .iso8601
+
+        let formatter = DateFormatter()
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            if let date = formatter.date(from: dateString) {
+                return date
+            }
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            if let date = formatter.date(from: dateString) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(in: container,
+                debugDescription: "Cannot decode date string \(dateString)")
+        }
+        
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         return decoder
@@ -395,7 +429,10 @@ extension Persisted {
     
     static func jsonEncoder(outputFormatting: JSONEncoder.OutputFormatting = []) -> JSONEncoder {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        encoder.dateEncodingStrategy = .formatted(formatter)
         encoder.outputFormatting = outputFormatting
         return encoder
     }

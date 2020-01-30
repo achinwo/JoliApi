@@ -22,7 +22,7 @@ public class JoliApi: ObservableObject {
     
     @Published public var auth: Auth? {
         didSet {
-            self.urlSessionConfiguration = URLSessionConfiguration.default.withAuthHeader(auth?.session.token)
+            self.urlSessionConfiguration = self.urlSessionConfiguration.withAuthHeader(auth?.session.token)
         }
     }
     
@@ -132,7 +132,7 @@ public class JoliApi: ObservableObject {
 
     @discardableResult
     public func authenticate(email: String, password: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
-        return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? JoliApi.sharedUrlSession, on: on)
+        return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
             .then() { auth -> Auth? in
                 self.auth = auth
                 return auth
@@ -143,7 +143,7 @@ public class JoliApi: ObservableObject {
     
     @discardableResult
     public func authenticate(token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
-        return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? JoliApi.sharedUrlSession, on: on)
+        return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
             .then() { auth -> Auth? in
                 self.auth = auth
                 //logger.debug("[JoliApi#authenticate] AUTH: \(auth)")
@@ -198,10 +198,11 @@ public class JoliApi: ObservableObject {
     public var urlSession: URLSession = JoliApi.sharedUrlSession
     
     // MARK: - init
-    public init(baseUrl: BaseUrl = .localhost, authToken: String? = nil){
+    public init(baseUrl: BaseUrl = .localhost, authToken: String? = nil, headers: HttpMethod.Headers = [:]){
         JoliApi.initLogger()
         
         self.urlSessionConfiguration = JoliApi.sharedUrlSession.configuration.withAuthHeader(authToken)
+        self.urlSessionConfiguration.httpAdditionalHeaders!.merge(headers) { $1 }
         
         self.baseUrl = baseUrl
         let url = baseUrl.ws.appendingPathComponent("/ws")
@@ -350,6 +351,7 @@ public class JoliApi: ObservableObject {
        BaseUrl.homeDesktop.rawValue.http.host!,
        BaseUrl.mobileHotspot.rawValue.http.host!,
        BaseUrl.localhost.rawValue.http.host!,
+       BaseUrl.dev.rawValue.http.host!,
     ])
     
     static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
@@ -361,7 +363,7 @@ extension URLSessionConfiguration {
     
     public func withAuthHeader(_ authToken: String?) -> URLSessionConfiguration {
 
-        let config = URLSessionConfiguration.default
+        let config = self
         var headers = config.httpAdditionalHeaders ?? [:]
         
         if let authToken = authToken {

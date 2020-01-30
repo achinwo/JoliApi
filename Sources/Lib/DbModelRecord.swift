@@ -10,6 +10,7 @@ public typealias SessionRecord = Builder<Session>
 public typealias UserRecord = Builder<User>
 public typealias TrackRecord = Builder<Track>
 public typealias RoomMembershipRecord = Builder<RoomMembership>
+public typealias DeviceRecord = Builder<Device>
 
 
 extension AuthTokenRecord {
@@ -282,6 +283,10 @@ extension SessionRecord {
         get { properties[.userId] as? Int}
         set { properties[.userId] = newValue as AnyObject }
     }
+    public var deviceUuid: String? {
+        get { properties[.deviceUuid] as? String}
+        set { properties[.deviceUuid] = newValue as AnyObject }
+    }
     
 }
 extension UserRecord {
@@ -465,6 +470,50 @@ extension RoomMembershipRecord {
     public var isAdmin: Int? {
         get { properties[.isAdmin] as? Int}
         set { properties[.isAdmin] = newValue as AnyObject }
+    }
+    
+}
+extension DeviceRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
+    public var platform: String? {
+        get { properties[.platform] as? String}
+        set { properties[.platform] = newValue as AnyObject }
+    }
+    public var model: String? {
+        get { properties[.model] as? String}
+        set { properties[.model] = newValue as AnyObject }
+    }
+    public var name: String? {
+        get { properties[.name] as? String}
+        set { properties[.name] = newValue as AnyObject }
     }
     
 }

@@ -10,6 +10,7 @@
 //   let user = try? newJSONDecoder().decode(User.self, from: jsonData)
 //   let track = try? newJSONDecoder().decode(Track.self, from: jsonData)
 //   let roomMembership = try? newJSONDecoder().decode(RoomMembership.self, from: jsonData)
+//   let device = try? newJSONDecoder().decode(Device.self, from: jsonData)
 
 import Foundation
 
@@ -332,6 +333,7 @@ public struct Session: Persisted, DataConvertible {
     public var createdById: Int?
     public var deletedAt: Date?
     public var deletedById: Int?
+    public var deviceUuid: String?
     public var id: Int
     public var token: String
     public var updatedAt: Date
@@ -343,6 +345,7 @@ public struct Session: Persisted, DataConvertible {
         case createdById = "createdById"
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
+        case deviceUuid = "deviceUuid"
         case id = "id"
         case token = "token"
         case updatedAt = "updatedAt"
@@ -350,11 +353,12 @@ public struct Session: Persisted, DataConvertible {
         case userId = "userId"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
+        self.deviceUuid = deviceUuid
         self.id = id
         self.token = token
         self.updatedAt = updatedAt
@@ -457,5 +461,49 @@ public struct RoomMembership: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.userId = userId
+    }
+}
+
+/// Device
+// MARK: - Device
+public struct Device: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var id: Int
+    public var model: String
+    public var name: String
+    public var platform: String
+    public var updatedAt: Date
+    public var updatedById: Int?
+    public var uuid: String
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case id = "id"
+        case model = "model"
+        case name = "name"
+        case platform = "platform"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case uuid = "uuid"
+    }
+
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, updatedAt: Date, updatedById: Int?, uuid: String) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.id = id
+        self.model = model
+        self.name = name
+        self.platform = platform
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.uuid = uuid
     }
 }
