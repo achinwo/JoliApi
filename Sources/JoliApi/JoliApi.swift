@@ -105,7 +105,7 @@ public class JoliApi: ObservableObject {
             case .homeDesktop:
                 return (http: URL(string: "https://192.168.1.188:8080")!, ws: URL(string: "wss://192.168.1.188:8080")!)
             case .mobileHotspot:
-                return (http: URL(string: "https://172.20.10.2:8080")!, ws: URL(string: "wss://172.20.10.2:8080")!)
+                return (http: URL(string: "https://172.20.10.7:8080")!, ws: URL(string: "wss://172.20.10.7:8080")!)
             case .host(let urlString):
                 return (http: URL(string: "https://\(urlString)")!, ws: URL(string: "wss://\(urlString)")!)
             case .custom(let urls):
@@ -352,6 +352,8 @@ public class JoliApi: ObservableObject {
        BaseUrl.mobileHotspot.rawValue.http.host!,
        BaseUrl.localhost.rawValue.http.host!,
        BaseUrl.dev.rawValue.http.host!,
+       URL(string: "https://192.168.1.113:8080")!.host!,
+       URL(string: "https://192.168.0.26:8080")!.host!
     ])
     
     static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
