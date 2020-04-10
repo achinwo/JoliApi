@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "CancellationToken",
+        "repositoryURL": "https://github.com/tomlokhorst/swift-cancellationtoken.git",
+        "state": {
+          "branch": null,
+          "revision": "5356a8c2c1dffd202878d724ddbfbc42d31e0be7",
+          "version": "3.2.0"
+        }
+      },
+      {
         "package": "SwiftSyntax",
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
