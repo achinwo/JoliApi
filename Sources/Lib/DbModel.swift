@@ -329,6 +329,7 @@ public struct QueuedTrackVote: Persisted, DataConvertible {
 /// Session
 // MARK: - Session
 public struct Session: Persisted, DataConvertible {
+    public var apnToken: String?
     public var createdAt: Date
     public var createdById: Int?
     public var deletedAt: Date?
@@ -341,6 +342,7 @@ public struct Session: Persisted, DataConvertible {
     public var userId: Int
 
     public enum CodingKeys: String, CodingKey {
+        case apnToken = "apnToken"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -353,7 +355,8 @@ public struct Session: Persisted, DataConvertible {
         case userId = "userId"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
+    public init(apnToken: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
+        self.apnToken = apnToken
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
