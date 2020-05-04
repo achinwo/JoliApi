@@ -287,10 +287,6 @@ extension SessionRecord {
         get { properties[.deviceUuid] as? String}
         set { properties[.deviceUuid] = newValue as AnyObject }
     }
-    public var apnToken: String? {
-        get { properties[.apnToken] as? String}
-        set { properties[.apnToken] = newValue as AnyObject }
-    }
     
 }
 extension UserRecord {
@@ -518,6 +514,10 @@ extension DeviceRecord {
     public var name: String? {
         get { properties[.name] as? String}
         set { properties[.name] = newValue as AnyObject }
+    }
+    public var apnToken: String? {
+        get { properties[.apnToken] as? String}
+        set { properties[.apnToken] = newValue as AnyObject }
     }
     
 }

@@ -329,7 +329,6 @@ public struct QueuedTrackVote: Persisted, DataConvertible {
 /// Session
 // MARK: - Session
 public struct Session: Persisted, DataConvertible {
-    public var apnToken: String?
     public var createdAt: Date
     public var createdById: Int?
     public var deletedAt: Date?
@@ -342,7 +341,6 @@ public struct Session: Persisted, DataConvertible {
     public var userId: Int
 
     public enum CodingKeys: String, CodingKey {
-        case apnToken = "apnToken"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -355,8 +353,7 @@ public struct Session: Persisted, DataConvertible {
         case userId = "userId"
     }
 
-    public init(apnToken: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
-        self.apnToken = apnToken
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -470,6 +467,7 @@ public struct RoomMembership: Persisted, DataConvertible {
 /// Device
 // MARK: - Device
 public struct Device: Persisted, DataConvertible {
+    public var apnToken: String?
     public var createdAt: Date
     public var createdById: Int?
     public var deletedAt: Date?
@@ -483,6 +481,7 @@ public struct Device: Persisted, DataConvertible {
     public var uuid: String
 
     public enum CodingKeys: String, CodingKey {
+        case apnToken = "apnToken"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -496,7 +495,8 @@ public struct Device: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, updatedAt: Date, updatedById: Int?, uuid: String) {
+    public init(apnToken: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, updatedAt: Date, updatedById: Int?, uuid: String) {
+        self.apnToken = apnToken
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
