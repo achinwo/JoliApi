@@ -59,9 +59,29 @@ extension AuthTokenRecord {
         get { properties[.tokenType] as? String}
         set { properties[.tokenType] = newValue as AnyObject }
     }
-    public var userId: Int? {
-        get { properties[.userId] as? Int}
-        set { properties[.userId] = newValue as AnyObject }
+    public var country: String? {
+        get { properties[.country] as? String}
+        set { properties[.country] = newValue as AnyObject }
+    }
+    public var displayName: String? {
+        get { properties[.displayName] as? String}
+        set { properties[.displayName] = newValue as AnyObject }
+    }
+    public var email: String? {
+        get { properties[.email] as? String}
+        set { properties[.email] = newValue as AnyObject }
+    }
+    public var product: String? {
+        get { properties[.product] as? String}
+        set { properties[.product] = newValue as AnyObject }
+    }
+    public var userName: String? {
+        get { properties[.userName] as? String}
+        set { properties[.userName] = newValue as AnyObject }
+    }
+    public var roomId: Int? {
+        get { properties[.roomId] as? Int}
+        set { properties[.roomId] = newValue as AnyObject }
     }
     public var parentId: Int? {
         get { properties[.parentId] as? Int}

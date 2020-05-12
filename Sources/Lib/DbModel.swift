@@ -18,52 +18,67 @@ import Foundation
 // MARK: - AuthToken
 public struct AuthToken: Persisted, DataConvertible {
     public var accessToken: String
+    public var country: String
     public var createdAt: Date
     public var createdById: Int?
     public var deletedAt: Date?
     public var deletedById: Int?
+    public var displayName: String
+    public var email: String
     public var expiresIn: Int
     public var id: Int
     public var parentId: Int?
-    public var refreshToken: String?
+    public var product: String
+    public var refreshToken: String
+    public var roomId: Int?
     public var scope: String
-    public var tokenType: String?
+    public var tokenType: String
     public var updatedAt: Date
     public var updatedById: Int?
-    public var userId: Int?
+    public var userName: String
 
     public enum CodingKeys: String, CodingKey {
         case accessToken = "accessToken"
+        case country = "country"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
+        case displayName = "displayName"
+        case email = "email"
         case expiresIn = "expiresIn"
         case id = "id"
         case parentId = "parentId"
+        case product = "product"
         case refreshToken = "refreshToken"
+        case roomId = "roomId"
         case scope = "scope"
         case tokenType = "tokenType"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
-        case userId = "userId"
+        case userName = "userName"
     }
 
-    public init(accessToken: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, expiresIn: Int, id: Int, parentId: Int?, refreshToken: String?, scope: String, tokenType: String?, updatedAt: Date, updatedById: Int?, userId: Int?) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, displayName: String, email: String, expiresIn: Int, id: Int, parentId: Int?, product: String, refreshToken: String, roomId: Int?, scope: String, tokenType: String, updatedAt: Date, updatedById: Int?, userName: String) {
         self.accessToken = accessToken
+        self.country = country
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
+        self.displayName = displayName
+        self.email = email
         self.expiresIn = expiresIn
         self.id = id
         self.parentId = parentId
+        self.product = product
         self.refreshToken = refreshToken
+        self.roomId = roomId
         self.scope = scope
         self.tokenType = tokenType
         self.updatedAt = updatedAt
         self.updatedById = updatedById
-        self.userId = userId
+        self.userName = userName
     }
 }
 
