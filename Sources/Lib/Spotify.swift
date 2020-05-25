@@ -37,6 +37,16 @@ public enum Spotify {
         public let type: DeviceType
         public let volumePercent: Int
         
+        public init(name: String, type: DeviceType, isActive: Bool, id: String, isPrivateSession: Bool = false, isRestricted: Bool = false, volumePercent: Int = 30) {
+            self.id = id
+            self.isActive = isActive
+            self.isPrivateSession = isPrivateSession
+            self.isRestricted = isRestricted
+            self.name = name
+            self.type = type
+            self.volumePercent = volumePercent
+        }
+        
         public func toData(outputFormatting: JSONEncoder.OutputFormatting? = nil) throws -> Data {
             return try Musicroom.jsonEncoder(outputFormatting: outputFormatting ?? []).encode(self)
         }
