@@ -11,6 +11,7 @@ public typealias UserRecord = Builder<User>
 public typealias TrackRecord = Builder<Track>
 public typealias RoomMembershipRecord = Builder<RoomMembership>
 public typealias DeviceRecord = Builder<Device>
+public typealias PlayStateRecord = Builder<PlayState>
 
 
 extension AuthTokenRecord {
@@ -59,9 +60,29 @@ extension AuthTokenRecord {
         get { properties[.tokenType] as? String}
         set { properties[.tokenType] = newValue as AnyObject }
     }
-    public var userId: Int? {
-        get { properties[.userId] as? Int}
-        set { properties[.userId] = newValue as AnyObject }
+    public var country: String? {
+        get { properties[.country] as? String}
+        set { properties[.country] = newValue as AnyObject }
+    }
+    public var displayName: String? {
+        get { properties[.displayName] as? String}
+        set { properties[.displayName] = newValue as AnyObject }
+    }
+    public var email: String? {
+        get { properties[.email] as? String}
+        set { properties[.email] = newValue as AnyObject }
+    }
+    public var product: String? {
+        get { properties[.product] as? String}
+        set { properties[.product] = newValue as AnyObject }
+    }
+    public var userName: String? {
+        get { properties[.userName] as? String}
+        set { properties[.userName] = newValue as AnyObject }
+    }
+    public var roomId: Int? {
+        get { properties[.roomId] as? Int}
+        set { properties[.roomId] = newValue as AnyObject }
     }
     public var parentId: Int? {
         get { properties[.parentId] as? Int}
@@ -106,6 +127,22 @@ extension MusicroomRecord {
     public var membership: String? {
         get { properties[.membership] as? String}
         set { properties[.membership] = newValue as AnyObject }
+    }
+    public var refreshToken: String? {
+        get { properties[.refreshToken] as? String}
+        set { properties[.refreshToken] = newValue as AnyObject }
+    }
+    public var trackUri: String? {
+        get { properties[.trackUri] as? String}
+        set { properties[.trackUri] = newValue as AnyObject }
+    }
+    public var playState: String? {
+        get { properties[.playState] as? String}
+        set { properties[.playState] = newValue as AnyObject }
+    }
+    public var playStateChangedAt: Date? {
+        get { properties[.playStateChangedAt] as? Date}
+        set { properties[.playStateChangedAt] = newValue as AnyObject }
     }
     
 }
@@ -518,6 +555,54 @@ extension DeviceRecord {
     public var apnToken: String? {
         get { properties[.apnToken] as? String}
         set { properties[.apnToken] = newValue as AnyObject }
+    }
+    
+}
+extension PlayStateRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var refreshToken: String? {
+        get { properties[.refreshToken] as? String}
+        set { properties[.refreshToken] = newValue as AnyObject }
+    }
+    public var trackUri: String? {
+        get { properties[.trackUri] as? String}
+        set { properties[.trackUri] = newValue as AnyObject }
+    }
+    public var progressMs: Int? {
+        get { properties[.progressMs] as? Int}
+        set { properties[.progressMs] = newValue as AnyObject }
+    }
+    public var state: String? {
+        get { properties[.state] as? String}
+        set { properties[.state] = newValue as AnyObject }
+    }
+    public var stateChangedAt: Date? {
+        get { properties[.stateChangedAt] as? Date}
+        set { properties[.stateChangedAt] = newValue as AnyObject }
     }
     
 }
