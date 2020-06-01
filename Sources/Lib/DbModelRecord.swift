@@ -640,9 +640,9 @@ extension PlayStateRecord {
         get { properties[.progressMs] as? Int}
         set { properties[.progressMs] = newValue as AnyObject }
     }
-    public var state: String? {
-        get { properties[.state] as? String}
-        set { properties[.state] = newValue as AnyObject }
+    public var playingState: String? {
+        get { properties[.playingState] as? String}
+        set { properties[.playingState] = newValue as AnyObject }
     }
     public var stateChangedAt: Date? {
         get { properties[.stateChangedAt] as? Date}

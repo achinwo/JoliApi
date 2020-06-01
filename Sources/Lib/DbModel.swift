@@ -553,12 +553,12 @@ public struct PlayState: Persisted, DataConvertible {
     public var email: String
     public var expiresIn: Int
     public var id: Int
+    public var playingState: PlayingState?
     public var product: String
     public var progressMs: Int?
     public var refreshToken: String
     public var roomId: Int?
     public var scope: String
-    public var state: State?
     public var stateChangedAt: Date?
     public var tokenType: String
     public var trackUri: String?
@@ -578,12 +578,12 @@ public struct PlayState: Persisted, DataConvertible {
         case email = "email"
         case expiresIn = "expiresIn"
         case id = "id"
+        case playingState = "playingState"
         case product = "product"
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
         case roomId = "roomId"
         case scope = "scope"
-        case state = "state"
         case stateChangedAt = "stateChangedAt"
         case tokenType = "tokenType"
         case trackUri = "trackUri"
@@ -592,7 +592,7 @@ public struct PlayState: Persisted, DataConvertible {
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, state: State?, stateChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, stateChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -604,12 +604,12 @@ public struct PlayState: Persisted, DataConvertible {
         self.email = email
         self.expiresIn = expiresIn
         self.id = id
+        self.playingState = playingState
         self.product = product
         self.progressMs = progressMs
         self.refreshToken = refreshToken
         self.roomId = roomId
         self.scope = scope
-        self.state = state
         self.stateChangedAt = stateChangedAt
         self.tokenType = tokenType
         self.trackUri = trackUri
@@ -619,7 +619,7 @@ public struct PlayState: Persisted, DataConvertible {
     }
 }
 
-public enum State: String, Codable {
+public enum PlayingState: String, Codable {
     case paused = "PAUSED"
     case playRequested = "PLAY_REQUESTED"
     case playing = "PLAYING"
