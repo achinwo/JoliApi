@@ -141,8 +141,8 @@ public struct Musicroom: Persisted, DataConvertible {
     public var id: Int
     public var membership: Membership
     public var name: String
-    public var playState: String?
-    public var playStateChangedAt: Date?
+    public var playingState: PlayingState?
+    public var playingStateChangedAt: Date?
     public var refreshToken: String?
     public var trackUri: String?
     public var updatedAt: Date
@@ -157,15 +157,15 @@ public struct Musicroom: Persisted, DataConvertible {
         case id = "id"
         case membership = "membership"
         case name = "name"
-        case playState = "playState"
-        case playStateChangedAt = "playStateChangedAt"
+        case playingState = "playingState"
+        case playingStateChangedAt = "playingStateChangedAt"
         case refreshToken = "refreshToken"
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, membership: Membership, name: String, playState: String?, playStateChangedAt: Date?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -174,8 +174,8 @@ public struct Musicroom: Persisted, DataConvertible {
         self.id = id
         self.membership = membership
         self.name = name
-        self.playState = playState
-        self.playStateChangedAt = playStateChangedAt
+        self.playingState = playingState
+        self.playingStateChangedAt = playingStateChangedAt
         self.refreshToken = refreshToken
         self.trackUri = trackUri
         self.updatedAt = updatedAt
@@ -187,6 +187,13 @@ public enum Membership: String, Codable {
     case inviteOnly = "inviteOnly"
     case membershipOpen = "open"
     case membershipPrivate = "private"
+}
+
+public enum PlayingState: String, Codable {
+    case paused = "PAUSED"
+    case playRequested = "PLAY_REQUESTED"
+    case playing = "PLAYING"
+    case stopped = "STOPPED"
 }
 
 /// Track
@@ -554,12 +561,12 @@ public struct PlayState: Persisted, DataConvertible {
     public var expiresIn: Int
     public var id: Int
     public var playingState: PlayingState?
+    public var playingStateChangedAt: Date?
     public var product: String
     public var progressMs: Int?
     public var refreshToken: String
     public var roomId: Int?
     public var scope: String
-    public var stateChangedAt: Date?
     public var tokenType: String
     public var trackUri: String?
     public var updatedAt: Date
@@ -579,12 +586,12 @@ public struct PlayState: Persisted, DataConvertible {
         case expiresIn = "expiresIn"
         case id = "id"
         case playingState = "playingState"
+        case playingStateChangedAt = "playingStateChangedAt"
         case product = "product"
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
         case roomId = "roomId"
         case scope = "scope"
-        case stateChangedAt = "stateChangedAt"
         case tokenType = "tokenType"
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
@@ -592,7 +599,7 @@ public struct PlayState: Persisted, DataConvertible {
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, stateChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -605,23 +612,16 @@ public struct PlayState: Persisted, DataConvertible {
         self.expiresIn = expiresIn
         self.id = id
         self.playingState = playingState
+        self.playingStateChangedAt = playingStateChangedAt
         self.product = product
         self.progressMs = progressMs
         self.refreshToken = refreshToken
         self.roomId = roomId
         self.scope = scope
-        self.stateChangedAt = stateChangedAt
         self.tokenType = tokenType
         self.trackUri = trackUri
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.userName = userName
     }
-}
-
-public enum PlayingState: String, Codable {
-    case paused = "PAUSED"
-    case playRequested = "PLAY_REQUESTED"
-    case playing = "PLAYING"
-    case stopped = "STOPPED"
 }

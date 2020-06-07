@@ -136,13 +136,13 @@ extension MusicroomRecord {
         get { properties[.trackUri] as? String}
         set { properties[.trackUri] = newValue as AnyObject }
     }
-    public var playState: String? {
-        get { properties[.playState] as? String}
-        set { properties[.playState] = newValue as AnyObject }
+    public var playingState: String? {
+        get { properties[.playingState] as? String}
+        set { properties[.playingState] = newValue as AnyObject }
     }
-    public var playStateChangedAt: Date? {
-        get { properties[.playStateChangedAt] as? Date}
-        set { properties[.playStateChangedAt] = newValue as AnyObject }
+    public var playingStateChangedAt: Date? {
+        get { properties[.playingStateChangedAt] as? Date}
+        set { properties[.playingStateChangedAt] = newValue as AnyObject }
     }
     
 }
@@ -644,9 +644,9 @@ extension PlayStateRecord {
         get { properties[.playingState] as? String}
         set { properties[.playingState] = newValue as AnyObject }
     }
-    public var stateChangedAt: Date? {
-        get { properties[.stateChangedAt] as? Date}
-        set { properties[.stateChangedAt] = newValue as AnyObject }
+    public var playingStateChangedAt: Date? {
+        get { properties[.playingStateChangedAt] as? Date}
+        set { properties[.playingStateChangedAt] = newValue as AnyObject }
     }
     
 }
