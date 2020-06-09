@@ -358,7 +358,7 @@ public class JoliApi: ObservableObject {
        BaseUrl.localhost.rawValue.http.host!,
        BaseUrl.dev.rawValue.http.host!,
        URL(string: "https://192.168.1.113:8080")!.host!,
-       URL(string: "https://192.168.0.26:8080")!.host!
+       URL(string: "https://192.168.1.106:8080")!.host!
     ])
     
     static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
