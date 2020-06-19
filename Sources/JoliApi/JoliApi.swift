@@ -15,7 +15,7 @@ internal let logger = SwiftyBeaver.self
 
 
 // MARK: - JoliApi
-public class JoliApi: ObservableObject {
+public class JoliApi: ObservableObject, HttpApi {
     
     @Published public var currentPlaying: TrackInfo?
     @Published public var currentPlayingTrack: Track?
@@ -184,6 +184,14 @@ public class JoliApi: ObservableObject {
         }
     }
     
+    public var baseUrlHttp: URL {
+        return baseUrl.http
+    }
+    
+    public var baseUrlWs: URL {
+        return baseUrl.ws
+    }
+    
     private var cancellableSet: Set<AnyCancellable> = []
     
     public var urlSessionConfiguration: URLSessionConfiguration {
@@ -211,7 +219,7 @@ public class JoliApi: ObservableObject {
         
         self.baseUrl = baseUrl
         let url = baseUrl.ws.appendingPathComponent("/ws")
-        self.wsClient = WebSocketClient(url: url, trustedHosts: JoliApi.sharedUrlSessionDelegate.trustedHosts + [baseUrl.http.host!])
+        self.wsClient = WebSocketClient(url: url, headers: headers, trustedHosts: JoliApi.sharedUrlSessionDelegate.trustedHosts + [baseUrl.http.host!])
         
         //(ws: URL, http: URL)
         BASE_URL = baseUrl.rawValue

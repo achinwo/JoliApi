@@ -8,6 +8,46 @@
 import Foundation
 import Promises
 
+public protocol HttpApi {
+    
+    var baseUrlHttp: URL { get }
+    var baseUrlWs: URL { get }
+    var urlSession: URLSession { get }
+    var user: User? { get }
+    
+}
+
+extension HttpApi {
+    
+    public static var `default`: HttpApi? {
+        return LocalhostApi.default
+    }
+    
+    public static func setDefault(_ api: HttpApi) {
+        LocalhostApi.default = api
+    }
+    
+}
+
+struct LocalhostApi: HttpApi {
+    
+    var baseUrlHttp: URL {
+        return URL(string: "https://localhost:8080")!
+    }
+    
+    var baseUrlWs: URL {
+        return URL(string: "https://localhost:8080")!
+    }
+    
+    var urlSession: URLSession = URLSession.shared
+    
+    var user: User? = nil
+    
+    public static var `default`: HttpApi = LocalhostApi()
+}
+
+
+
 public enum StringOrInt: Codable, Hashable {
     case string(String)
     case int(Int)
@@ -88,52 +128,6 @@ public struct Tracked<T: Codable & Hashable>: Trackable, Codable, Hashable {
         
         self.init(wrappedValue: try? container.decode(T.self))
     }
-}
-
-public indirect enum ObjectOrId<T: IdIdentifiable>: Equatable, Codable, Hashable {
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .obj(let obj):
-            try container.encode(obj)
-        case .id(let id):
-            try container.encode(id)
-        }
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        
-        if let id = try? container.decode(Int.self) {
-            self = .id(id)
-        } else if let obj = try? container.decode(T.self){
-            self = .obj(obj)
-        } else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Data must be int or Object")
-        }
-    }
-    
-    var id: StringOrInt? {
-        switch self {
-        case .obj(let obj):
-            return obj.id
-        case .id(let id):
-            return .int(id)
-        }
-    }
-    
-    public var obj: T? {
-        switch self {
-        case .obj(let obj):
-            return obj
-        default:
-            return nil
-        }
-    }
-    
-    case obj(T)
-    case id(Int)
 }
 
 public protocol DataConvertible {

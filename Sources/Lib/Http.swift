@@ -8,6 +8,13 @@
 import Foundation
 import Promises
 
+extension Data {
+    
+    public var stringUtf8: String? {
+        return String(data: self, encoding: .utf8)
+    }
+    
+}
 
 public class HttpsHook: NSObject, URLSessionDelegate {
     
@@ -112,22 +119,110 @@ public enum HttpMethod: String {
     case delete = "DELETE"
     case put = "PUT"
     
+    public enum Fetch {
+        
+        public static func get<T: Codable>(urlString: String, dataType: T.Type, payload: HttpBody?, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
+            
+            guard let url = URLComponents(string: urlString) else {
+                return Promise(NetworkError.invalidUrlPath(urlString))
+            }
+            
+            let baseUrl = baseUrl ?? LocalhostApi.default.baseUrlHttp
+            
+            return HttpMethod.Fetch.get(urlPath: url, dataType: dataType, payload: payload, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        }
+        
+        public static func get<T: Codable>(urlPath: URLComponents, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
+            
+            let baseUrl = baseUrl ?? LocalhostApi.default.baseUrlHttp
+            
+            guard let url = urlPath.url(relativeTo: baseUrl) else {
+                return Promise(NetworkError.invalidUrl(urlPath, baseUrl))
+            }
+            
+            return HttpMethod.Fetch.get(url: url, dataType: dataType, payload: payload, urlSession: urlSession, on: on)
+        }
+        
+        public static func get<T: Codable>(url: URL, dataType: T.Type, payload: HttpBody? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil)  -> Promise<T> {
+            return HttpMethod.Fetch.execute(method: .get, url: url, dataType: dataType, payload: payload, urlSession: urlSession, on: on)
+        }
+        
+        public static func execute<T: Codable>(method: HttpMethod, url: URL, dataType: T.Type, payload: HttpBody? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
+        
+            let queue = on ?? DispatchQueue.global(qos: .default)
+            //debugPrint("[fetch] \(url) - \(payload)")
+            return Promise<T>(on: queue) { (resolve, reject) in
+                
+                let callback = { (data: Data?, resp: URLResponse?, error: Error?) -> Void in
+                    
+                    guard let data = data else {
+                        return reject(error!)
+                    }
+
+                    do {
+                        let respObj = try Session.jsonDecoder().decode(Response<T>.self, from: data)
+                        
+                        guard let respData = respObj.data else {
+                            let error = respObj.error != nil ?
+                                NetworkError.errorMessage(respObj.error!) :
+                                NetworkError.badResponse(data.stringUtf8 ?? "<<Data to string failed>>")
+                            
+                            return reject(error)
+                        }
+                        
+                        resolve(respData)
+                    } catch {
+                        reject(NetworkError.deserialization(data.stringUtf8, resp, error))
+                    }
+                }
+                
+                let urlSession = urlSession ?? LocalhostApi.default.urlSession
+                
+                var request = URLRequest(url: url)
+                request.httpMethod = method.rawValue
+                
+                request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+                
+                let task: URLSessionTask
+                switch method {
+                case .post, .put:
+                        
+                    guard let payloadData = try? (payload ?? .json([:])).toData() else {
+                            return reject(NetworkError.badRequest("bad payload for post request: \(String(describing: payload))"))
+                        }
+                        
+                        task = urlSession.uploadTask(with: request, from: payloadData, completionHandler: callback)
+                case .get, .delete:
+                        task = urlSession.dataTask(with: request, completionHandler: callback)
+                }
+                task.resume()
+            }
+        }
+        
+    }
+    
     public func fetch<T: Codable>(urlString: String, dataType: T.Type, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
-        let baseUrl = baseUrl ?? Track.baseUrl.http
+        
+        let baseUrl = baseUrl ?? LocalhostApi.default.baseUrlHttp
+        
         return self.fetch(urlString: urlString, dataType: dataType, payload: nil, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
     public func fetch<T: Codable>(urlString: String, dataType: T.Type, payload: HttpBody?, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
+        
         guard let url = URLComponents(string: urlString) else {
             return Promise(NetworkError.invalidUrlPath(urlString))
         }
         
-        let baseUrl = baseUrl ?? Track.baseUrl.http
+        let baseUrl = baseUrl ?? LocalhostApi.default.baseUrlHttp
+        
         return self.fetch(urlPath: url, dataType: dataType, payload: payload, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
     public func fetch<T: Codable>(urlPath: URLComponents, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
-        let baseUrl = baseUrl ?? Track.baseUrl.http
+        
+        let baseUrl = baseUrl ?? LocalhostApi.default.baseUrlHttp
         
         guard let url = urlPath.url(relativeTo: baseUrl) else {
             return Promise(NetworkError.invalidUrl(urlPath, baseUrl))
@@ -165,7 +260,7 @@ public enum HttpMethod: String {
                 }
             }
             
-            let urlSession = urlSession ?? URLSession.shared
+            let urlSession = urlSession ?? LocalhostApi.default.urlSession
             
             var request = URLRequest(url: url)
             request.httpMethod = self.rawValue
@@ -241,10 +336,4 @@ public enum HttpMethod: String {
     }
 }
 
-extension Data {
-    
-    public var stringUtf8: String? {
-        return String(data: self, encoding: .utf8)
-    }
-    
-}
+

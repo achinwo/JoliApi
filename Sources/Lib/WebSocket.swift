@@ -104,9 +104,14 @@ public class WebSocketClient: HttpsHook {
     //var queue: OperationQueue = DispatchQueue.global(qos: .background)
     //public var subjects: Set<String> = []
     
-    public init(url: URL, trustedHosts: [String] = []) {
+    public init(url: URL, headers: HttpMethod.Headers = [:], trustedHosts: [String] = []) {
         super.init(trustedHosts: trustedHosts)
-        self.session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue.main)
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = config.httpAdditionalHeaders ?? [:]
+        config.httpAdditionalHeaders!.merge(headers) { $1 }
+        
+        self.session = URLSession(configuration: config, delegate: self, delegateQueue: OperationQueue.main)
+        
         self.url = url
     }
     
