@@ -53,8 +53,7 @@ public enum Spotify {
         
         public static func me(baseUrl: URL? = nil, urlSession: URLSession? = nil) -> Promise<Device>{
             
-            return HttpMethod.get.fetch(urlString: "/api/this/device",
-                                        dataType: Device.self, baseUrl: baseUrl, urlSession: urlSession)
+            return HttpMethod.Fetch.get(url: "/api/this/device", dataType: Device.self, baseUrl: baseUrl, urlSession: urlSession)
         }
     }
     
@@ -118,7 +117,7 @@ public enum Spotify {
             return item.uri
         }
         
-        public let context: CurrentlyPlayingContext? = nil
+        public var context: CurrentlyPlayingContext? = nil
         public let timestamp: Int
         public let progressMs: Int
         public let item: Track
@@ -148,7 +147,7 @@ public enum Spotify {
         
         @discardableResult
         public static func fetch(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<CurrentlyPlayingContent?> {
-            return HttpMethod.get.fetch(urlString: "/api/spotify/current-playing", dataType: CurrentlyPlayingContent?.self, baseUrl: baseUrl, urlSession: urlSession, on: on)
+            return HttpMethod.Fetch.get(url: "/api/spotify/current-playing", dataType: CurrentlyPlayingContent?.self, baseUrl: baseUrl, urlSession: urlSession, on: on)
         }
         
     }

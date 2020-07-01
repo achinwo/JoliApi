@@ -153,7 +153,7 @@ public class JoliApi: ObservableObject, HttpApi {
     }
     
     public func setNotificationToken(_ token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Device> {
-        return HttpMethod.post.fetch(urlString: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), urlSession: self.urlSession)
+        return HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), urlSession: self.urlSession)
     }
     
     public func searchTracks(q: String, limit: Int = 10) -> Promise<[Spotify.Track]> {
@@ -163,7 +163,7 @@ public class JoliApi: ObservableObject, HttpApi {
             URLQueryItem(name: "limit", value: limit.description)
         ]
         
-        return HttpMethod.get.fetch(urlPath: pathComp, dataType: [Spotify.Track].self, payload: nil, urlSession: self.urlSession)
+        return HttpMethod.Fetch.get(url: pathComp, dataType: [Spotify.Track].self, urlSession: self.urlSession)
     }
     
     @discardableResult
@@ -261,7 +261,7 @@ public class JoliApi: ObservableObject, HttpApi {
     public func fetchSpotifyDevices(on: DispatchQueue? = nil) -> Promise<[Spotify.Device]> {
         let baseUrl = self.baseUrl.rawValue.http
         let queue = on ?? DispatchQueue.main
-        return HttpMethod.get.fetch(urlString: "/api/spotify/devices", dataType: [String: [Spotify.Device]].self, baseUrl: baseUrl, urlSession: self.urlSession, on: queue)
+        return HttpMethod.Fetch.get(url: "/api/spotify/devices", dataType: [String: [Spotify.Device]].self, baseUrl: baseUrl, urlSession: self.urlSession, on: queue)
             .then(on: queue) { (dict) -> [Spotify.Device] in
                 guard let devices = dict["devices"] else {
                     throw NetworkError.badResponse("expected key \"devices\" in response: \(dict)")
@@ -271,7 +271,7 @@ public class JoliApi: ObservableObject, HttpApi {
     }
     
     public func fetchSpotifyUserProfile(on: DispatchQueue? = nil) -> Promise<Spotify.UserProfile> {
-        return HttpMethod.get.fetch(urlString: "/api/spotify/me", dataType: Spotify.UserProfile.self, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession, on: on)
+        return HttpMethod.Fetch.get(url: "/api/spotify/me", dataType: Spotify.UserProfile.self, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession, on: on)
     }
     
     @discardableResult
@@ -369,7 +369,7 @@ public class JoliApi: ObservableObject, HttpApi {
        URL(string: "https://192.168.1.106:8080")!.host!
     ])
     
-    static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
+    public static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
                                                   delegate: JoliApi.sharedUrlSessionDelegate, delegateQueue: .main)
     
 }

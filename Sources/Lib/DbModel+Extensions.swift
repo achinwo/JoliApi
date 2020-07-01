@@ -19,10 +19,6 @@ public protocol HttpApi {
 
 extension HttpApi {
     
-    public static var `default`: HttpApi? {
-        return LocalhostApi.default
-    }
-    
     public static func setDefault(_ api: HttpApi) {
         LocalhostApi.default = api
     }
@@ -237,7 +233,7 @@ public struct Builder<T: Persisted>: Persistable {
     public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
         let urlComp = "/api/db/\(T.className())"
         //"/api/db/\(T.className())"
-        return HttpMethod.post.fetch(urlString: urlComp,
+        return HttpMethod.Fetch.post(url: urlComp,
                                      dataType: T.self,
                                      payload: .json(self.json),
                                      baseUrl: baseUrl,
@@ -339,7 +335,7 @@ extension Persisted {
     public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self> {
         let urlComp = "/api/db/\(Self.className())/\(id)"
         //return Self.post(urlPath: urlComp, dataType: Self?.self, payload: self, on: on)
-        return HttpMethod.post.fetch(urlString: urlComp,
+        return HttpMethod.Fetch.post(url: urlComp,
                                      dataType: Self.self,
                                      payload: .dbModel(self),
                                      baseUrl: baseUrl,
@@ -378,7 +374,7 @@ extension Persisted {
     public func delete(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self> {
         
         let urlComp = "/api/db/\(Self.className())/\(id)"
-        return HttpMethod.delete.fetch(urlString: urlComp,
+        return HttpMethod.Fetch.delete(url: urlComp,
                                      dataType: Self.self,
                                      baseUrl: baseUrl,
                                      urlSession: urlSession,
@@ -446,11 +442,11 @@ extension Persisted {
         for (key, val) in (whereClause ?? [:]){
             queryPath.queryItems?.append(URLQueryItem(name: key.stringValue, value: val as? String))
         }
-        return HttpMethod.get.fetch(urlPath: queryPath, dataType: [Self].self, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return HttpMethod.Fetch.get(url: queryPath, dataType: [Self].self, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
     public static func findById(id: Int, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self?> {
-        return HttpMethod.get.fetch(urlString: "/api/db/\(Self.className())/\(id)",
+        return HttpMethod.Fetch.get(url: "/api/db/\(Self.className())/\(id)",
             dataType: Self?.self, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
@@ -458,7 +454,7 @@ extension Persisted {
         var comp = URLComponents(string: "/api/db/\(Self.className())")!
         comp.queryItems = [URLQueryItem(name: "ids", value: ids.map({$0.description}).joined(separator: ","))]
         
-        return HttpMethod.get.fetch(urlPath: comp, dataType: [Self].self,
+        return HttpMethod.Fetch.get(url: comp, dataType: [Self].self,
                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
@@ -510,14 +506,14 @@ extension Session{
     
     public static func fromCredentials(email: String, password: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
         let url = URLComponents(string: "/signin")!
-        return HttpMethod.post.fetch(urlPath: url, dataType: Auth?.self,
+        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
                                      payload: .json(["email": email as AnyObject, "password": password as AnyObject]),
                                      baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
     public static func fromCredentials(token: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
         let url = URLComponents(string: "/signin")!
-        return HttpMethod.post.fetch(urlPath: url, dataType: Auth?.self,
+        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
                                      payload: .json(["token": token as AnyObject]),
                                      baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
@@ -548,14 +544,14 @@ extension Musicroom {
     public func queueTrack(_ track: Playable, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<QueuedTrack>{
         
         let urlPath = "/api/musicrooms/\(id)/\(track.uri)"
-        return HttpMethod.post.fetch(urlString: urlPath,
+        return HttpMethod.Fetch.post(url: urlPath,
                                      dataType: QueuedTrack.self,
                                      baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
     public func fetchTracks(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<[Track]> {
         let urlPath = "/get_room_tracks"
-        return HttpMethod.post.fetch(urlString: urlPath,
+        return HttpMethod.Fetch.post(url: urlPath,
                                      dataType: [Track].self,
                                      payload: .json(["roomId": id as AnyObject]),
                                      baseUrl: baseUrl, urlSession: urlSession, on: on)
