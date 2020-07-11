@@ -305,7 +305,7 @@ public class JoliApi: ObservableObject, HttpApi {
             }
 ]
 """)
-        logger.debug("[QT] \(SEED_DATA)")
+        logger.debug("[QT] \(api)")
         return Promise(nil)
         //JoliApi.sharedUrlSession.configuration = JoliApi.sharedUrlSession.configuration
         
