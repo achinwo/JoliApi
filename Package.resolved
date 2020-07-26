@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "85c84126469bb1c9468aba882c675719fda4a0fd",
+          "version": null
+        }
+      },
+      {
         "package": "CancellationToken",
         "repositoryURL": "https://github.com/tomlokhorst/swift-cancellationtoken.git",
         "state": {
