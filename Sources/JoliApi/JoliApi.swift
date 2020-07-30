@@ -3,7 +3,7 @@ import Promises
 import Combine
 import SwiftyBeaver
 import JoliCore
-
+import Version
 
 
 public struct TrackInfo {
@@ -394,11 +394,57 @@ extension URLSessionConfiguration {
     
 }
 
-extension JoliApi {
+public extension JoliApi {
     
-    public func createMusicroom(name: String, details: String, on: DispatchQueue? = nil) -> Promise<Musicroom> {
+    func createMusicroom(name: String, details: String, on: DispatchQueue? = nil) -> Promise<Musicroom> {
         let musicroom = Musicroom.build([.name: name as AnyObject, .details: details as AnyObject])
         return musicroom.save(baseUrl: baseUrl.rawValue.http, urlSession: urlSession, on: on)
+    }
+    
+    
+    enum VersionResolveError: Error {
+        case unrecognisedResponseType
+        case noResponseReceived
+        case missingVersionField
+        case malformedString(String)
+        case malformedBaseUrl(URL)
+    }
+    
+    static func resolveServer(_ baseUrl: URL) -> Promise<Version> {
+        
+        logger.info("[resolveServer] baseUrl: \(baseUrl)")
+        
+        return Promise() { resolve, reject in
+            
+            guard let url = URL(string: "/status", relativeTo: baseUrl) else {
+                return reject(VersionResolveError.malformedBaseUrl(baseUrl))
+            }
+            
+            var req = URLRequest(url: url)
+            req.httpMethod = "HEAD"
+            
+            let task = JoliApi.sharedUrlSession.dataTask(with: baseUrl) { (data, response, error) in
+                guard error == nil else {
+                    return reject(error!)
+                }
+                
+                guard let resp = response as? HTTPURLResponse else {
+                    return reject(response == nil ? VersionResolveError.noResponseReceived : VersionResolveError.unrecognisedResponseType)
+                }
+                
+                guard let versionStr = resp.allHeaderFields["X-Server-Version"] as? String else {
+                    return reject(VersionResolveError.missingVersionField)
+                }
+                
+                guard let version = Version(versionStr) else {
+                    return reject(VersionResolveError.malformedString(versionStr))
+                }
+                
+                resolve(version)
+            }
+            
+            task.resume()
+        }
     }
     
 }
