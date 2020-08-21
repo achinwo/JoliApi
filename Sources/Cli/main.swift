@@ -10,12 +10,12 @@ import Commander
 import JSONSchema
 import SwiftSyntax
 import JoliCore
-@testable import Promises
+import Promises
 
 let main = command(
     Argument<String>("schemaUrl", description: "Your name")
 ) { (schemaUrl: String) in
-    print("Reading file \(schemaUrl)")
+    print("Reading file a \(schemaUrl)")
     
     let comp = URLComponents(string: "/api/db/schemas")!
     let baseUrl = URL(string: "https://localhost:8080")!
@@ -37,7 +37,7 @@ let main = command(
         }
     
     
-    waitForPromises(timeout: 2)
+    //waitForPromises(timeout: 2)
 }
 
 main.run()
