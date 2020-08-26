@@ -7,6 +7,15 @@
 
 import Foundation
 import Promises
+import UIImageColors
+
+#if os(OSX)
+    import AppKit
+    public typealias UIImage = NSImage
+    public typealias UIColor = NSColor
+#else
+    import UIKit
+#endif
 
 public protocol HttpApi {
     
@@ -42,7 +51,45 @@ struct LocalhostApi: HttpApi {
     public static var `default`: HttpApi = LocalhostApi()
 }
 
-
+public extension UIColor {
+    
+    convenience init(hexString: String) {
+        let hexString = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
+        let scanner = Scanner(string: hexString)
+        
+        if hexString.hasPrefix("#") {
+            scanner.scanLocation = 1
+        }
+        
+        var color: UInt32 = 0
+        scanner.scanHexInt32(&color)
+        
+        let mask = 0x000000FF
+        let r = Int(color >> 16) & mask
+        let g = Int(color >> 8) & mask
+        let b = Int(color) & mask
+        
+        let red   = CGFloat(r) / 255.0
+        let green = CGFloat(g) / 255.0
+        let blue  = CGFloat(b) / 255.0
+        
+        self.init(red: red, green: green, blue: blue, alpha: 1)
+    }
+    
+    var hexString: String {
+        
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        
+        getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        let rgb: Int = (Int)(r * 255) << 16 | (Int)(g * 255) << 8 | (Int)(b * 255) << 0
+        
+        return String(format: "#%06x", rgb)
+    }
+}
 
 public enum StringOrInt: Codable, Hashable {
     case string(String)
@@ -263,7 +310,7 @@ enum Endpoint {
 //}
 
 
-public var BASE_URL: (ws: URL, http: URL)!
+public var BASE_URL: (http: URL, ws: URL)!
 
 extension Persisted {
     
@@ -358,14 +405,15 @@ extension Persisted {
             let container = try decoder.singleValueContainer()
             let dateString = try container.decode(String.self)
 
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-            if let date = formatter.date(from: dateString) {
+            for dateFormat in ["yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd'T'HH:mm:ss'Z'"] {
+                formatter.dateFormat = dateFormat
+                guard let date = formatter.date(from: dateString) else {
+                    continue
+                }
+                
                 return date
             }
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            if let date = formatter.date(from: dateString) {
-                return date
-            }
+            
             throw DecodingError.dataCorruptedError(in: container,
                 debugDescription: "Cannot decode date string \(dateString)")
         }
@@ -393,13 +441,18 @@ extension Persisted {
         return String(describing: Self.self)
     }
     
-    public static func all(where whereClause: PropertiesDict? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<[Self]> {
+    public static func all(where whereClause: PropertiesDict? = nil, limit: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<[Self]> {
         var queryPath = URLComponents(string: "/api/db/\(Self.className())")!
         
         queryPath.queryItems = []
         for (key, val) in (whereClause ?? [:]){
             queryPath.queryItems?.append(URLQueryItem(name: key.stringValue, value: val as? String))
         }
+        
+        if let limit = limit {
+            queryPath.queryItems?.append(URLQueryItem(name: "limit", value: String(limit)))
+        }
+        
         return HttpMethod.Fetch.get(url: queryPath, dataType: [Self].self, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     

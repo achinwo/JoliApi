@@ -374,9 +374,9 @@ public class JoliApi: ObservableObject, HttpApi {
     
 }
 
-extension URLSessionConfiguration {
+public extension URLSessionConfiguration {
     
-    public func withAuthHeader(_ authToken: String?) -> URLSessionConfiguration {
+    func withAuthHeader(_ authToken: String?) -> URLSessionConfiguration {
 
         let config = self
         var headers = config.httpAdditionalHeaders ?? [:]

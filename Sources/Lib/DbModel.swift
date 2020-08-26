@@ -143,6 +143,8 @@ public struct Musicroom: Persisted, DataConvertible {
     public var name: String
     public var playingState: PlayingState?
     public var playingStateChangedAt: Date?
+    public var playlistUri: String?
+    public var progressMs: Int?
     public var refreshToken: String?
     public var trackUri: String?
     public var updatedAt: Date
@@ -159,13 +161,15 @@ public struct Musicroom: Persisted, DataConvertible {
         case name = "name"
         case playingState = "playingState"
         case playingStateChangedAt = "playingStateChangedAt"
+        case playlistUri = "playlistUri"
+        case progressMs = "progressMs"
         case refreshToken = "refreshToken"
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -176,6 +180,8 @@ public struct Musicroom: Persisted, DataConvertible {
         self.name = name
         self.playingState = playingState
         self.playingStateChangedAt = playingStateChangedAt
+        self.playlistUri = playlistUri
+        self.progressMs = progressMs
         self.refreshToken = refreshToken
         self.trackUri = trackUri
         self.updatedAt = updatedAt
@@ -200,6 +206,10 @@ public enum PlayingState: String, Codable {
 // MARK: - Track
 public struct Track: Persisted, DataConvertible {
     public var artistName: String
+    public var colorBackground: String?
+    public var colorDetail: String?
+    public var colorPrimary: String?
+    public var colorSecondary: String?
     public var createdAt: Date
     public var createdById: Int?
     public var deletedAt: Date?
@@ -208,10 +218,14 @@ public struct Track: Persisted, DataConvertible {
     public var explicit: Bool?
     public var href: String?
     public var id: Int
+    public var imageLarge: String?
+    public var imageMedium: String?
+    public var imageSmall: String?
     public var isLocal: Bool?
     public var name: String?
     public var popularity: Int?
     public var previewUrl: String?
+    public var releaseDate: String?
     public var thumbnailUrl: String
     public var title: String
     public var trackId: String
@@ -223,6 +237,10 @@ public struct Track: Persisted, DataConvertible {
 
     public enum CodingKeys: String, CodingKey {
         case artistName = "artistName"
+        case colorBackground = "colorBackground"
+        case colorDetail = "colorDetail"
+        case colorPrimary = "colorPrimary"
+        case colorSecondary = "colorSecondary"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -231,10 +249,14 @@ public struct Track: Persisted, DataConvertible {
         case explicit = "explicit"
         case href = "href"
         case id = "id"
+        case imageLarge = "imageLarge"
+        case imageMedium = "imageMedium"
+        case imageSmall = "imageSmall"
         case isLocal = "isLocal"
         case name = "name"
         case popularity = "popularity"
         case previewUrl = "previewUrl"
+        case releaseDate = "releaseDate"
         case thumbnailUrl = "thumbnailUrl"
         case title = "title"
         case trackId = "trackId"
@@ -245,8 +267,12 @@ public struct Track: Persisted, DataConvertible {
         case uri = "uri"
     }
 
-    public init(artistName: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int?, explicit: Bool?, href: String?, id: Int, isLocal: Bool?, name: String?, popularity: Int?, previewUrl: String?, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int?, type: String?, updatedAt: Date, updatedById: Int?, uri: String) {
+    public init(artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int?, explicit: Bool?, href: String?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isLocal: Bool?, name: String?, popularity: Int?, previewUrl: String?, releaseDate: String?, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int?, type: String?, updatedAt: Date, updatedById: Int?, uri: String) {
         self.artistName = artistName
+        self.colorBackground = colorBackground
+        self.colorDetail = colorDetail
+        self.colorPrimary = colorPrimary
+        self.colorSecondary = colorSecondary
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -255,10 +281,14 @@ public struct Track: Persisted, DataConvertible {
         self.explicit = explicit
         self.href = href
         self.id = id
+        self.imageLarge = imageLarge
+        self.imageMedium = imageMedium
+        self.imageSmall = imageSmall
         self.isLocal = isLocal
         self.name = name
         self.popularity = popularity
         self.previewUrl = previewUrl
+        self.releaseDate = releaseDate
         self.thumbnailUrl = thumbnailUrl
         self.title = title
         self.trackId = trackId
@@ -281,6 +311,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
     public var musicroom: Musicroom?
     public var playEndedAt: Date?
     public var playStartedAt: Date?
+    public var progressMsStored: Int?
     public var roomId: Int
     public var roomtrackId: Int
     public var track: Track?
@@ -298,6 +329,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         case musicroom = "musicroom"
         case playEndedAt = "playEndedAt"
         case playStartedAt = "playStartedAt"
+        case progressMsStored = "progressMsStored"
         case roomId = "roomId"
         case roomtrackId = "roomtrackId"
         case track = "track"
@@ -307,7 +339,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         case votes = "votes"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, playEndedAt: Date?, playStartedAt: Date?, roomId: Int, roomtrackId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int?, votes: [QueuedTrackVote]?) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, playEndedAt: Date?, playStartedAt: Date?, progressMsStored: Int?, roomId: Int, roomtrackId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int?, votes: [QueuedTrackVote]?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -316,6 +348,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         self.musicroom = musicroom
         self.playEndedAt = playEndedAt
         self.playStartedAt = playStartedAt
+        self.progressMsStored = progressMsStored
         self.roomId = roomId
         self.roomtrackId = roomtrackId
         self.track = track
@@ -414,6 +447,7 @@ public struct User: Persisted, DataConvertible {
     public var djRanking: Int?
     public var email: String
     public var id: Int
+    public var isServiceAccount: Bool?
     public var name: String
     public var passwordHash: String
     public var updatedAt: Date
@@ -429,13 +463,14 @@ public struct User: Persisted, DataConvertible {
         case djRanking = "djRanking"
         case email = "email"
         case id = "id"
+        case isServiceAccount = "isServiceAccount"
         case name = "name"
         case passwordHash = "passwordHash"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
+    public init(activatedAt: Date?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
         self.activatedAt = activatedAt
         self.activeRoomId = activeRoomId
         self.createdAt = createdAt
@@ -445,6 +480,7 @@ public struct User: Persisted, DataConvertible {
         self.djRanking = djRanking
         self.email = email
         self.id = id
+        self.isServiceAccount = isServiceAccount
         self.name = name
         self.passwordHash = passwordHash
         self.updatedAt = updatedAt
@@ -511,6 +547,7 @@ public struct Device: Persisted, DataConvertible {
     public var model: String
     public var name: String
     public var platform: String
+    public var refreshToken: String?
     public var updatedAt: Date
     public var updatedById: Int?
     public var uuid: String
@@ -525,12 +562,13 @@ public struct Device: Persisted, DataConvertible {
         case model = "model"
         case name = "name"
         case platform = "platform"
+        case refreshToken = "refreshToken"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case uuid = "uuid"
     }
 
-    public init(apnToken: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, updatedAt: Date, updatedById: Int?, uuid: String) {
+    public init(apnToken: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int?, uuid: String) {
         self.apnToken = apnToken
         self.createdAt = createdAt
         self.createdById = createdById
@@ -540,6 +578,7 @@ public struct Device: Persisted, DataConvertible {
         self.model = model
         self.name = name
         self.platform = platform
+        self.refreshToken = refreshToken
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uuid = uuid
@@ -562,6 +601,7 @@ public struct PlayState: Persisted, DataConvertible {
     public var id: Int
     public var playingState: PlayingState?
     public var playingStateChangedAt: Date?
+    public var playlistUri: String?
     public var product: String
     public var progressMs: Int?
     public var refreshToken: String
@@ -587,6 +627,7 @@ public struct PlayState: Persisted, DataConvertible {
         case id = "id"
         case playingState = "playingState"
         case playingStateChangedAt = "playingStateChangedAt"
+        case playlistUri = "playlistUri"
         case product = "product"
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
@@ -599,7 +640,7 @@ public struct PlayState: Persisted, DataConvertible {
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -613,6 +654,7 @@ public struct PlayState: Persisted, DataConvertible {
         self.id = id
         self.playingState = playingState
         self.playingStateChangedAt = playingStateChangedAt
+        self.playlistUri = playlistUri
         self.product = product
         self.progressMs = progressMs
         self.refreshToken = refreshToken

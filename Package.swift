@@ -27,6 +27,7 @@ let package = Package(
         .package(name: "CancellationToken", url: "https://github.com/tomlokhorst/swift-cancellationtoken.git", from: "3.2.0"),
         .package(url: "https://github.com/daltoniam/Starscream.git", .revision("85c84126469bb1c9468aba882c675719fda4a0fd")),
         .package(name: "Version", url: "https://github.com/mxcl/Version.git", .upToNextMajor(from: "2.0.0")),
+        .package(url: "https://github.com/jathu/UIImageColors.git", .upToNextMajor(from: "2.2.0")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -39,12 +40,12 @@ let package = Package(
 //            .linkedFramework("SpotifyiOS"),
 //        ]),
         .target(name: "JoliCore",
-                dependencies: ["Promises", "JSONSchema", "SwiftyBeaver", "Commander", "CancellationToken", "Starscream", "Version"],
+                dependencies: ["Promises", "JSONSchema", "SwiftyBeaver", "Commander", "CancellationToken", "Starscream", "Version", "UIImageColors"],
                 path: "Sources/Lib"
         ),
         .target(
             name: "Cli",
-            dependencies: ["JoliCore", "SwiftSyntax"]
+            dependencies: ["JoliApi", "SwiftSyntax"]
         ),
         .target(
             name: "JoliApi",

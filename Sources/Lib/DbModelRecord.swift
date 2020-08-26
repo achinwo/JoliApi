@@ -136,6 +136,14 @@ extension MusicroomRecord {
         get { properties[.trackUri] as? String}
         set { properties[.trackUri] = newValue as AnyObject }
     }
+    public var playlistUri: String? {
+        get { properties[.playlistUri] as? String}
+        set { properties[.playlistUri] = newValue as AnyObject }
+    }
+    public var progressMs: Int? {
+        get { properties[.progressMs] as? Int}
+        set { properties[.progressMs] = newValue as AnyObject }
+    }
     public var playingState: String? {
         get { properties[.playingState] as? String}
         set { properties[.playingState] = newValue as AnyObject }
@@ -231,6 +239,10 @@ extension QueuedTrackRecord {
     public var roomId: Int? {
         get { properties[.roomId] as? Int}
         set { properties[.roomId] = newValue as AnyObject }
+    }
+    public var progressMsStored: Int? {
+        get { properties[.progressMsStored] as? Int}
+        set { properties[.progressMsStored] = newValue as AnyObject }
     }
     public var playStartedAt: Date? {
         get { properties[.playStartedAt] as? Date}
@@ -372,6 +384,10 @@ extension UserRecord {
         get { properties[.activeRoomId] as? Int}
         set { properties[.activeRoomId] = newValue as AnyObject }
     }
+    public var isServiceAccount: Bool? {
+        get { properties[.isServiceAccount] as? Bool}
+        set { properties[.isServiceAccount] = newValue as AnyObject }
+    }
     public var activatedAt: Date? {
         get { properties[.activatedAt] as? Date}
         set { properties[.activatedAt] = newValue as AnyObject }
@@ -420,6 +436,18 @@ extension TrackRecord {
         get { properties[.artistName] as? String}
         set { properties[.artistName] = newValue as AnyObject }
     }
+    public var imageSmall: String? {
+        get { properties[.imageSmall] as? String}
+        set { properties[.imageSmall] = newValue as AnyObject }
+    }
+    public var imageMedium: String? {
+        get { properties[.imageMedium] as? String}
+        set { properties[.imageMedium] = newValue as AnyObject }
+    }
+    public var imageLarge: String? {
+        get { properties[.imageLarge] as? String}
+        set { properties[.imageLarge] = newValue as AnyObject }
+    }
     public var durationMs: Int? {
         get { properties[.durationMs] as? Int}
         set { properties[.durationMs] = newValue as AnyObject }
@@ -459,6 +487,26 @@ extension TrackRecord {
     public var uri: String? {
         get { properties[.uri] as? String}
         set { properties[.uri] = newValue as AnyObject }
+    }
+    public var releaseDate: Date? {
+        get { properties[.releaseDate] as? Date}
+        set { properties[.releaseDate] = newValue as AnyObject }
+    }
+    public var colorPrimary: String? {
+        get { properties[.colorPrimary] as? String}
+        set { properties[.colorPrimary] = newValue as AnyObject }
+    }
+    public var colorSecondary: String? {
+        get { properties[.colorSecondary] as? String}
+        set { properties[.colorSecondary] = newValue as AnyObject }
+    }
+    public var colorBackground: String? {
+        get { properties[.colorBackground] as? String}
+        set { properties[.colorBackground] = newValue as AnyObject }
+    }
+    public var colorDetail: String? {
+        get { properties[.colorDetail] as? String}
+        set { properties[.colorDetail] = newValue as AnyObject }
     }
     
 }
@@ -556,6 +604,10 @@ extension DeviceRecord {
         get { properties[.apnToken] as? String}
         set { properties[.apnToken] = newValue as AnyObject }
     }
+    public var refreshToken: String? {
+        get { properties[.refreshToken] as? String}
+        set { properties[.refreshToken] = newValue as AnyObject }
+    }
     
 }
 extension PlayStateRecord {
@@ -631,6 +683,10 @@ extension PlayStateRecord {
     public var trackUri: String? {
         get { properties[.trackUri] as? String}
         set { properties[.trackUri] = newValue as AnyObject }
+    }
+    public var playlistUri: String? {
+        get { properties[.playlistUri] as? String}
+        set { properties[.playlistUri] = newValue as AnyObject }
     }
     public var deviceUid: String? {
         get { properties[.deviceUid] as? String}
