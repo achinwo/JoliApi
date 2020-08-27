@@ -447,6 +447,9 @@ public struct User: Persisted, DataConvertible {
     public var djRanking: Int?
     public var email: String
     public var id: Int
+    public var imageLarge: String?
+    public var imageMedium: String?
+    public var imageSmall: String?
     public var isServiceAccount: Bool?
     public var name: String
     public var passwordHash: String
@@ -463,6 +466,9 @@ public struct User: Persisted, DataConvertible {
         case djRanking = "djRanking"
         case email = "email"
         case id = "id"
+        case imageLarge = "imageLarge"
+        case imageMedium = "imageMedium"
+        case imageSmall = "imageSmall"
         case isServiceAccount = "isServiceAccount"
         case name = "name"
         case passwordHash = "passwordHash"
@@ -470,7 +476,7 @@ public struct User: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
+    public init(activatedAt: Date?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
         self.activatedAt = activatedAt
         self.activeRoomId = activeRoomId
         self.createdAt = createdAt
@@ -480,6 +486,9 @@ public struct User: Persisted, DataConvertible {
         self.djRanking = djRanking
         self.email = email
         self.id = id
+        self.imageLarge = imageLarge
+        self.imageMedium = imageMedium
+        self.imageSmall = imageSmall
         self.isServiceAccount = isServiceAccount
         self.name = name
         self.passwordHash = passwordHash

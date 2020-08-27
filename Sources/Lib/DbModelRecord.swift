@@ -392,6 +392,18 @@ extension UserRecord {
         get { properties[.activatedAt] as? Date}
         set { properties[.activatedAt] = newValue as AnyObject }
     }
+    public var imageSmall: String? {
+        get { properties[.imageSmall] as? String}
+        set { properties[.imageSmall] = newValue as AnyObject }
+    }
+    public var imageMedium: String? {
+        get { properties[.imageMedium] as? String}
+        set { properties[.imageMedium] = newValue as AnyObject }
+    }
+    public var imageLarge: String? {
+        get { properties[.imageLarge] as? String}
+        set { properties[.imageLarge] = newValue as AnyObject }
+    }
     
 }
 extension TrackRecord {
