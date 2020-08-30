@@ -439,6 +439,7 @@ public struct Session: Persisted, DataConvertible {
 // MARK: - User
 public struct User: Persisted, DataConvertible {
     public var activatedAt: Date?
+    public var activeDeviceUuid: String?
     public var activeRoomId: Int?
     public var createdAt: Date
     public var createdById: Int?
@@ -458,6 +459,7 @@ public struct User: Persisted, DataConvertible {
 
     public enum CodingKeys: String, CodingKey {
         case activatedAt = "activatedAt"
+        case activeDeviceUuid = "activeDeviceUuid"
         case activeRoomId = "activeRoomId"
         case createdAt = "createdAt"
         case createdById = "createdById"
@@ -476,8 +478,9 @@ public struct User: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
         self.activatedAt = activatedAt
+        self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
         self.createdAt = createdAt
         self.createdById = createdById

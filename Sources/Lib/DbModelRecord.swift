@@ -388,6 +388,10 @@ extension UserRecord {
         get { properties[.isServiceAccount] as? Bool}
         set { properties[.isServiceAccount] = newValue as AnyObject }
     }
+    public var activeDeviceUuid: String? {
+        get { properties[.activeDeviceUuid] as? String}
+        set { properties[.activeDeviceUuid] = newValue as AnyObject }
+    }
     public var activatedAt: Date? {
         get { properties[.activatedAt] as? Date}
         set { properties[.activatedAt] = newValue as AnyObject }
