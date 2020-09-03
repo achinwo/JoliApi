@@ -111,13 +111,14 @@ public let SEED_DATA = SeedData(users: [User].fromString("""
     {
         "id": 10,
         "created_at": "2020-06-07T14:12:06Z",
-        "updated_at": "2020-08-22T19:11:01Z",
+        "updated_at": "2020-09-02T21:37:42Z",
         "name": "Joli Bot.1",
         "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
         "email": "joli@jolimc.app",
         "dj_ranking": 3,
         "active_room_id": 1,
-        "is_service_account": true
+        "is_service_account": true,
+        "active_device_uuid": "D6F010A5-3C20-469C-9B1D-5FAB487C1F1E"
     }
 ]
 """)!,
