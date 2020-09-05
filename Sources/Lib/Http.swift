@@ -160,11 +160,14 @@ extension Json {
 
 public enum HttpBody {
     
+    case multipart(Json)
     case json(Json)
     case dbModel(DataConvertible)
     
     public func toData() throws -> Data {
         switch self {
+        case .multipart(let json):
+            return try json.toData()
         case .json(let json):
             return try json.toData()
         case .dbModel(let model):
@@ -292,8 +295,14 @@ public enum HttpMethod: String {
         
     }
     
-    
     public func fetchJson(urlPath: URLComponents, payload: Json, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) ->  Promise<Json> {
+        return fetchJson(urlPath: urlPath,
+                         payload: .json(payload), baseUrl: baseUrl,
+                         urlSession: urlSession,
+                         on: on)
+    }
+    
+    public func fetchJson(urlPath: URLComponents, payload: HttpBody, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) ->  Promise<Json> {
         
         let queue = on ?? DispatchQueue.global(qos: .default)
         let baseUrl = baseUrl ?? Track.baseUrl.http
@@ -320,7 +329,7 @@ public enum HttpMethod: String {
                 }
             }
             
-            guard let payloadData = try? JSONSerialization.data(withJSONObject: payload, options: []) else {
+            guard let payloadData = try? payload.toData() else {
                 return reject(NetworkError.badRequest("bad paylod for post request: \(String(describing: payload))"))
             }
             
