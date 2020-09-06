@@ -86,17 +86,8 @@ public let SEED_DATA = SeedData(users: [User].fromString("""
         "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
         "email": "joli2@jolimc.app",
         "dj_ranking": 8,
-        "active_room_id": 1
-    },
-    {
-        "id": 6,
-        "created_at": "2020-05-10T22:03:47Z",
-        "updated_at": "2020-06-28T08:40:57Z",
-        "name": "Test User",
-        "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
-        "email": "test@gmail.net",
-        "dj_ranking": 2,
-        "active_room_id": 3
+        "active_room_id": 1,
+        "image_large": "kfyxmxbc1f5hhv4j.jpg"
     },
     {
         "id": 3,
@@ -106,19 +97,31 @@ public let SEED_DATA = SeedData(users: [User].fromString("""
         "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
         "email": "tc@gmail.net",
         "dj_ranking": 6,
-        "active_room_id": 1
+        "active_room_id": 1,
+        "image_large": "t8tvyagdjqrbq3mo.jpg"
+    },
+    {
+        "id": 6,
+        "created_at": "2020-05-10T22:03:47Z",
+        "updated_at": "2020-09-05T20:09:55Z",
+        "name": "Test User",
+        "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
+        "email": "test@gmail.net",
+        "dj_ranking": 2,
+        "active_room_id": 3
     },
     {
         "id": 10,
         "created_at": "2020-06-07T14:12:06Z",
-        "updated_at": "2020-09-02T21:37:42Z",
+        "updated_at": "2020-09-06T12:02:47Z",
         "name": "Joli Bot.1",
         "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
         "email": "joli@jolimc.app",
         "dj_ranking": 3,
         "active_room_id": 1,
         "is_service_account": true,
-        "active_device_uuid": "D6F010A5-3C20-469C-9B1D-5FAB487C1F1E"
+        "active_device_uuid": "D6F010A5-3C20-469C-9B1D-5FAB487C1F1E",
+        "image_large": "d2rammth5lq5xvvk.jpg"
     }
 ]
 """)!,
