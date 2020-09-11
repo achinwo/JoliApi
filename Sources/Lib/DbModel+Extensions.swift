@@ -255,17 +255,28 @@ enum Lazy<Value> {
 }
 
 // MARK: - Builder
-public struct Builder<T: Persisted>: Persistable {
+public struct Builder<T: Persisted>: Persistable, Identifiable, Equatable {
+    
+    public static func == (lhs: Builder<T>, rhs: Builder<T>) -> Bool {
+        guard let lhsId = lhs.id, let rhsId = rhs.id else {
+            return false
+        }
+        
+        return lhsId == rhsId
+    }
     
     public var properties: T.PropertiesDict
+    
+    public var id: Int? = nil
     
     public var json: Json {
         let items: [(String, AnyObject)] = properties.map() { ($0.key.stringValue, $0.value) }
         return Dictionary<String, AnyObject>.init(uniqueKeysWithValues: items)
     }
     
-    public init(properties: T.PropertiesDict? = nil){
+    public init(properties: T.PropertiesDict? = nil, id: Int? = nil){
         self.properties = properties ?? [:]
+        self.id = id
     }
     
     public func update(_ key: T.CodingKeys, _ value: AnyObject) -> Builder<T> {
@@ -329,12 +340,12 @@ extension Persisted {
         try self.init(data: try Data(contentsOf: url))
     }
     
-    public static func build(_ json: Self.PropertiesDict? = nil) -> Builder<Self> {
-        return Builder<Self>(properties: json)
+    public static func build(_ json: Self.PropertiesDict? = nil, id: Int? = nil) -> Builder<Self> {
+        return Builder<Self>(properties: json, id: id)
     }
     
     public func builder() -> Builder<Self> {
-        return Builder<Self>(properties: properties())
+        return Builder<Self>(properties: properties(), id: id)
     }
     
     public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self> {

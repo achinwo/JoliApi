@@ -139,6 +139,9 @@ public struct Musicroom: Persisted, DataConvertible {
     public var deletedById: Int?
     public var details: String
     public var id: Int
+    public var imageLarge: String?
+    public var imageMedium: String?
+    public var imageSmall: String?
     public var membership: Membership
     public var name: String
     public var playingState: PlayingState?
@@ -157,6 +160,9 @@ public struct Musicroom: Persisted, DataConvertible {
         case deletedById = "deletedById"
         case details = "details"
         case id = "id"
+        case imageLarge = "imageLarge"
+        case imageMedium = "imageMedium"
+        case imageSmall = "imageSmall"
         case membership = "membership"
         case name = "name"
         case playingState = "playingState"
@@ -169,13 +175,16 @@ public struct Musicroom: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
         self.details = details
         self.id = id
+        self.imageLarge = imageLarge
+        self.imageMedium = imageMedium
+        self.imageSmall = imageSmall
         self.membership = membership
         self.name = name
         self.playingState = playingState
