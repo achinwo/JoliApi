@@ -8,6 +8,34 @@
 import Foundation
 import Combine
 
+public struct OptionSetIterator<Element: OptionSet>: Sequence, IteratorProtocol where Element.RawValue == Int {
+    private let value: Element
+    
+    public init(element: Element) {
+        self.value = element
+    }
+    
+    private lazy var remainingBits = value.rawValue
+    private var bitMask = 1
+    
+    public mutating func next() -> Element? {
+        while remainingBits != 0 {
+            defer { bitMask = bitMask &* 2 }
+            if remainingBits & bitMask != 0 {
+                remainingBits = remainingBits & ~bitMask
+                return Element(rawValue: bitMask)
+            }
+        }
+        return nil
+    }
+}
+
+extension OptionSet where Self.RawValue == Int {
+    
+    public func makeIterator() -> OptionSetIterator<Self> {
+        return OptionSetIterator(element: self)
+    }
+}
 
 public enum Search: String, CaseIterable, Identifiable {
     
@@ -19,15 +47,27 @@ public enum Search: String, CaseIterable, Identifiable {
     //case history
     case playrooms
     
-    public struct Category: OptionSet, CustomStringConvertible {
+    public struct Category: OptionSet, CustomStringConvertible, Identifiable, Hashable, Comparable, Equatable {
+        
+        public static func < (lhs: Search.Category, rhs: Search.Category) -> Bool {
+            return lhs.label < rhs.label
+        }
         
         public var description: String {
             return self.label
         }
         
+        public var hashValue: Int {
+            return rawValue
+        }
+        
         public let rawValue: Int
         public let label: String
         public let labelPlural: String
+        
+        public var id: Int {
+            return rawValue
+        }
         
         public init(rawValue: Int){
             self.rawValue = rawValue
@@ -47,16 +87,18 @@ public enum Search: String, CaseIterable, Identifiable {
             self.labelPlural = plural
         }
         
-        public static let track = Category("Track", rawValue: 1 << 0)
-        public static let album = Category("Album", rawValue: 1 << 1)
-        public static let show = Category("Show", rawValue: 1 << 2)
-        public static let artist = Category("Artist", rawValue: 1 << 3)
-        public static let playlist = Category("Playlist", rawValue: 1 << 4)
-        public static let episode = Category("Episode", rawValue: 1 << 5)
+        public static var allCases: [Self] = [.tracks, .albums, .shows, .artists, .playlists, .episodes, .playrooms]
         
-        public static let playroom = Category("Playroom", rawValue: 1 << 6)
+        public static let tracks = Category("Track", rawValue: 1 << 0)
+        public static let albums = Category("Album", rawValue: 1 << 1)
+        public static let shows = Category("Show", rawValue: 1 << 2)
+        public static let artists = Category("Artist", rawValue: 1 << 3)
+        public static let playlists = Category("Playlist", rawValue: 1 << 4)
+        public static let episodes = Category("Episode", rawValue: 1 << 5)
         
-        public static let all: Category = [.track, .album, .show, .artist, .playlist, .episode, .playroom]
+        public static let playrooms = Category("Playroom", rawValue: 1 << 6)
+        
+        public static let all: Category = Category("All", plural: "All", rawValue: ([.tracks, .albums, .shows, .artists, .playlists, .episodes, .playrooms] as Category).rawValue)
     }
     
     public typealias Query = String

@@ -85,6 +85,12 @@ public enum Spotify {
         public let type: String
         public let uri: String
     }
+    
+    public struct SearchResult: Codable {
+        public let tracks: [Track]
+        public let albums: [Album]
+        public let artista: [Artist]
+    }
         
     // MARK: - CurrentlyPlayingContent
     public struct CurrentlyPlayingContent: Codable, Playable {

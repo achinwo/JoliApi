@@ -156,14 +156,18 @@ public class JoliApi: ObservableObject, HttpApi {
         return HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), urlSession: self.urlSession)
     }
     
-    public func searchTracks(q: String, limit: Int = 10) -> Promise<[Spotify.Track]> {
+    public func searchTracks(q: String, categories: Set<Search.Category> = [.tracks], limit: Int = 10) -> Promise<Spotify.SearchResult> {
+        
+        let typeStr = Array(categories).map() { $0.label.lowercased() }.joined(separator: ",")
         var pathComp = URLComponents(string: "/api/spotify/search")!
+        
         pathComp.queryItems = [
             URLQueryItem(name: "q", value: q),
-            URLQueryItem(name: "limit", value: limit.description)
+            URLQueryItem(name: "limit", value: limit.description),
+            URLQueryItem(name: "type", value: typeStr)
         ]
         
-        return HttpMethod.Fetch.get(url: pathComp, dataType: [Spotify.Track].self, urlSession: self.urlSession)
+        return HttpMethod.Fetch.get(url: pathComp, dataType: Spotify.SearchResult.self, urlSession: self.urlSession)
     }
     
     @discardableResult
