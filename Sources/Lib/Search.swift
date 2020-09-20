@@ -158,7 +158,6 @@ public enum Search: String, CaseIterable, Identifiable {
         
         public init(_ name: String, categories: Category) {
             self.name = name
-            
             self.supportedCategories = categories
         }
     }
