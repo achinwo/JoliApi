@@ -86,10 +86,48 @@ public enum Spotify {
         public let uri: String
     }
     
+    // MARK: - SearchResult
     public struct SearchResult: Codable {
         public let tracks: [Track]
         public let albums: [Album]
         public let artists: [Artist]
+        public let playlists: [Playlist]
+        public let shows: [Show]
+        public let episodes: [Episode]
+    }
+    
+    // MARK: - Show
+    public struct Show: Codable {
+        public let availableMarkets: [String]
+        //let copyrights: [JSONAny]
+        public let description: String
+        public let explicit: Bool
+        public let externalUrls: ExternalUrls
+        public let href: String
+        public let id: String
+        public let images: [Image]
+        public let isExternallyHosted: Bool
+        public let languages: [String]
+        public let mediaType, name, publisher: String
+        public let totalEpisodes: Int
+        public let type, uri: String
+    }
+    
+    // MARK: - Episode
+    public struct Episode: Codable {
+        public let audioPreviewURL: String
+        public let description: String
+        public let durationMS: Int
+        public let explicit: Bool
+        public let externalUrls: ExternalUrls
+        public let href: String
+        public let id: String
+        public let images: [Image]
+        public let isExternallyHosted, isPlayable: Bool
+        public let language: String
+        public let languages: [String]
+        public let name, releaseDate, releaseDatePrecision, type: String
+        public let uri: String
     }
         
     // MARK: - CurrentlyPlayingContent
@@ -154,6 +192,29 @@ public enum Spotify {
         @discardableResult
         public static func fetch(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<CurrentlyPlayingContent?> {
             return HttpMethod.Fetch.get(url: "/api/spotify/current-playing", dataType: CurrentlyPlayingContent?.self, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        }
+        
+    }
+    
+    // MARK: - Playlist
+    public struct Playlist: Codable {
+        public let collaborative: Bool
+        public let playlistDescription: String
+        public let externalUrls: ExternalUrls
+        public let href: String
+        public let id: String
+        public let images: [Image]
+        public let name: String
+        //let owner: Owner
+        public let primaryColor: String?
+        public let `public`: Bool?
+        public let snapshotID: String
+        public let tracks: TracksInfo
+        public let type, uri: String
+        
+        public struct TracksInfo: Codable {
+            public let href: String
+            public let total: Int
         }
         
     }
@@ -242,6 +303,8 @@ public enum Spotify {
         public let name: String
         public let type: String
         public let uri: String
+        public let images: [Image]?
+        public let genres: [String]?
     }
 
     // MARK: - Image
