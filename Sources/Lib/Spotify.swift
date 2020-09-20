@@ -89,7 +89,7 @@ public enum Spotify {
     public struct SearchResult: Codable {
         public let tracks: [Track]
         public let albums: [Album]
-        public let artista: [Artist]
+        public let artists: [Artist]
     }
         
     // MARK: - CurrentlyPlayingContent

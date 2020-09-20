@@ -64,39 +64,38 @@ public enum Search: String, CaseIterable, Identifiable {
         public let rawValue: Int
         public let label: String
         public let labelPlural: String
+        public let emoji: String?
         
         public var id: Int {
             return rawValue
         }
         
         public init(rawValue: Int){
-            self.rawValue = rawValue
-            self.label = "Category(\(rawValue))"
-            self.labelPlural = self.label
+            self.init("Category(\(rawValue))", emoji: nil, rawValue: rawValue)
         }
         
-        public init(_ label: String, rawValue: Int){
-            self.rawValue = rawValue
-            self.label = label
-            self.labelPlural = "\(self.label)s"
+        public init(_ label: String, emoji: String? = nil, rawValue: Int){
+            self.init(label, plural: "\(label)s", emoji: emoji, rawValue: rawValue)
         }
         
-        public init(_ label: String, plural: String, rawValue: Int){
+        public init(_ label: String, plural: String, emoji: String? = nil, rawValue: Int){
             self.rawValue = rawValue
             self.label = label
             self.labelPlural = plural
+            self.emoji = emoji
         }
         
         public static var allCases: [Self] = [.tracks, .albums, .shows, .artists, .playlists, .episodes, .playrooms]
         
-        public static let tracks = Category("Track", rawValue: 1 << 0)
-        public static let albums = Category("Album", rawValue: 1 << 1)
+        
+        public static let tracks = Category("Track", emoji: "🎵", rawValue: 1 << 0)
+        public static let albums = Category("Album", emoji: "💽", rawValue: 1 << 1)
         public static let shows = Category("Show", rawValue: 1 << 2)
-        public static let artists = Category("Artist", rawValue: 1 << 3)
-        public static let playlists = Category("Playlist", rawValue: 1 << 4)
+        public static let artists = Category("Artist", emoji: "👤", rawValue: 1 << 3)
+        public static let playlists = Category("Playlist", emoji: "📀", rawValue: 1 << 4)
         public static let episodes = Category("Episode", rawValue: 1 << 5)
         
-        public static let playrooms = Category("Playroom", rawValue: 1 << 6)
+        public static let playrooms = Category("Playroom", emoji: "🎶", rawValue: 1 << 6)
         
         public static let all: Category = Category("All", plural: "All", rawValue: ([.tracks, .albums, .shows, .artists, .playlists, .episodes, .playrooms] as Category).rawValue)
     }
@@ -120,7 +119,7 @@ public enum Search: String, CaseIterable, Identifiable {
         }
         
         public var id: String {
-            return "\(engine.name)(\"\(queryText)\", offset: \(offset.no) of \(offset.of))"
+            return "\(engine.name)[\(category.labelPlural)](\"\(queryText)\", offset: \(offset.no) of \(offset.of))"
         }
         
         public let offset: Offset
