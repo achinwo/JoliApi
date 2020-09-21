@@ -85,7 +85,7 @@ public enum Search: String, CaseIterable, Identifiable {
             self.emoji = emoji
         }
         
-        public static var allCases: [Self] = [.tracks, .albums, .shows, .artists, .playlists, .episodes, .playrooms]
+        public static var allCases: [Self] = [.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows]
         
         
         public static let tracks = Category("Track", emoji: "🎵", rawValue: 1 << 0)
@@ -97,7 +97,7 @@ public enum Search: String, CaseIterable, Identifiable {
         
         public static let playrooms = Category("Playroom", emoji: "🎶", rawValue: 1 << 6)
         
-        public static let all: Category = Category("All", plural: "All", rawValue: ([.tracks, .albums, .shows, .artists, .playlists, .episodes, .playrooms] as Category).rawValue)
+        public static let all: Category = Category("All", plural: "All", rawValue: ([.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows] as Category).rawValue)
     }
     
     public typealias Query = String
