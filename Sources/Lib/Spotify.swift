@@ -115,9 +115,9 @@ public enum Spotify {
     
     // MARK: - Episode
     public struct Episode: Codable {
-        public let audioPreviewURL: String
+        public let audioPreviewURL: String?
         public let description: String
-        public let durationMS: Int
+        public let durationMS: Int?
         public let explicit: Bool
         public let externalUrls: ExternalUrls
         public let href: String
@@ -199,7 +199,7 @@ public enum Spotify {
     // MARK: - Playlist
     public struct Playlist: Codable {
         public let collaborative: Bool
-        public let playlistDescription: String
+        public let description: String
         public let externalUrls: ExternalUrls
         public let href: String
         public let id: String
@@ -208,7 +208,7 @@ public enum Spotify {
         //let owner: Owner
         public let primaryColor: String?
         public let `public`: Bool?
-        public let snapshotID: String
+        public let snapshotID: String?
         public let tracks: TracksInfo
         public let type, uri: String
         
@@ -309,9 +309,9 @@ public enum Spotify {
 
     // MARK: - Image
     public struct Image: Codable {
-        public let height: Int
+        public let height: Int?
         public let url: String
-        public let width: Int
+        public let width: Int?
     }
     
     public enum ErrorMessage: String {

@@ -91,10 +91,10 @@ public enum Search: String, CaseIterable, Identifiable {
         public static let tracks = Category("Track", emoji: "🎵", rawValue: 1 << 0)
         public static let albums = Category("Album", emoji: "💽", rawValue: 1 << 2)
         public static let playrooms = Category("Playroom", emoji: "🎶", rawValue: 1 << 3)
-        public static let playlists = Category("Playlist", emoji: "📀", rawValue: 1 << 4)
+        public static let playlists = Category("Playlist", emoji: "💿", rawValue: 1 << 4)
         public static let artists = Category("Artist", emoji: "👤", rawValue: 1 << 5)
-        public static let shows = Category("Show", rawValue: 1 << 6)
-        public static let episodes = Category("Episode", rawValue: 1 << 7)
+        public static let shows = Category("Show", emoji: "📻", rawValue: 1 << 6)
+        public static let episodes = Category("Episode", emoji: "🎙", rawValue: 1 << 7)
         
         
         public static let all: Category = Category("All", plural: "All", rawValue: ([.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows] as Category).rawValue)
