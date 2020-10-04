@@ -62,7 +62,7 @@ public let SEED_DATA = SeedData(users: [User].fromString("""
         "id": 12,
         "created_at": "2020-06-10T09:39:30Z",
         "updated_at": "2020-06-10T16:18:56Z",
-        "name": "Twin Flame",
+        "name": "Janet",
         "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
         "email": "asommike@gmail.com",
         "dj_ranking": 8,
@@ -113,15 +113,15 @@ public let SEED_DATA = SeedData(users: [User].fromString("""
     {
         "id": 10,
         "created_at": "2020-06-07T14:12:06Z",
-        "updated_at": "2020-09-06T12:02:47Z",
+        "updated_at": "2020-10-02T14:38:49Z",
         "name": "Joli Bot.1",
         "password_hash": "$2b$10$4lCsESfC13wqodm/DVLwQeRSwnwKpIMBPutU30JmASIHwiZkSKJjC",
         "email": "joli@jolimc.app",
         "dj_ranking": 3,
         "active_room_id": 1,
         "is_service_account": true,
-        "active_device_uuid": "D6F010A5-3C20-469C-9B1D-5FAB487C1F1E",
-        "image_large": "d2rammth5lq5xvvk.jpg"
+        "active_device_uuid": "2576AA16-A089-46B7-B7C5-B98BADC82121",
+        "image_large": "reioft6p7kpjizbl.jpg"
     }
 ]
 """)!,

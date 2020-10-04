@@ -62,41 +62,56 @@ public enum Search: String, CaseIterable, Identifiable {
         }
         
         public let rawValue: Int
-        public let label: String
-        public let labelPlural: String
-        public let emoji: String?
+        
+        public var label: String {
+            return Self.rawValueLabelMap[self]?.label ?? "Category(\(rawValue))"
+        }
+        
+        public var labelPlural: String {
+            return Self.rawValueLabelMap[self]?.plural ?? "\(label)s"
+        }
+        
+        public var emoji: String? {
+            guard let char = Self.rawValueLabelMap[self]?.emoji else {
+                return nil
+            }
+            
+            return String(char)
+        }
         
         public var id: Int {
             return rawValue
         }
         
         public init(rawValue: Int){
-            self.init("Category(\(rawValue))", emoji: nil, rawValue: rawValue)
-        }
-        
-        public init(_ label: String, emoji: String? = nil, rawValue: Int){
-            self.init(label, plural: "\(label)s", emoji: emoji, rawValue: rawValue)
-        }
-        
-        public init(_ label: String, plural: String, emoji: String? = nil, rawValue: Int){
             self.rawValue = rawValue
-            self.label = label
-            self.labelPlural = plural
-            self.emoji = emoji
+        }
+        
+        public static var rawValueLabelMap: [Category: (label: String, plural: String?, emoji: Character?)] {
+            
+            return [
+                Self.playrooms: ("Playroom", nil, "🎶"),
+                Self.tracks: ("Track", nil, "🎵"),
+                Self.albums: ("Album", nil, "💽"),
+                Self.playlists: ("Playlist", nil, "💿"),
+                Self.artists: ("Artist", nil, "👤"),
+                Self.shows: ("Show", nil, "📻"),
+                Self.episodes: ("Episode", nil, "🎙"),
+                Self.all: (label: "All", nil, nil),
+            ]
         }
         
         public static var allCases: [Self] = [.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows]
         
-        public static let playrooms = Category("Playroom", emoji: "🎶", rawValue: 1 << 0)
-        public static let tracks = Category("Track", emoji: "🎵", rawValue: 1 << 2)
-        public static let albums = Category("Album", emoji: "💽", rawValue: 1 << 3)
-        public static let playlists = Category("Playlist", emoji: "💿", rawValue: 1 << 4)
-        public static let artists = Category("Artist", emoji: "👤", rawValue: 1 << 5)
-        public static let shows = Category("Show", emoji: "📻", rawValue: 1 << 6)
-        public static let episodes = Category("Episode", emoji: "🎙", rawValue: 1 << 7)
+        public static let playrooms = Category(rawValue: 1 << 0)
+        public static let tracks = Category(rawValue: 1 << 2)
+        public static let albums = Category(rawValue: 1 << 3)
+        public static let playlists = Category(rawValue: 1 << 4)
+        public static let artists = Category(rawValue: 1 << 5)
+        public static let shows = Category(rawValue: 1 << 6)
+        public static let episodes = Category(rawValue: 1 << 7)
         
-        
-        public static let all: Category = Category("All", plural: "All", rawValue: ([.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows] as Category).rawValue)
+        public static let all: Category = Category(rawValue: ([.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows] as Category).rawValue)
     }
     
     public typealias Query = String
