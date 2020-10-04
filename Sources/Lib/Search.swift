@@ -87,9 +87,8 @@ public enum Search: String, CaseIterable, Identifiable {
         
         public static var allCases: [Self] = [.tracks, .albums, .artists, .playlists, .episodes, .playrooms, .shows]
         
-        
-        public static let tracks = Category("Track", emoji: "🎵", rawValue: 1 << 0)
-        public static let playrooms = Category("Playroom", emoji: "🎶", rawValue: 1 << 2)
+        public static let playrooms = Category("Playroom", emoji: "🎶", rawValue: 1 << 0)
+        public static let tracks = Category("Track", emoji: "🎵", rawValue: 1 << 2)
         public static let albums = Category("Album", emoji: "💽", rawValue: 1 << 3)
         public static let playlists = Category("Playlist", emoji: "💿", rawValue: 1 << 4)
         public static let artists = Category("Artist", emoji: "👤", rawValue: 1 << 5)
