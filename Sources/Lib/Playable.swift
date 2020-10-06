@@ -20,7 +20,7 @@ public protocol Playable {
     var uri: String { get }
     var isPlayable: Bool { get }
     var duration: Int? { get }
-    func play(deviceId: String?, positionMs: Int?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<Json>
+    func play(deviceId: String?, positionMs: Int?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PlayState>
 }
 
 
@@ -31,7 +31,7 @@ extension Playable {
     }
     
     @discardableResult
-    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Json> {
+    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
             
         var urlPath = URLComponents(string: "/api/spotify/play")!
         urlPath.queryItems = [
@@ -48,7 +48,7 @@ extension Playable {
             payload["position_ms"] = positionMs as AnyObject
         }
         
-        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: payload, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload), baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
 }

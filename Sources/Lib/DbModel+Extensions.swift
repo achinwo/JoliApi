@@ -623,7 +623,7 @@ extension QueuedTrack: Playable {
         return track!.uri
     }
     
-    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL?  = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Json> {
+    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL?  = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
         
         guard let track = track else {
             return Promise(NetworkError.badRequest("Track is null"))
@@ -644,8 +644,8 @@ extension QueuedTrack: Playable {
             payload["position_ms"] = positionMs as AnyObject
         }
         
-        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: payload,
-                                         baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload),
+                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
 }
@@ -685,7 +685,7 @@ extension RoomTrack: Playable {
         return track!.uri
     }
     
-    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Json> {
+    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
         
         guard let track = track else {
             return Promise(NetworkError.badRequest("Track is null"))
@@ -700,7 +700,13 @@ extension RoomTrack: Playable {
             urlPath.queryItems!.append(URLQueryItem(name: "deviceId", value: deviceId))
         }
         
-        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: [:],
+        var payload: Json = [:]
+        
+        if let positionMs = positionMs {
+            payload["position_ms"] = positionMs as AnyObject
+        }
+        
+        return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload),
                                          baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
