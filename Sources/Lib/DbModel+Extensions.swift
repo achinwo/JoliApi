@@ -371,7 +371,7 @@ extension Persisted {
         return try Self.jsonEncoder(outputFormatting: outputFormatting ?? []).encode(self)
     }
     
-    func propertyNames() -> [String] {
+    public func propertyNames() -> [String] {
         return Mirror(reflecting: self).children.compactMap { $0.label }
     }
     
@@ -407,7 +407,7 @@ extension Persisted {
         }
     }
     
-    static func jsonDecoder() -> JSONDecoder {
+    public static func jsonDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         //decoder.dateDecodingStrategy = .iso8601
 
@@ -434,7 +434,7 @@ extension Persisted {
         return decoder
     }
     
-    static func jsonEncoder(outputFormatting: JSONEncoder.OutputFormatting = []) -> JSONEncoder {
+    public static func jsonEncoder(outputFormatting: JSONEncoder.OutputFormatting = []) -> JSONEncoder {
         let encoder = JSONEncoder()
         
         let formatter = DateFormatter()
