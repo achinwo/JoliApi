@@ -18,9 +18,9 @@ internal let logger = SwiftyBeaver.self
 public class JoliApi: ObservableObject, HttpApi {
     
     #if DEBUG
-    public let debug = true
+    public static let debug = true
     #else
-    public let debug = false
+    public static let debug = false
     #endif
     
     @Published public var currentPlaying: TrackInfo?
@@ -68,8 +68,10 @@ public class JoliApi: ObservableObject, HttpApi {
         case development
         case production
         
-        public static func loadEnvConfig() {
-            guard let filePath = Bundle.main.path(forResource: "env", ofType: "json"),
+        public static func loadEnvConfig(from bundle: Bundle? = nil) {
+            
+            let bundle = bundle ?? Bundle.main
+            guard let filePath = bundle.path(forResource: "env", ofType: "json"),
                   let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
                   let json: [String: AnyObject] = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else {
                 return
@@ -77,6 +79,15 @@ public class JoliApi: ObservableObject, HttpApi {
             
             Self.CACHED_ENV_CONFIG.merge(json) { (_, new) in new }
             logger.debug("[JoliApi.Environment] loaded env config: \(Self.CACHED_ENV_CONFIG)")
+        }
+        
+        public static var current: Environment {
+            guard debug else {
+                return .production
+            }
+            
+            let json = CACHED_ENV_CONFIG
+            return Environment(rawValue: json["env"] as? String ?? Environment.local.rawValue) ?? .development
         }
         
         public var baseUrl: BaseUrl {
@@ -148,22 +159,11 @@ public class JoliApi: ObservableObject, HttpApi {
         }
     }
     
-    public var env: JoliApi.Environment {
-        
-        get {
-            
-            guard self.debug else {
-                return .production
-            }
-            
-            let json = JoliApi.Environment.CACHED_ENV_CONFIG
-            return JoliApi.Environment(rawValue: json["env"] as? String ?? JoliApi.Environment.local.rawValue) ?? .development
-        }
-        
+    public var env: Environment {
+        get { Environment.current }
         set {
-            JoliApi.Environment.CACHED_ENV_CONFIG["env"] = newValue.rawValue as AnyObject
+            Environment.CACHED_ENV_CONFIG["env"] = newValue.rawValue as AnyObject
         }
-        
     }
 
     @discardableResult
