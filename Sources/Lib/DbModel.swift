@@ -625,6 +625,7 @@ public struct PlayState: Persisted, DataConvertible {
     public var playlistUri: String?
     public var product: String
     public var progressMs: Int?
+    public var durationMs: Int?
     public var refreshToken: String
     public var roomId: Int?
     public var scope: String
@@ -651,6 +652,7 @@ public struct PlayState: Persisted, DataConvertible {
         case playlistUri = "playlistUri"
         case product = "product"
         case progressMs = "progressMs"
+        case durationMs = "durationMs"
         case refreshToken = "refreshToken"
         case roomId = "roomId"
         case scope = "scope"
