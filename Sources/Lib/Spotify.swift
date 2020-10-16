@@ -30,12 +30,12 @@ public enum Spotify {
     
     public struct Device: Codable, Identifiable, Hashable, DataConvertible {
         public let id: String
-        public let isActive: Bool
+        public var isActive: Bool
         public let isPrivateSession: Bool
         public let isRestricted: Bool
         public let name: String
         public let type: DeviceType
-        public let volumePercent: Int
+        public var volumePercent: Int
         
         public init(name: String, type: DeviceType, isActive: Bool, id: String, isPrivateSession: Bool = false, isRestricted: Bool = false, volumePercent: Int = 30) {
             self.id = id
