@@ -12,14 +12,14 @@ import Promises
 public protocol Playable {
     //associatedtype Track: Playable = Never
     
-    var explicit: Bool? { get }
+    var explicit: Bool { get }
     var title: String { get }
     var thumbnailUrl: String { get }
     var albumCoverUrl: String { get }
     var artistName: String { get }
     var uri: String { get }
     var isPlayable: Bool { get }
-    var duration: Int? { get }
+    var duration: Int { get }
     func play(deviceId: String?, positionMs: Int?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PlayState>
 }
 

@@ -591,16 +591,16 @@ extension AuthToken {
 // MARK: - QueueTrack
 extension QueuedTrack: Playable {
     
-    public var duration: Int? {
-        return self.track?.durationMs
+    public var duration: Int {
+        return self.track!.durationMs
     }
     
     public var isPlayable: Bool {
         return track != nil
     }
     
-    public var explicit: Bool? {
-        return track?.explicit
+    public var explicit: Bool {
+        return track!.explicit
     }
     
     public var title: String {
@@ -657,11 +657,11 @@ extension RoomTrack: Playable {
         return track != nil
     }
     
-    public var explicit: Bool? {
-        return track?.explicit
+    public var explicit: Bool {
+        return track!.explicit
     }
     
-    public var duration: Int? {
+    public var duration: Int {
         return track!.durationMs
     }
     
@@ -717,7 +717,7 @@ extension RoomTrack: Playable {
 
 extension Track: Playable {
     
-    public var duration: Int? {
+    public var duration: Int {
         return self.durationMs
     }
     

@@ -133,11 +133,11 @@ public enum Spotify {
     // MARK: - CurrentlyPlayingContent
     public struct CurrentlyPlayingContent: Codable, Playable {
         
-        public var explicit: Bool? {
+        public var explicit: Bool {
             return item.explicit
         }
         
-        public var duration: Int? {
+        public var duration: Int {
             return item.durationMs
         }
         
@@ -222,7 +222,7 @@ public enum Spotify {
     // MARK: - Track
     public struct Track: Codable, Playable, DataConvertible {
         
-        public var explicit: Bool?
+        public var explicit: Bool
         
         public var title: String {
             return name
@@ -240,7 +240,7 @@ public enum Spotify {
             return album.images.first!.url
         }
         
-        public var duration: Int? {
+        public var duration: Int {
             return self.durationMs
         }
         

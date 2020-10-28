@@ -12,6 +12,7 @@ public typealias TrackRecord = Builder<Track>
 public typealias RoomMembershipRecord = Builder<RoomMembership>
 public typealias DeviceRecord = Builder<Device>
 public typealias PlayStateRecord = Builder<PlayState>
+public typealias ArtistRecord = Builder<Artist>
 
 
 extension AuthTokenRecord {
@@ -460,6 +461,14 @@ extension TrackRecord {
         get { properties[.thumbnailUrl] as? String}
         set { properties[.thumbnailUrl] = newValue as AnyObject }
     }
+    public var isrc: String? {
+        get { properties[.isrc] as? String}
+        set { properties[.isrc] = newValue as AnyObject }
+    }
+    public var albumId: String? {
+        get { properties[.albumId] as? String}
+        set { properties[.albumId] = newValue as AnyObject }
+    }
     public var artistName: String? {
         get { properties[.artistName] as? String}
         set { properties[.artistName] = newValue as AnyObject }
@@ -724,6 +733,10 @@ extension PlayStateRecord {
         get { properties[.progressMs] as? Int}
         set { properties[.progressMs] = newValue as AnyObject }
     }
+    public var durationMs: Int? {
+        get { properties[.durationMs] as? Int}
+        set { properties[.durationMs] = newValue as AnyObject }
+    }
     public var playingState: String? {
         get { properties[.playingState] as? String}
         set { properties[.playingState] = newValue as AnyObject }
@@ -731,6 +744,70 @@ extension PlayStateRecord {
     public var playingStateChangedAt: Date? {
         get { properties[.playingStateChangedAt] as? Date}
         set { properties[.playingStateChangedAt] = newValue as AnyObject }
+    }
+    
+}
+extension ArtistRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var artistId: String? {
+        get { properties[.artistId] as? String}
+        set { properties[.artistId] = newValue as AnyObject }
+    }
+    public var href: String? {
+        get { properties[.href] as? String}
+        set { properties[.href] = newValue as AnyObject }
+    }
+    public var name: String? {
+        get { properties[.name] as? String}
+        set { properties[.name] = newValue as AnyObject }
+    }
+    public var uri: String? {
+        get { properties[.uri] as? String}
+        set { properties[.uri] = newValue as AnyObject }
+    }
+    public var popularity: Int? {
+        get { properties[.popularity] as? Int}
+        set { properties[.popularity] = newValue as AnyObject }
+    }
+    public var followersTotal: Int? {
+        get { properties[.followersTotal] as? Int}
+        set { properties[.followersTotal] = newValue as AnyObject }
+    }
+    public var imageSmall: String? {
+        get { properties[.imageSmall] as? String}
+        set { properties[.imageSmall] = newValue as AnyObject }
+    }
+    public var imageMedium: String? {
+        get { properties[.imageMedium] as? String}
+        set { properties[.imageMedium] = newValue as AnyObject }
+    }
+    public var imageLarge: String? {
+        get { properties[.imageLarge] as? String}
+        set { properties[.imageLarge] = newValue as AnyObject }
     }
     
 }

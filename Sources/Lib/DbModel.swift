@@ -12,6 +12,7 @@
 //   let roomMembership = try? newJSONDecoder().decode(RoomMembership.self, from: jsonData)
 //   let device = try? newJSONDecoder().decode(Device.self, from: jsonData)
 //   let playState = try? newJSONDecoder().decode(PlayState.self, from: jsonData)
+//   let artist = try? newJSONDecoder().decode(Artist.self, from: jsonData)
 
 import Foundation
 
@@ -214,6 +215,7 @@ public enum PlayingState: String, Codable {
 /// Track
 // MARK: - Track
 public struct Track: Persisted, DataConvertible {
+    public var albumId: String
     public var artistName: String
     public var colorBackground: String?
     public var colorDetail: String?
@@ -223,28 +225,30 @@ public struct Track: Persisted, DataConvertible {
     public var createdById: Int?
     public var deletedAt: Date?
     public var deletedById: Int?
-    public var durationMs: Int?
-    public var explicit: Bool?
-    public var href: String?
+    public var durationMs: Int
+    public var explicit: Bool
+    public var href: String
     public var id: Int
-    public var imageLarge: String?
-    public var imageMedium: String?
-    public var imageSmall: String?
-    public var isLocal: Bool?
-    public var name: String?
-    public var popularity: Int?
+    public var imageLarge: String
+    public var imageMedium: String
+    public var imageSmall: String
+    public var isLocal: Bool
+    public var isrc: String
+    public var name: String
+    public var popularity: Int
     public var previewUrl: String?
-    public var releaseDate: String?
+    public var releaseDate: String
     public var thumbnailUrl: String
     public var title: String
     public var trackId: String
-    public var trackNumber: Int?
-    public var type: String?
+    public var trackNumber: Int
+    public var type: String
     public var updatedAt: Date
     public var updatedById: Int?
     public var uri: String
 
     public enum CodingKeys: String, CodingKey {
+        case albumId = "albumId"
         case artistName = "artistName"
         case colorBackground = "colorBackground"
         case colorDetail = "colorDetail"
@@ -262,6 +266,7 @@ public struct Track: Persisted, DataConvertible {
         case imageMedium = "imageMedium"
         case imageSmall = "imageSmall"
         case isLocal = "isLocal"
+        case isrc = "isrc"
         case name = "name"
         case popularity = "popularity"
         case previewUrl = "previewUrl"
@@ -276,7 +281,8 @@ public struct Track: Persisted, DataConvertible {
         case uri = "uri"
     }
 
-    public init(artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int?, explicit: Bool?, href: String?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isLocal: Bool?, name: String?, popularity: Int?, previewUrl: String?, releaseDate: String?, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int?, type: String?, updatedAt: Date, updatedById: Int?, uri: String) {
+    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: String, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int?, uri: String) {
+        self.albumId = albumId
         self.artistName = artistName
         self.colorBackground = colorBackground
         self.colorDetail = colorDetail
@@ -294,6 +300,7 @@ public struct Track: Persisted, DataConvertible {
         self.imageMedium = imageMedium
         self.imageSmall = imageSmall
         self.isLocal = isLocal
+        self.isrc = isrc
         self.name = name
         self.popularity = popularity
         self.previewUrl = previewUrl
@@ -617,6 +624,7 @@ public struct PlayState: Persisted, DataConvertible {
     public var deletedById: Int?
     public var deviceUid: String?
     public var displayName: String
+    public var durationMs: Int?
     public var email: String
     public var expiresIn: Int
     public var id: Int
@@ -625,7 +633,6 @@ public struct PlayState: Persisted, DataConvertible {
     public var playlistUri: String?
     public var product: String
     public var progressMs: Int?
-    public var durationMs: Int?
     public var refreshToken: String
     public var roomId: Int?
     public var scope: String
@@ -644,6 +651,7 @@ public struct PlayState: Persisted, DataConvertible {
         case deletedById = "deletedById"
         case deviceUid = "deviceUid"
         case displayName = "displayName"
+        case durationMs = "durationMs"
         case email = "email"
         case expiresIn = "expiresIn"
         case id = "id"
@@ -652,7 +660,6 @@ public struct PlayState: Persisted, DataConvertible {
         case playlistUri = "playlistUri"
         case product = "product"
         case progressMs = "progressMs"
-        case durationMs = "durationMs"
         case refreshToken = "refreshToken"
         case roomId = "roomId"
         case scope = "scope"
@@ -663,7 +670,7 @@ public struct PlayState: Persisted, DataConvertible {
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -672,6 +679,7 @@ public struct PlayState: Persisted, DataConvertible {
         self.deletedById = deletedById
         self.deviceUid = deviceUid
         self.displayName = displayName
+        self.durationMs = durationMs
         self.email = email
         self.expiresIn = expiresIn
         self.id = id
@@ -688,5 +696,64 @@ public struct PlayState: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.userName = userName
+    }
+}
+
+/// Artist
+// MARK: - Artist
+public struct Artist: Persisted, DataConvertible {
+    public var artistId: String
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var followersTotal: Int
+    public var href: String
+    public var id: Int
+    public var imageLarge: String?
+    public var imageMedium: String?
+    public var imageSmall: String?
+    public var name: String
+    public var popularity: Int
+    public var updatedAt: Date
+    public var updatedById: Int?
+    public var uri: String
+
+    public enum CodingKeys: String, CodingKey {
+        case artistId = "artistId"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case followersTotal = "followersTotal"
+        case href = "href"
+        case id = "id"
+        case imageLarge = "imageLarge"
+        case imageMedium = "imageMedium"
+        case imageSmall = "imageSmall"
+        case name = "name"
+        case popularity = "popularity"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case uri = "uri"
+    }
+
+    public init(artistId: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, followersTotal: Int, href: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, name: String, popularity: Int, updatedAt: Date, updatedById: Int?, uri: String) {
+        self.artistId = artistId
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.followersTotal = followersTotal
+        self.href = href
+        self.id = id
+        self.imageLarge = imageLarge
+        self.imageMedium = imageMedium
+        self.imageSmall = imageSmall
+        self.name = name
+        self.popularity = popularity
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.uri = uri
     }
 }
