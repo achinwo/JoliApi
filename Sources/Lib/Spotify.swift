@@ -133,6 +133,10 @@ public enum Spotify {
     // MARK: - CurrentlyPlayingContent
     public struct CurrentlyPlayingContent: Codable, Playable {
         
+        public var releasedAt: Date? {
+            return item.releasedAt
+        }
+        
         public var explicit: Bool {
             return item.explicit
         }
@@ -221,6 +225,12 @@ public enum Spotify {
 
     // MARK: - Track
     public struct Track: Codable, Playable, DataConvertible {
+        
+        public var releasedAt: Date? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.date(from: self.album.releaseDate)
+        }
         
         public var explicit: Bool
         

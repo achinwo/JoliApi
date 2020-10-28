@@ -20,11 +20,17 @@ public protocol Playable {
     var uri: String { get }
     var isPlayable: Bool { get }
     var duration: Int { get }
+    var releasedAt: Date? { get }
+    
     func play(deviceId: String?, positionMs: Int?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PlayState>
 }
 
 
 extension Playable {
+    
+    public var releasedAt: Date? {
+        return nil
+    }
     
     public var isPlayable: Bool {
         return true

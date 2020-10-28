@@ -591,6 +591,10 @@ extension AuthToken {
 // MARK: - QueueTrack
 extension QueuedTrack: Playable {
     
+    public var releasedAt: Date? {
+        return track?.releaseDate
+    }
+    
     public var duration: Int {
         return self.track!.durationMs
     }
@@ -661,6 +665,10 @@ extension RoomTrack: Playable {
         return track!.explicit
     }
     
+    public var releasedAt: Date? {
+        return track?.releaseDate
+    }
+    
     public var duration: Int {
         return track!.durationMs
     }
@@ -716,6 +724,10 @@ extension RoomTrack: Playable {
 // MARK: - Track
 
 extension Track: Playable {
+    
+    public var releasedAt: Date? {
+        return releaseDate
+    }
     
     public var duration: Int {
         return self.durationMs

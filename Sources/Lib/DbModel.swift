@@ -237,7 +237,7 @@ public struct Track: Persisted, DataConvertible {
     public var name: String
     public var popularity: Int
     public var previewUrl: String?
-    public var releaseDate: String
+    public var releaseDate: Date
     public var thumbnailUrl: String
     public var title: String
     public var trackId: String
@@ -281,7 +281,7 @@ public struct Track: Persisted, DataConvertible {
         case uri = "uri"
     }
 
-    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: String, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int?, uri: String) {
+    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: Date, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int?, uri: String) {
         self.albumId = albumId
         self.artistName = artistName
         self.colorBackground = colorBackground
