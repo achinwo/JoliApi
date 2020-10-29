@@ -397,6 +397,10 @@ extension UserRecord {
         get { properties[.activeRoomId] as? Int}
         set { properties[.activeRoomId] = newValue as AnyObject }
     }
+    public var heartPoints: Int? {
+        get { properties[.heartPoints] as? Int}
+        set { properties[.heartPoints] = newValue as AnyObject }
+    }
     public var isServiceAccount: Bool? {
         get { properties[.isServiceAccount] as? Bool}
         set { properties[.isServiceAccount] = newValue as AnyObject }
@@ -528,6 +532,10 @@ extension TrackRecord {
     public var releaseDate: Date? {
         get { properties[.releaseDate] as? Date}
         set { properties[.releaseDate] = newValue as AnyObject }
+    }
+    public var releaseDatePrecision: String? {
+        get { properties[.releaseDatePrecision] as? String}
+        set { properties[.releaseDatePrecision] = newValue as AnyObject }
     }
     public var colorPrimary: String? {
         get { properties[.colorPrimary] as? String}

@@ -238,6 +238,7 @@ public struct Track: Persisted, DataConvertible {
     public var popularity: Int
     public var previewUrl: String?
     public var releaseDate: Date
+    public var releaseDatePrecision: String?
     public var thumbnailUrl: String
     public var title: String
     public var trackId: String
@@ -271,6 +272,7 @@ public struct Track: Persisted, DataConvertible {
         case popularity = "popularity"
         case previewUrl = "previewUrl"
         case releaseDate = "releaseDate"
+        case releaseDatePrecision = "releaseDatePrecision"
         case thumbnailUrl = "thumbnailUrl"
         case title = "title"
         case trackId = "trackId"
@@ -281,7 +283,7 @@ public struct Track: Persisted, DataConvertible {
         case uri = "uri"
     }
 
-    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: Date, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int?, uri: String) {
+    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: Date, releaseDatePrecision: String?, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int?, uri: String) {
         self.albumId = albumId
         self.artistName = artistName
         self.colorBackground = colorBackground
@@ -305,6 +307,7 @@ public struct Track: Persisted, DataConvertible {
         self.popularity = popularity
         self.previewUrl = previewUrl
         self.releaseDate = releaseDate
+        self.releaseDatePrecision = releaseDatePrecision
         self.thumbnailUrl = thumbnailUrl
         self.title = title
         self.trackId = trackId
@@ -463,6 +466,7 @@ public struct User: Persisted, DataConvertible {
     public var deletedById: Int?
     public var djRanking: Int?
     public var email: String
+    public var heartPoints: Int?
     public var id: Int
     public var imageLarge: String?
     public var imageMedium: String?
@@ -483,6 +487,7 @@ public struct User: Persisted, DataConvertible {
         case deletedById = "deletedById"
         case djRanking = "djRanking"
         case email = "email"
+        case heartPoints = "heartPoints"
         case id = "id"
         case imageLarge = "imageLarge"
         case imageMedium = "imageMedium"
@@ -494,7 +499,7 @@ public struct User: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
         self.activatedAt = activatedAt
         self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
@@ -504,6 +509,7 @@ public struct User: Persisted, DataConvertible {
         self.deletedById = deletedById
         self.djRanking = djRanking
         self.email = email
+        self.heartPoints = heartPoints
         self.id = id
         self.imageLarge = imageLarge
         self.imageMedium = imageMedium
