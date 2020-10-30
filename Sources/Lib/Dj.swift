@@ -33,23 +33,46 @@ public enum DiscjockeyPosition: Int, CaseIterable, CustomStringConvertible {
     public var description: String {
         switch self {
         case .soundEngineer:
-            return "🔊 Sound Engineer"
+            return "\(self.emoji) Sound Engineer"
         case .directorOfPhotography:
-            return "🎥 DOP"
+            return "\(self.emoji) DOP"
         case .starboy:
-            return "💫 Starboy"
+            return "\(self.emoji) Starboy"
         case .assistantHead:
-            return "👩🏾‍🍳 Assistant Head"
+            return "\(self.emoji) Assistant Head"
         case .personal:
-            return "💁🏾‍♀️ Personal"
+            return "\(self.emoji) Personal"
         case .executive:
-            return "😎 Executive"
+            return "\(self.emoji) Executive"
         case .executiveHeadOfSales:
-            return "👩🏾‍💼 Executive Head of Sales"
+            return "\(self.emoji) Executive Head of Sales"
         case .leadCreativeDirector:
-            return "🤸🏾‍♂️ Lead Creative Director"
+            return "\(self.emoji) Lead Creative Director"
         case .distributionManager:
-            return "🚗 Distribution Manager"
+            return "\(self.emoji) Distribution Manager"
+        }
+    }
+    
+    public var emoji: String {
+        switch self {
+            case .soundEngineer:
+                return "🔊"
+            case .directorOfPhotography:
+                return "🎥"
+            case .starboy:
+                return "💫"
+            case .assistantHead:
+                return "👩🏾‍🍳"
+            case .personal:
+                return "💁🏾‍♀️"
+            case .executive:
+                return "😎"
+            case .executiveHeadOfSales:
+                return "👩🏾‍💼"
+            case .leadCreativeDirector:
+                return "🤸🏾‍♂️"
+            case .distributionManager:
+                return "🚗"
         }
     }
 }

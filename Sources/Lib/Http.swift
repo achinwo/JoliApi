@@ -123,7 +123,7 @@ extension URLSession {
     
 }
 
-public struct Auth: Codable {
+public struct Auth: Codable, Hashable {
     public var session: Session
     public var user: User
 }

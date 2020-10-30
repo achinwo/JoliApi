@@ -169,10 +169,7 @@ public class JoliApi: ObservableObject, HttpApi {
     @discardableResult
     public func authenticate(email: String, password: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
         return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
-            .then() { auth -> Auth? in
-                self.auth = auth
-                return auth
-        }.catch() { error in
+            .catch() { error in
             logger.error("[authenticate] error: \(error)")
         }
     }
@@ -180,11 +177,6 @@ public class JoliApi: ObservableObject, HttpApi {
     @discardableResult
     public func authenticate(token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
         return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
-            .then() { auth -> Auth? in
-                self.auth = auth
-                //logger.debug("[JoliApi#authenticate] AUTH: \(auth)")
-                return auth
-            }
     }
     
     public func setNotificationToken(_ token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Device> {
