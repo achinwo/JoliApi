@@ -129,6 +129,14 @@ extension MusicroomRecord {
         get { properties[.membership] as? String}
         set { properties[.membership] = newValue as AnyObject }
     }
+    public var themeTrackUri: String? {
+        get { properties[.themeTrackUri] as? String}
+        set { properties[.themeTrackUri] = newValue as AnyObject }
+    }
+    public var themeTrackUri2: String? {
+        get { properties[.themeTrackUri2] as? String}
+        set { properties[.themeTrackUri2] = newValue as AnyObject }
+    }
     public var refreshToken: String? {
         get { properties[.refreshToken] as? String}
         set { properties[.refreshToken] = newValue as AnyObject }
@@ -388,6 +396,10 @@ extension UserRecord {
     public var email: String? {
         get { properties[.email] as? String}
         set { properties[.email] = newValue as AnyObject }
+    }
+    public var refreshTokenSpotify: String? {
+        get { properties[.refreshTokenSpotify] as? String}
+        set { properties[.refreshTokenSpotify] = newValue as AnyObject }
     }
     public var djRanking: Int? {
         get { properties[.djRanking] as? Int}

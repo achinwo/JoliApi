@@ -150,6 +150,8 @@ public struct Musicroom: Persisted, DataConvertible {
     public var playlistUri: String?
     public var progressMs: Int?
     public var refreshToken: String?
+    public var themeTrackUri: String
+    public var themeTrackUri2: String?
     public var trackUri: String?
     public var updatedAt: Date
     public var updatedById: Int?
@@ -171,12 +173,14 @@ public struct Musicroom: Persisted, DataConvertible {
         case playlistUri = "playlistUri"
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
+        case themeTrackUri = "themeTrackUri"
+        case themeTrackUri2 = "themeTrackUri2"
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -193,6 +197,8 @@ public struct Musicroom: Persisted, DataConvertible {
         self.playlistUri = playlistUri
         self.progressMs = progressMs
         self.refreshToken = refreshToken
+        self.themeTrackUri = themeTrackUri
+        self.themeTrackUri2 = themeTrackUri2
         self.trackUri = trackUri
         self.updatedAt = updatedAt
         self.updatedById = updatedById
@@ -473,7 +479,8 @@ public struct User: Persisted, DataConvertible {
     public var imageSmall: String?
     public var isServiceAccount: Bool?
     public var name: String
-    public var passwordHash: String
+    public var passwordHash: String?
+    public var refreshTokenSpotify: String?
     public var updatedAt: Date
     public var updatedById: Int?
 
@@ -495,11 +502,12 @@ public struct User: Persisted, DataConvertible {
         case isServiceAccount = "isServiceAccount"
         case name = "name"
         case passwordHash = "passwordHash"
+        case refreshTokenSpotify = "refreshTokenSpotify"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String, updatedAt: Date, updatedById: Int?) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int?) {
         self.activatedAt = activatedAt
         self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
@@ -517,6 +525,7 @@ public struct User: Persisted, DataConvertible {
         self.isServiceAccount = isServiceAccount
         self.name = name
         self.passwordHash = passwordHash
+        self.refreshTokenSpotify = refreshTokenSpotify
         self.updatedAt = updatedAt
         self.updatedById = updatedById
     }

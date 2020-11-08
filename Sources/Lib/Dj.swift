@@ -25,6 +25,7 @@ public enum DiscjockeyPosition: Int, CaseIterable, CustomStringConvertible {
     case starboy = 6 // 16 second recharge
     case directorOfPhotography = 7 // image capture and upload - 10 second recharge
     case soundEngineer = 8 // mix creator
+    case ninja = 16
     
     public var rechargeTime: TimeInterval {
         return Double(self.rawValue) / Double.goldenRatio
@@ -36,6 +37,8 @@ public enum DiscjockeyPosition: Int, CaseIterable, CustomStringConvertible {
             return "\(self.emoji) Sound Engineer"
         case .directorOfPhotography:
             return "\(self.emoji) DOP"
+        case .ninja:
+            return "\(self.emoji) Naija Ninja"
         case .starboy:
             return "\(self.emoji) Starboy"
         case .assistantHead:
@@ -73,6 +76,8 @@ public enum DiscjockeyPosition: Int, CaseIterable, CustomStringConvertible {
                 return "🤸🏾‍♂️"
             case .distributionManager:
                 return "🚗"
+            case .ninja:
+                return "🥷"
         }
     }
 }
