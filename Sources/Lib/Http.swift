@@ -163,6 +163,7 @@ public enum HttpBody {
     case multipart(Json)
     case json(Json)
     case dbModel(DataConvertible)
+    case jsons([Json])
     
     public func toData() throws -> Data {
         switch self {
@@ -172,6 +173,8 @@ public enum HttpBody {
             return try json.toData()
         case .dbModel(let model):
             return try model.toData(outputFormatting: [])
+        case .jsons(let jsons):
+            return try JSONSerialization.data(withJSONObject: jsons, options:.prettyPrinted)
         }
     }
 }

@@ -189,7 +189,16 @@ extension Encodable {
 public protocol Persistable {
     associatedtype PersistedType: Persisted
     
+    var json: Json { get }
     func save(baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PersistedType>
+    
+}
+
+public extension Persistable {
+    
+    var json: Json {
+        return [:]
+    }
     
 }
 

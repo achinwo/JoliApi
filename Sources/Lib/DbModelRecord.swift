@@ -13,6 +13,7 @@ public typealias RoomMembershipRecord = Builder<RoomMembership>
 public typealias DeviceRecord = Builder<Device>
 public typealias PlayStateRecord = Builder<PlayState>
 public typealias ArtistRecord = Builder<Artist>
+public typealias LogEntryRecord = Builder<LogEntry>
 
 
 extension AuthTokenRecord {
@@ -828,6 +829,46 @@ extension ArtistRecord {
     public var imageLarge: String? {
         get { properties[.imageLarge] as? String}
         set { properties[.imageLarge] = newValue as AnyObject }
+    }
+    
+}
+extension LogEntryRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var line: String? {
+        get { properties[.line] as? String}
+        set { properties[.line] = newValue as AnyObject }
+    }
+    public var deviceName: String? {
+        get { properties[.deviceName] as? String}
+        set { properties[.deviceName] = newValue as AnyObject }
+    }
+    public var platform: String? {
+        get { properties[.platform] as? String}
+        set { properties[.platform] = newValue as AnyObject }
     }
     
 }

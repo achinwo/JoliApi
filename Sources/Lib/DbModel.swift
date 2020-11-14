@@ -13,6 +13,7 @@
 //   let device = try? newJSONDecoder().decode(Device.self, from: jsonData)
 //   let playState = try? newJSONDecoder().decode(PlayState.self, from: jsonData)
 //   let artist = try? newJSONDecoder().decode(Artist.self, from: jsonData)
+//   let logEntry = try? newJSONDecoder().decode(LogEntry.self, from: jsonData)
 
 import Foundation
 
@@ -770,5 +771,46 @@ public struct Artist: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uri = uri
+    }
+}
+
+/// LogEntry
+// MARK: - LogEntry
+public struct LogEntry: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var deviceName: String
+    public var id: Int
+    public var line: String
+    public var platform: String
+    public var updatedAt: Date
+    public var updatedById: Int?
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case deviceName = "deviceName"
+        case id = "id"
+        case line = "line"
+        case platform = "platform"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceName: String, id: Int, line: String, platform: String, updatedAt: Date, updatedById: Int?) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.deviceName = deviceName
+        self.id = id
+        self.line = line
+        self.platform = platform
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
     }
 }
