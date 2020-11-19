@@ -165,6 +165,25 @@ public class JoliApi: ObservableObject, HttpApi {
             Environment.CACHED_ENV_CONFIG["env"] = newValue.rawValue as AnyObject
         }
     }
+    
+    public enum AuthCredentials {
+        case sessionToken(String)
+        case email(String, String)
+        case spotifyRefreshToken(String)
+    }
+    
+    @discardableResult
+    public func authenticate(_ credentials: AuthCredentials, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+        
+        switch credentials {
+            case .email(let email, let password):
+                return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+            case .sessionToken(let token):
+                return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+            case .spotifyRefreshToken(let refreshToken):
+                return Session.fromCredentials(spotifyRefreshToken: refreshToken, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+        }
+    }
 
     @discardableResult
     public func authenticate(email: String, password: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {

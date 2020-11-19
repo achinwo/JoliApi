@@ -549,6 +549,13 @@ extension Session{
                                      baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
+    public static func fromCredentials(spotifyRefreshToken: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+        let url = URLComponents(string: "/signin")!
+        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
+                                     payload: .json(["spotifyRefreshToken": spotifyRefreshToken as AnyObject]),
+                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+    }
+    
 }
 
 // MARK: - Musicroom
