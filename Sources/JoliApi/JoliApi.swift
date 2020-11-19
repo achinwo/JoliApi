@@ -183,7 +183,7 @@ public class JoliApi: ObservableObject, HttpApi {
         return HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), urlSession: self.urlSession)
     }
     
-    public func searchTracks(q: String, categories: Set<Search.Category> = [.tracks], limit: Int = 10) -> Promise<Spotify.SearchResult> {
+    public func searchSpotify(q: String, categories: Set<Search.Category> = [.tracks], limit: Int = 10) -> Promise<Spotify.SearchResult> {
         
         let typeStr = Array(categories).map() { $0.label.lowercased() }.joined(separator: ",")
         var pathComp = URLComponents(string: "/api/spotify/search")!
