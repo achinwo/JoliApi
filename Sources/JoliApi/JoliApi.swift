@@ -179,6 +179,11 @@ public class JoliApi: ObservableObject, HttpApi {
             case .email(let email, let password):
                 return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
             case .sessionToken(let token):
+                
+                guard !token.isEmpty else {
+                    return Promise(nil)
+                }
+                
                 return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
             case .spotifyRefreshToken(let refreshToken):
                 return Session.fromCredentials(spotifyRefreshToken: refreshToken, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
