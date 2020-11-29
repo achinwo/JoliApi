@@ -53,27 +53,22 @@ struct LocalhostApi: HttpApi {
 
 public extension UIColor {
     
-    convenience init(hexString: String) {
-        let hexString = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
-        let scanner = Scanner(string: hexString)
-        
-        if hexString.hasPrefix("#") {
-            scanner.scanLocation = 1
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+
+        if hexFormatted.hasPrefix("#") {
+            hexFormatted = String(hexFormatted.dropFirst())
         }
-        
-        var color: UInt32 = 0
-        scanner.scanHexInt32(&color)
-        
-        let mask = 0x000000FF
-        let r = Int(color >> 16) & mask
-        let g = Int(color >> 8) & mask
-        let b = Int(color) & mask
-        
-        let red   = CGFloat(r) / 255.0
-        let green = CGFloat(g) / 255.0
-        let blue  = CGFloat(b) / 255.0
-        
-        self.init(red: red, green: green, blue: blue, alpha: 1)
+
+        assert(hexFormatted.count == 6, "Invalid hex code used.")
+
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+
+        self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                  green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                  blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+                  alpha: alpha)
     }
     
     var hexString: String {
@@ -407,7 +402,7 @@ extension Persisted {
     }
     
     //192.168.1.132
-    static var baseUrl: (ws: URL, http: URL) {
+    static var baseUrl: (http: URL, ws: URL) {
         get { BASE_URL }
 //        get { (http:BASE_URL ?? URL(string: "http://192.168.1.173:8080")!,
 //               ws:URL(string: "ws://192.168.1.173:8080")!)}
