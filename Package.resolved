@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
-          "revision": "6b6f4fe3385ed37389fb231bc40be81de2f1230f",
-          "version": "1.2.8"
+          "revision": "d8accebc8fa32f57196df191e733f946e955c549",
+          "version": "1.2.11"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/daltoniam/Starscream.git",
         "state": {
           "branch": null,
-          "revision": "85c84126469bb1c9468aba882c675719fda4a0fd",
-          "version": null
+          "revision": "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+          "version": "4.0.4"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
         "state": {
           "branch": null,
-          "revision": "2f2b7ac0b675e9d0ac696758f15bbff97eb65a31",
-          "version": "1.8.4"
+          "revision": "2c513a2e8fbfbd6495afc4a05941d8e3fdba68e9",
+          "version": "1.9.3"
         }
       },
       {
