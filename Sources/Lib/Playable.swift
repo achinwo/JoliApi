@@ -8,6 +8,12 @@
 import Foundation
 import Promises
 
+
+public enum ContentOffset {
+    case uri(String)
+    case position(Int)
+}
+
 // MARK: - Playable
 public protocol Playable {
     //associatedtype Track: Playable = Never
@@ -22,7 +28,7 @@ public protocol Playable {
     var duration: Int { get }
     var releasedAt: Date? { get }
     
-    func play(deviceId: String?, positionMs: Int?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PlayState>
+    func play(deviceId: String?, positionMs: Int?, offset: ContentOffset?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PlayState>
 }
 
 
@@ -37,15 +43,12 @@ extension Playable {
     }
     
     @discardableResult
-    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
-            
+    public static func playContent(_ uri: String, deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
         var urlPath = URLComponents(string: "/api/spotify/play")!
-        urlPath.queryItems = [
-            URLQueryItem(name: "trackId", value: self.uri),
-        ]
+        var queryItems: [URLQueryItem] = []
         
         if let deviceId = deviceId {
-            urlPath.queryItems!.append(URLQueryItem(name: "deviceId", value: deviceId))
+            queryItems.append(URLQueryItem(name: "deviceId", value: deviceId))
         }
         
         var payload: Json = [:]
@@ -54,7 +57,33 @@ extension Playable {
             payload["position_ms"] = positionMs as AnyObject
         }
         
+        if let offset = offset {
+            
+            var item: [String: AnyObject] = [:]
+            
+            switch offset {
+                case .uri(let uri):
+                    item["uri"] = uri as AnyObject
+                case .position(let position):
+                    item["position"] = position as AnyObject
+            }
+            
+            payload["offset"] = item as AnyObject
+            payload["context_uri"] = uri as AnyObject
+        } else {
+            
+            queryItems.append(URLQueryItem(name: "trackId", value: uri))
+            payload["uris"] = [uri] as AnyObject
+        }
+        
+        urlPath.queryItems = queryItems
+        
         return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload), baseUrl: baseUrl, urlSession: urlSession, on: on)
+    }
+    
+    @discardableResult
+    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
+        return Self.playContent(self.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
 }

@@ -638,29 +638,13 @@ extension QueuedTrack: Playable {
         return track!.uri
     }
     
-    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL?  = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
+    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL?  = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
         
         guard let track = track else {
             return Promise(NetworkError.badRequest("Track is null"))
         }
         
-        var urlPath = URLComponents(string: "/api/spotify/play")!
-        urlPath.queryItems = [
-            URLQueryItem(name: "trackId", value: track.uri),
-        ]
-        
-        if let deviceId = deviceId {
-            urlPath.queryItems!.append(URLQueryItem(name: "deviceId", value: deviceId))
-        }
-        
-        var payload: Json = [:]
-        
-        if let positionMs = positionMs {
-            payload["position_ms"] = positionMs as AnyObject
-        }
-        
-        return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload),
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return Self.playContent(track.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
 }
@@ -704,29 +688,13 @@ extension RoomTrack: Playable {
         return track!.uri
     }
     
-    public func play(deviceId: String?, positionMs: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
+    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
         
         guard let track = track else {
             return Promise(NetworkError.badRequest("Track is null"))
         }
         
-        var urlPath = URLComponents(string: "/api/spotify/play")!
-        urlPath.queryItems = [
-            URLQueryItem(name: "trackId", value: track.uri),
-        ]
-        
-        if let deviceId = deviceId {
-            urlPath.queryItems!.append(URLQueryItem(name: "deviceId", value: deviceId))
-        }
-        
-        var payload: Json = [:]
-        
-        if let positionMs = positionMs {
-            payload["position_ms"] = positionMs as AnyObject
-        }
-        
-        return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload),
-                                         baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return Self.playContent(track.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
         

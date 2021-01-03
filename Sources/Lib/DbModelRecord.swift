@@ -2,17 +2,17 @@
 import Foundation
 
 public typealias AuthTokenRecord = Builder<AuthToken>
+public typealias UserRecord = Builder<User>
 public typealias MusicroomRecord = Builder<Musicroom>
+public typealias ArtistRecord = Builder<Artist>
 public typealias RoomTrackRecord = Builder<RoomTrack>
+public typealias TrackRecord = Builder<Track>
+public typealias SessionRecord = Builder<Session>
 public typealias QueuedTrackRecord = Builder<QueuedTrack>
 public typealias QueuedTrackVoteRecord = Builder<QueuedTrackVote>
-public typealias SessionRecord = Builder<Session>
-public typealias UserRecord = Builder<User>
-public typealias TrackRecord = Builder<Track>
 public typealias RoomMembershipRecord = Builder<RoomMembership>
 public typealias DeviceRecord = Builder<Device>
 public typealias PlayStateRecord = Builder<PlayState>
-public typealias ArtistRecord = Builder<Artist>
 public typealias LogEntryRecord = Builder<LogEntry>
 
 
@@ -89,6 +89,86 @@ extension AuthTokenRecord {
     public var parentId: Int? {
         get { properties[.parentId] as? Int}
         set { properties[.parentId] = newValue as AnyObject }
+    }
+    
+}
+extension UserRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var name: String? {
+        get { properties[.name] as? String}
+        set { properties[.name] = newValue as AnyObject }
+    }
+    public var passwordHash: String? {
+        get { properties[.passwordHash] as? String}
+        set { properties[.passwordHash] = newValue as AnyObject }
+    }
+    public var email: String? {
+        get { properties[.email] as? String}
+        set { properties[.email] = newValue as AnyObject }
+    }
+    public var refreshTokenSpotify: String? {
+        get { properties[.refreshTokenSpotify] as? String}
+        set { properties[.refreshTokenSpotify] = newValue as AnyObject }
+    }
+    public var djRanking: Int? {
+        get { properties[.djRanking] as? Int}
+        set { properties[.djRanking] = newValue as AnyObject }
+    }
+    public var activeRoomId: Int? {
+        get { properties[.activeRoomId] as? Int}
+        set { properties[.activeRoomId] = newValue as AnyObject }
+    }
+    public var heartPoints: Int? {
+        get { properties[.heartPoints] as? Int}
+        set { properties[.heartPoints] = newValue as AnyObject }
+    }
+    public var isServiceAccount: Bool? {
+        get { properties[.isServiceAccount] as? Bool}
+        set { properties[.isServiceAccount] = newValue as AnyObject }
+    }
+    public var activeDeviceUuid: String? {
+        get { properties[.activeDeviceUuid] as? String}
+        set { properties[.activeDeviceUuid] = newValue as AnyObject }
+    }
+    public var activatedAt: Date? {
+        get { properties[.activatedAt] as? Date}
+        set { properties[.activatedAt] = newValue as AnyObject }
+    }
+    public var imageSmall: String? {
+        get { properties[.imageSmall] as? String}
+        set { properties[.imageSmall] = newValue as AnyObject }
+    }
+    public var imageMedium: String? {
+        get { properties[.imageMedium] as? String}
+        set { properties[.imageMedium] = newValue as AnyObject }
+    }
+    public var imageLarge: String? {
+        get { properties[.imageLarge] as? String}
+        set { properties[.imageLarge] = newValue as AnyObject }
     }
     
 }
@@ -176,6 +256,70 @@ extension MusicroomRecord {
     }
     
 }
+extension ArtistRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var artistId: String? {
+        get { properties[.artistId] as? String}
+        set { properties[.artistId] = newValue as AnyObject }
+    }
+    public var href: String? {
+        get { properties[.href] as? String}
+        set { properties[.href] = newValue as AnyObject }
+    }
+    public var name: String? {
+        get { properties[.name] as? String}
+        set { properties[.name] = newValue as AnyObject }
+    }
+    public var uri: String? {
+        get { properties[.uri] as? String}
+        set { properties[.uri] = newValue as AnyObject }
+    }
+    public var popularity: Int? {
+        get { properties[.popularity] as? Int}
+        set { properties[.popularity] = newValue as AnyObject }
+    }
+    public var followersTotal: Int? {
+        get { properties[.followersTotal] as? Int}
+        set { properties[.followersTotal] = newValue as AnyObject }
+    }
+    public var imageSmall: String? {
+        get { properties[.imageSmall] as? String}
+        set { properties[.imageSmall] = newValue as AnyObject }
+    }
+    public var imageMedium: String? {
+        get { properties[.imageMedium] as? String}
+        set { properties[.imageMedium] = newValue as AnyObject }
+    }
+    public var imageLarge: String? {
+        get { properties[.imageLarge] as? String}
+        set { properties[.imageLarge] = newValue as AnyObject }
+    }
+    
+}
 extension RoomTrackRecord {
     
     public var createdById: Int? {
@@ -221,222 +365,6 @@ extension RoomTrackRecord {
     public var musicroom: Musicroom? {
         get { properties[.musicroom] as? Musicroom}
         set { properties[.musicroom] = newValue as AnyObject }
-    }
-    
-}
-extension QueuedTrackRecord {
-    
-    public var createdById: Int? {
-        get { properties[.createdById] as? Int}
-        set { properties[.createdById] = newValue as AnyObject }
-    }
-    public var deletedById: Int? {
-        get { properties[.deletedById] as? Int}
-        set { properties[.deletedById] = newValue as AnyObject }
-    }
-    public var updatedById: Int? {
-        get { properties[.updatedById] as? Int}
-        set { properties[.updatedById] = newValue as AnyObject }
-    }
-    public var createdAt: Date? {
-        get { properties[.createdAt] as? Date}
-        set { properties[.createdAt] = newValue as AnyObject }
-    }
-    public var deletedAt: Date? {
-        get { properties[.deletedAt] as? Date}
-        set { properties[.deletedAt] = newValue as AnyObject }
-    }
-    public var updatedAt: Date? {
-        get { properties[.updatedAt] as? Date}
-        set { properties[.updatedAt] = newValue as AnyObject }
-    }
-    public var roomtrackId: Int? {
-        get { properties[.roomtrackId] as? Int}
-        set { properties[.roomtrackId] = newValue as AnyObject }
-    }
-    public var trackId: Int? {
-        get { properties[.trackId] as? Int}
-        set { properties[.trackId] = newValue as AnyObject }
-    }
-    public var roomId: Int? {
-        get { properties[.roomId] as? Int}
-        set { properties[.roomId] = newValue as AnyObject }
-    }
-    public var progressMsStored: Int? {
-        get { properties[.progressMsStored] as? Int}
-        set { properties[.progressMsStored] = newValue as AnyObject }
-    }
-    public var playStartedAt: Date? {
-        get { properties[.playStartedAt] as? Date}
-        set { properties[.playStartedAt] = newValue as AnyObject }
-    }
-    public var playEndedAt: Date? {
-        get { properties[.playEndedAt] as? Date}
-        set { properties[.playEndedAt] = newValue as AnyObject }
-    }
-    public var track: Track? {
-        get { properties[.track] as? Track}
-        set { properties[.track] = newValue as AnyObject }
-    }
-    public var musicroom: Musicroom? {
-        get { properties[.musicroom] as? Musicroom}
-        set { properties[.musicroom] = newValue as AnyObject }
-    }
-    public var votes: [QueuedTrackVote]? {
-        get { properties[.votes] as? [QueuedTrackVote]}
-        set { properties[.votes] = newValue as AnyObject }
-    }
-    
-}
-extension QueuedTrackVoteRecord {
-    
-    public var createdById: Int? {
-        get { properties[.createdById] as? Int}
-        set { properties[.createdById] = newValue as AnyObject }
-    }
-    public var deletedById: Int? {
-        get { properties[.deletedById] as? Int}
-        set { properties[.deletedById] = newValue as AnyObject }
-    }
-    public var updatedById: Int? {
-        get { properties[.updatedById] as? Int}
-        set { properties[.updatedById] = newValue as AnyObject }
-    }
-    public var createdAt: Date? {
-        get { properties[.createdAt] as? Date}
-        set { properties[.createdAt] = newValue as AnyObject }
-    }
-    public var deletedAt: Date? {
-        get { properties[.deletedAt] as? Date}
-        set { properties[.deletedAt] = newValue as AnyObject }
-    }
-    public var updatedAt: Date? {
-        get { properties[.updatedAt] as? Date}
-        set { properties[.updatedAt] = newValue as AnyObject }
-    }
-    public var queuedTrackId: Int? {
-        get { properties[.queuedTrackId] as? Int}
-        set { properties[.queuedTrackId] = newValue as AnyObject }
-    }
-    
-}
-extension SessionRecord {
-    
-    public var createdById: Int? {
-        get { properties[.createdById] as? Int}
-        set { properties[.createdById] = newValue as AnyObject }
-    }
-    public var deletedById: Int? {
-        get { properties[.deletedById] as? Int}
-        set { properties[.deletedById] = newValue as AnyObject }
-    }
-    public var updatedById: Int? {
-        get { properties[.updatedById] as? Int}
-        set { properties[.updatedById] = newValue as AnyObject }
-    }
-    public var createdAt: Date? {
-        get { properties[.createdAt] as? Date}
-        set { properties[.createdAt] = newValue as AnyObject }
-    }
-    public var deletedAt: Date? {
-        get { properties[.deletedAt] as? Date}
-        set { properties[.deletedAt] = newValue as AnyObject }
-    }
-    public var updatedAt: Date? {
-        get { properties[.updatedAt] as? Date}
-        set { properties[.updatedAt] = newValue as AnyObject }
-    }
-    public var token: String? {
-        get { properties[.token] as? String}
-        set { properties[.token] = newValue as AnyObject }
-    }
-    public var userId: Int? {
-        get { properties[.userId] as? Int}
-        set { properties[.userId] = newValue as AnyObject }
-    }
-    public var deviceUuid: String? {
-        get { properties[.deviceUuid] as? String}
-        set { properties[.deviceUuid] = newValue as AnyObject }
-    }
-    
-}
-extension UserRecord {
-    
-    public var createdById: Int? {
-        get { properties[.createdById] as? Int}
-        set { properties[.createdById] = newValue as AnyObject }
-    }
-    public var deletedById: Int? {
-        get { properties[.deletedById] as? Int}
-        set { properties[.deletedById] = newValue as AnyObject }
-    }
-    public var updatedById: Int? {
-        get { properties[.updatedById] as? Int}
-        set { properties[.updatedById] = newValue as AnyObject }
-    }
-    public var createdAt: Date? {
-        get { properties[.createdAt] as? Date}
-        set { properties[.createdAt] = newValue as AnyObject }
-    }
-    public var deletedAt: Date? {
-        get { properties[.deletedAt] as? Date}
-        set { properties[.deletedAt] = newValue as AnyObject }
-    }
-    public var updatedAt: Date? {
-        get { properties[.updatedAt] as? Date}
-        set { properties[.updatedAt] = newValue as AnyObject }
-    }
-    public var name: String? {
-        get { properties[.name] as? String}
-        set { properties[.name] = newValue as AnyObject }
-    }
-    public var passwordHash: String? {
-        get { properties[.passwordHash] as? String}
-        set { properties[.passwordHash] = newValue as AnyObject }
-    }
-    public var email: String? {
-        get { properties[.email] as? String}
-        set { properties[.email] = newValue as AnyObject }
-    }
-    public var refreshTokenSpotify: String? {
-        get { properties[.refreshTokenSpotify] as? String}
-        set { properties[.refreshTokenSpotify] = newValue as AnyObject }
-    }
-    public var djRanking: Int? {
-        get { properties[.djRanking] as? Int}
-        set { properties[.djRanking] = newValue as AnyObject }
-    }
-    public var activeRoomId: Int? {
-        get { properties[.activeRoomId] as? Int}
-        set { properties[.activeRoomId] = newValue as AnyObject }
-    }
-    public var heartPoints: Int? {
-        get { properties[.heartPoints] as? Int}
-        set { properties[.heartPoints] = newValue as AnyObject }
-    }
-    public var isServiceAccount: Bool? {
-        get { properties[.isServiceAccount] as? Bool}
-        set { properties[.isServiceAccount] = newValue as AnyObject }
-    }
-    public var activeDeviceUuid: String? {
-        get { properties[.activeDeviceUuid] as? String}
-        set { properties[.activeDeviceUuid] = newValue as AnyObject }
-    }
-    public var activatedAt: Date? {
-        get { properties[.activatedAt] as? Date}
-        set { properties[.activatedAt] = newValue as AnyObject }
-    }
-    public var imageSmall: String? {
-        get { properties[.imageSmall] as? String}
-        set { properties[.imageSmall] = newValue as AnyObject }
-    }
-    public var imageMedium: String? {
-        get { properties[.imageMedium] as? String}
-        set { properties[.imageMedium] = newValue as AnyObject }
-    }
-    public var imageLarge: String? {
-        get { properties[.imageLarge] as? String}
-        set { properties[.imageLarge] = newValue as AnyObject }
     }
     
 }
@@ -565,6 +493,142 @@ extension TrackRecord {
     public var colorDetail: String? {
         get { properties[.colorDetail] as? String}
         set { properties[.colorDetail] = newValue as AnyObject }
+    }
+    
+}
+extension SessionRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var token: String? {
+        get { properties[.token] as? String}
+        set { properties[.token] = newValue as AnyObject }
+    }
+    public var userId: Int? {
+        get { properties[.userId] as? Int}
+        set { properties[.userId] = newValue as AnyObject }
+    }
+    public var deviceUuid: String? {
+        get { properties[.deviceUuid] as? String}
+        set { properties[.deviceUuid] = newValue as AnyObject }
+    }
+    
+}
+extension QueuedTrackRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var roomtrackId: Int? {
+        get { properties[.roomtrackId] as? Int}
+        set { properties[.roomtrackId] = newValue as AnyObject }
+    }
+    public var trackId: Int? {
+        get { properties[.trackId] as? Int}
+        set { properties[.trackId] = newValue as AnyObject }
+    }
+    public var roomId: Int? {
+        get { properties[.roomId] as? Int}
+        set { properties[.roomId] = newValue as AnyObject }
+    }
+    public var progressMsStored: Int? {
+        get { properties[.progressMsStored] as? Int}
+        set { properties[.progressMsStored] = newValue as AnyObject }
+    }
+    public var playStartedAt: Date? {
+        get { properties[.playStartedAt] as? Date}
+        set { properties[.playStartedAt] = newValue as AnyObject }
+    }
+    public var playEndedAt: Date? {
+        get { properties[.playEndedAt] as? Date}
+        set { properties[.playEndedAt] = newValue as AnyObject }
+    }
+    public var track: Track? {
+        get { properties[.track] as? Track}
+        set { properties[.track] = newValue as AnyObject }
+    }
+    public var musicroom: Musicroom? {
+        get { properties[.musicroom] as? Musicroom}
+        set { properties[.musicroom] = newValue as AnyObject }
+    }
+    public var votes: [QueuedTrackVote]? {
+        get { properties[.votes] as? [QueuedTrackVote]}
+        set { properties[.votes] = newValue as AnyObject }
+    }
+    
+}
+extension QueuedTrackVoteRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var queuedTrackId: Int? {
+        get { properties[.queuedTrackId] as? Int}
+        set { properties[.queuedTrackId] = newValue as AnyObject }
     }
     
 }
@@ -742,6 +806,14 @@ extension PlayStateRecord {
         get { properties[.trackUri] as? String}
         set { properties[.trackUri] = newValue as AnyObject }
     }
+    public var prevTrackUri: String? {
+        get { properties[.prevTrackUri] as? String}
+        set { properties[.prevTrackUri] = newValue as AnyObject }
+    }
+    public var prevPlaylistUri: String? {
+        get { properties[.prevPlaylistUri] as? String}
+        set { properties[.prevPlaylistUri] = newValue as AnyObject }
+    }
     public var playlistUri: String? {
         get { properties[.playlistUri] as? String}
         set { properties[.playlistUri] = newValue as AnyObject }
@@ -766,69 +838,13 @@ extension PlayStateRecord {
         get { properties[.playingStateChangedAt] as? Date}
         set { properties[.playingStateChangedAt] = newValue as AnyObject }
     }
-    
-}
-extension ArtistRecord {
-    
-    public var createdById: Int? {
-        get { properties[.createdById] as? Int}
-        set { properties[.createdById] = newValue as AnyObject }
+    public var status: String? {
+        get { properties[.status] as? String}
+        set { properties[.status] = newValue as AnyObject }
     }
-    public var deletedById: Int? {
-        get { properties[.deletedById] as? Int}
-        set { properties[.deletedById] = newValue as AnyObject }
-    }
-    public var updatedById: Int? {
-        get { properties[.updatedById] as? Int}
-        set { properties[.updatedById] = newValue as AnyObject }
-    }
-    public var createdAt: Date? {
-        get { properties[.createdAt] as? Date}
-        set { properties[.createdAt] = newValue as AnyObject }
-    }
-    public var deletedAt: Date? {
-        get { properties[.deletedAt] as? Date}
-        set { properties[.deletedAt] = newValue as AnyObject }
-    }
-    public var updatedAt: Date? {
-        get { properties[.updatedAt] as? Date}
-        set { properties[.updatedAt] = newValue as AnyObject }
-    }
-    public var artistId: String? {
-        get { properties[.artistId] as? String}
-        set { properties[.artistId] = newValue as AnyObject }
-    }
-    public var href: String? {
-        get { properties[.href] as? String}
-        set { properties[.href] = newValue as AnyObject }
-    }
-    public var name: String? {
-        get { properties[.name] as? String}
-        set { properties[.name] = newValue as AnyObject }
-    }
-    public var uri: String? {
-        get { properties[.uri] as? String}
-        set { properties[.uri] = newValue as AnyObject }
-    }
-    public var popularity: Int? {
-        get { properties[.popularity] as? Int}
-        set { properties[.popularity] = newValue as AnyObject }
-    }
-    public var followersTotal: Int? {
-        get { properties[.followersTotal] as? Int}
-        set { properties[.followersTotal] = newValue as AnyObject }
-    }
-    public var imageSmall: String? {
-        get { properties[.imageSmall] as? String}
-        set { properties[.imageSmall] = newValue as AnyObject }
-    }
-    public var imageMedium: String? {
-        get { properties[.imageMedium] as? String}
-        set { properties[.imageMedium] = newValue as AnyObject }
-    }
-    public var imageLarge: String? {
-        get { properties[.imageLarge] as? String}
-        set { properties[.imageLarge] = newValue as AnyObject }
+    public var statusChangedAt: Date? {
+        get { properties[.statusChangedAt] as? Date}
+        set { properties[.statusChangedAt] = newValue as AnyObject }
     }
     
 }
