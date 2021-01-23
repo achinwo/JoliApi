@@ -14,6 +14,7 @@
 //   let device = try? newJSONDecoder().decode(Device.self, from: jsonData)
 //   let playState = try? newJSONDecoder().decode(PlayState.self, from: jsonData)
 //   let logEntry = try? newJSONDecoder().decode(LogEntry.self, from: jsonData)
+//   let entitlement = try? newJSONDecoder().decode(Entitlement.self, from: jsonData)
 
 import Foundation
 
@@ -82,77 +83,6 @@ public struct AuthToken: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.userName = userName
-    }
-}
-
-/// User
-// MARK: - User
-public struct User: Persisted, DataConvertible {
-    public var activatedAt: Date?
-    public var activeDeviceUuid: String?
-    public var activeRoomId: Int?
-    public var createdAt: Date
-    public var createdById: Int?
-    public var deletedAt: Date?
-    public var deletedById: Int?
-    public var djRanking: Int?
-    public var email: String
-    public var heartPoints: Int?
-    public var id: Int
-    public var imageLarge: String?
-    public var imageMedium: String?
-    public var imageSmall: String?
-    public var isServiceAccount: Bool?
-    public var name: String
-    public var passwordHash: String?
-    public var refreshTokenSpotify: String?
-    public var updatedAt: Date
-    public var updatedById: Int?
-
-    public enum CodingKeys: String, CodingKey {
-        case activatedAt = "activatedAt"
-        case activeDeviceUuid = "activeDeviceUuid"
-        case activeRoomId = "activeRoomId"
-        case createdAt = "createdAt"
-        case createdById = "createdById"
-        case deletedAt = "deletedAt"
-        case deletedById = "deletedById"
-        case djRanking = "djRanking"
-        case email = "email"
-        case heartPoints = "heartPoints"
-        case id = "id"
-        case imageLarge = "imageLarge"
-        case imageMedium = "imageMedium"
-        case imageSmall = "imageSmall"
-        case isServiceAccount = "isServiceAccount"
-        case name = "name"
-        case passwordHash = "passwordHash"
-        case refreshTokenSpotify = "refreshTokenSpotify"
-        case updatedAt = "updatedAt"
-        case updatedById = "updatedById"
-    }
-
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int?) {
-        self.activatedAt = activatedAt
-        self.activeDeviceUuid = activeDeviceUuid
-        self.activeRoomId = activeRoomId
-        self.createdAt = createdAt
-        self.createdById = createdById
-        self.deletedAt = deletedAt
-        self.deletedById = deletedById
-        self.djRanking = djRanking
-        self.email = email
-        self.heartPoints = heartPoints
-        self.id = id
-        self.imageLarge = imageLarge
-        self.imageMedium = imageMedium
-        self.imageSmall = imageSmall
-        self.isServiceAccount = isServiceAccount
-        self.name = name
-        self.passwordHash = passwordHash
-        self.refreshTokenSpotify = refreshTokenSpotify
-        self.updatedAt = updatedAt
-        self.updatedById = updatedById
     }
 }
 
@@ -270,6 +200,7 @@ public struct Musicroom: Persisted, DataConvertible {
     public var deletedAt: Date?
     public var deletedById: Int?
     public var details: String
+    public var entitlements: [Entitlement]?
     public var id: Int
     public var imageLarge: String?
     public var imageMedium: String?
@@ -281,6 +212,7 @@ public struct Musicroom: Persisted, DataConvertible {
     public var playlistUri: String?
     public var progressMs: Int?
     public var refreshToken: String?
+    public var snapshotId: String?
     public var themeTrackUri: String
     public var themeTrackUri2: String?
     public var trackUri: String?
@@ -293,6 +225,7 @@ public struct Musicroom: Persisted, DataConvertible {
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
         case details = "details"
+        case entitlements = "entitlements"
         case id = "id"
         case imageLarge = "imageLarge"
         case imageMedium = "imageMedium"
@@ -304,6 +237,7 @@ public struct Musicroom: Persisted, DataConvertible {
         case playlistUri = "playlistUri"
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
+        case snapshotId = "snapshotId"
         case themeTrackUri = "themeTrackUri"
         case themeTrackUri2 = "themeTrackUri2"
         case trackUri = "trackUri"
@@ -311,12 +245,13 @@ public struct Musicroom: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, entitlements: [Entitlement]?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
         self.details = details
+        self.entitlements = entitlements
         self.id = id
         self.imageLarge = imageLarge
         self.imageMedium = imageMedium
@@ -328,9 +263,131 @@ public struct Musicroom: Persisted, DataConvertible {
         self.playlistUri = playlistUri
         self.progressMs = progressMs
         self.refreshToken = refreshToken
+        self.snapshotId = snapshotId
         self.themeTrackUri = themeTrackUri
         self.themeTrackUri2 = themeTrackUri2
         self.trackUri = trackUri
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+/// Entitlement
+// MARK: - Entitlement
+public struct Entitlement: Persisted, DataConvertible {
+    public var acceptedAt: Date?
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var expiresAt: Date?
+    public var id: Int
+    public var targetRecordId: Int
+    public var type: String
+    public var updatedAt: Date
+    public var updatedById: Int?
+    public var user: User?
+    public var userId: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case acceptedAt = "acceptedAt"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case expiresAt = "expiresAt"
+        case id = "id"
+        case targetRecordId = "targetRecordId"
+        case type = "type"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case user = "user"
+        case userId = "userId"
+    }
+
+    public init(acceptedAt: Date?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int?, user: User?, userId: Int) {
+        self.acceptedAt = acceptedAt
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.expiresAt = expiresAt
+        self.id = id
+        self.targetRecordId = targetRecordId
+        self.type = type
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.user = user
+        self.userId = userId
+    }
+}
+
+/// User
+// MARK: - User
+public struct User: Persisted, DataConvertible {
+    public var activatedAt: Date?
+    public var activeDeviceUuid: String?
+    public var activeRoomId: Int?
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var djRanking: Int?
+    public var email: String
+    public var heartPoints: Int?
+    public var id: Int
+    public var imageLarge: String?
+    public var imageMedium: String?
+    public var imageSmall: String?
+    public var isServiceAccount: Bool?
+    public var name: String
+    public var passwordHash: String?
+    public var refreshTokenSpotify: String?
+    public var updatedAt: Date
+    public var updatedById: Int?
+
+    public enum CodingKeys: String, CodingKey {
+        case activatedAt = "activatedAt"
+        case activeDeviceUuid = "activeDeviceUuid"
+        case activeRoomId = "activeRoomId"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case djRanking = "djRanking"
+        case email = "email"
+        case heartPoints = "heartPoints"
+        case id = "id"
+        case imageLarge = "imageLarge"
+        case imageMedium = "imageMedium"
+        case imageSmall = "imageSmall"
+        case isServiceAccount = "isServiceAccount"
+        case name = "name"
+        case passwordHash = "passwordHash"
+        case refreshTokenSpotify = "refreshTokenSpotify"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int?) {
+        self.activatedAt = activatedAt
+        self.activeDeviceUuid = activeDeviceUuid
+        self.activeRoomId = activeRoomId
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.djRanking = djRanking
+        self.email = email
+        self.heartPoints = heartPoints
+        self.id = id
+        self.imageLarge = imageLarge
+        self.imageMedium = imageMedium
+        self.imageSmall = imageSmall
+        self.isServiceAccount = isServiceAccount
+        self.name = name
+        self.passwordHash = passwordHash
+        self.refreshTokenSpotify = refreshTokenSpotify
         self.updatedAt = updatedAt
         self.updatedById = updatedById
     }
