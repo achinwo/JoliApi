@@ -28,7 +28,7 @@ extension WebSocketMessage {
     
 }
 
-public enum ConnectionState {
+public enum ConnectionState: Equatable {
     case connected
     case reconnecting(Int)
     case stopped
