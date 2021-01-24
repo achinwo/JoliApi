@@ -171,6 +171,10 @@ extension UserRecord {
         get { properties[.imageLarge] as? String}
         set { properties[.imageLarge] = newValue as AnyObject }
     }
+    public var playState: PlayState? {
+        get { properties[.playState] as? PlayState}
+        set { properties[.playState] = newValue as AnyObject }
+    }
     
 }
 extension MusicroomRecord {
@@ -262,6 +266,18 @@ extension MusicroomRecord {
     public var entitlements: [Entitlement]? {
         get { properties[.entitlements] as? [Entitlement]}
         set { properties[.entitlements] = newValue as AnyObject }
+    }
+    public var createdByUser: User? {
+        get { properties[.createdByUser] as? User}
+        set { properties[.createdByUser] = newValue as AnyObject }
+    }
+    public var updatedByUser: User? {
+        get { properties[.updatedByUser] as? User}
+        set { properties[.updatedByUser] = newValue as AnyObject }
+    }
+    public var deletedByUser: User? {
+        get { properties[.deletedByUser] as? User}
+        set { properties[.deletedByUser] = newValue as AnyObject }
     }
     
 }

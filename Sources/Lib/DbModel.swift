@@ -197,10 +197,12 @@ public struct RoomTrack: Persisted, DataConvertible {
 public struct Musicroom: Persisted, DataConvertible {
     public var createdAt: Date
     public var createdById: Int?
+    public var createdByUser: User
     public var deletedAt: Date?
     public var deletedById: Int?
+    public var deletedByUser: User?
     public var details: String
-    public var entitlements: [Entitlement]?
+    public var entitlements: [Entitlement]
     public var id: Int
     public var imageLarge: String?
     public var imageMedium: String?
@@ -218,12 +220,15 @@ public struct Musicroom: Persisted, DataConvertible {
     public var trackUri: String?
     public var updatedAt: Date
     public var updatedById: Int?
+    public var updatedByUser: User?
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
         case createdById = "createdById"
+        case createdByUser = "createdByUser"
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
+        case deletedByUser = "deletedByUser"
         case details = "details"
         case entitlements = "entitlements"
         case id = "id"
@@ -243,13 +248,16 @@ public struct Musicroom: Persisted, DataConvertible {
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
+        case updatedByUser = "updatedByUser"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, details: String, entitlements: [Entitlement]?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int?, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?, updatedByUser: User?) {
         self.createdAt = createdAt
         self.createdById = createdById
+        self.createdByUser = createdByUser
         self.deletedAt = deletedAt
         self.deletedById = deletedById
+        self.deletedByUser = deletedByUser
         self.details = details
         self.entitlements = entitlements
         self.id = id
@@ -269,7 +277,187 @@ public struct Musicroom: Persisted, DataConvertible {
         self.trackUri = trackUri
         self.updatedAt = updatedAt
         self.updatedById = updatedById
+        self.updatedByUser = updatedByUser
     }
+}
+
+/// User
+// MARK: - User
+public struct User: Persisted, DataConvertible {
+    public var activatedAt: Date?
+    public var activeDeviceUuid: String?
+    public var activeRoomId: Int?
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var djRanking: Int?
+    public var email: String
+    public var heartPoints: Int?
+    public var id: Int
+    public var imageLarge: String?
+    public var imageMedium: String?
+    public var imageSmall: String?
+    public var isServiceAccount: Bool?
+    public var name: String
+    public var passwordHash: String?
+    public var playState: PlayState?
+    public var refreshTokenSpotify: String?
+    public var updatedAt: Date
+    public var updatedById: Int?
+
+    public enum CodingKeys: String, CodingKey {
+        case activatedAt = "activatedAt"
+        case activeDeviceUuid = "activeDeviceUuid"
+        case activeRoomId = "activeRoomId"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case djRanking = "djRanking"
+        case email = "email"
+        case heartPoints = "heartPoints"
+        case id = "id"
+        case imageLarge = "imageLarge"
+        case imageMedium = "imageMedium"
+        case imageSmall = "imageSmall"
+        case isServiceAccount = "isServiceAccount"
+        case name = "name"
+        case passwordHash = "passwordHash"
+        case playState = "playState"
+        case refreshTokenSpotify = "refreshTokenSpotify"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int?) {
+        self.activatedAt = activatedAt
+        self.activeDeviceUuid = activeDeviceUuid
+        self.activeRoomId = activeRoomId
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.djRanking = djRanking
+        self.email = email
+        self.heartPoints = heartPoints
+        self.id = id
+        self.imageLarge = imageLarge
+        self.imageMedium = imageMedium
+        self.imageSmall = imageSmall
+        self.isServiceAccount = isServiceAccount
+        self.name = name
+        self.passwordHash = passwordHash
+        self.playState = playState
+        self.refreshTokenSpotify = refreshTokenSpotify
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+/// PlayState
+// MARK: - PlayState
+public struct PlayState: Persisted, DataConvertible {
+    public var accessToken: String
+    public var country: String
+    public var createdAt: Date
+    public var createdById: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var deviceUid: String?
+    public var displayName: String
+    public var durationMs: Int?
+    public var email: String
+    public var expiresIn: Int
+    public var id: Int
+    public var playingState: PlayingState?
+    public var playingStateChangedAt: Date?
+    public var playlistUri: String?
+    public var prevPlaylistUri: String?
+    public var prevTrackUri: String?
+    public var product: String
+    public var progressMs: Int?
+    public var refreshToken: String
+    public var roomId: Int?
+    public var scope: String
+    public var status: String?
+    public var statusChangedAt: Date?
+    public var tokenType: String
+    public var trackUri: String?
+    public var updatedAt: Date
+    public var updatedById: Int?
+    public var userName: String
+
+    public enum CodingKeys: String, CodingKey {
+        case accessToken = "accessToken"
+        case country = "country"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case deviceUid = "deviceUid"
+        case displayName = "displayName"
+        case durationMs = "durationMs"
+        case email = "email"
+        case expiresIn = "expiresIn"
+        case id = "id"
+        case playingState = "playingState"
+        case playingStateChangedAt = "playingStateChangedAt"
+        case playlistUri = "playlistUri"
+        case prevPlaylistUri = "prevPlaylistUri"
+        case prevTrackUri = "prevTrackUri"
+        case product = "product"
+        case progressMs = "progressMs"
+        case refreshToken = "refreshToken"
+        case roomId = "roomId"
+        case scope = "scope"
+        case status = "status"
+        case statusChangedAt = "statusChangedAt"
+        case tokenType = "tokenType"
+        case trackUri = "trackUri"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case userName = "userName"
+    }
+
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, prevPlaylistUri: String?, prevTrackUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, status: String?, statusChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
+        self.accessToken = accessToken
+        self.country = country
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.deviceUid = deviceUid
+        self.displayName = displayName
+        self.durationMs = durationMs
+        self.email = email
+        self.expiresIn = expiresIn
+        self.id = id
+        self.playingState = playingState
+        self.playingStateChangedAt = playingStateChangedAt
+        self.playlistUri = playlistUri
+        self.prevPlaylistUri = prevPlaylistUri
+        self.prevTrackUri = prevTrackUri
+        self.product = product
+        self.progressMs = progressMs
+        self.refreshToken = refreshToken
+        self.roomId = roomId
+        self.scope = scope
+        self.status = status
+        self.statusChangedAt = statusChangedAt
+        self.tokenType = tokenType
+        self.trackUri = trackUri
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.userName = userName
+    }
+}
+
+public enum PlayingState: String, Codable {
+    case paused = "PAUSED"
+    case playRequested = "PLAY_REQUESTED"
+    case playing = "PLAYING"
+    case stopped = "STOPPED"
 }
 
 /// Entitlement
@@ -322,88 +510,10 @@ public struct Entitlement: Persisted, DataConvertible {
     }
 }
 
-/// User
-// MARK: - User
-public struct User: Persisted, DataConvertible {
-    public var activatedAt: Date?
-    public var activeDeviceUuid: String?
-    public var activeRoomId: Int?
-    public var createdAt: Date
-    public var createdById: Int?
-    public var deletedAt: Date?
-    public var deletedById: Int?
-    public var djRanking: Int?
-    public var email: String
-    public var heartPoints: Int?
-    public var id: Int
-    public var imageLarge: String?
-    public var imageMedium: String?
-    public var imageSmall: String?
-    public var isServiceAccount: Bool?
-    public var name: String
-    public var passwordHash: String?
-    public var refreshTokenSpotify: String?
-    public var updatedAt: Date
-    public var updatedById: Int?
-
-    public enum CodingKeys: String, CodingKey {
-        case activatedAt = "activatedAt"
-        case activeDeviceUuid = "activeDeviceUuid"
-        case activeRoomId = "activeRoomId"
-        case createdAt = "createdAt"
-        case createdById = "createdById"
-        case deletedAt = "deletedAt"
-        case deletedById = "deletedById"
-        case djRanking = "djRanking"
-        case email = "email"
-        case heartPoints = "heartPoints"
-        case id = "id"
-        case imageLarge = "imageLarge"
-        case imageMedium = "imageMedium"
-        case imageSmall = "imageSmall"
-        case isServiceAccount = "isServiceAccount"
-        case name = "name"
-        case passwordHash = "passwordHash"
-        case refreshTokenSpotify = "refreshTokenSpotify"
-        case updatedAt = "updatedAt"
-        case updatedById = "updatedById"
-    }
-
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int?) {
-        self.activatedAt = activatedAt
-        self.activeDeviceUuid = activeDeviceUuid
-        self.activeRoomId = activeRoomId
-        self.createdAt = createdAt
-        self.createdById = createdById
-        self.deletedAt = deletedAt
-        self.deletedById = deletedById
-        self.djRanking = djRanking
-        self.email = email
-        self.heartPoints = heartPoints
-        self.id = id
-        self.imageLarge = imageLarge
-        self.imageMedium = imageMedium
-        self.imageSmall = imageSmall
-        self.isServiceAccount = isServiceAccount
-        self.name = name
-        self.passwordHash = passwordHash
-        self.refreshTokenSpotify = refreshTokenSpotify
-        self.updatedAt = updatedAt
-        self.updatedById = updatedById
-    }
-}
-
 public enum Membership: String, Codable {
     case inviteOnly = "inviteOnly"
     case membershipOpen = "open"
     case membershipPrivate = "private"
-}
-
-public enum PlayingState: String, Codable {
-    case paused = "PAUSED"
-    case playRequested = "PLAY_REQUESTED"
-    case playing = "PLAYING"
-    case stopped = "STOPPED"
 }
 
 /// Track
@@ -742,104 +852,6 @@ public struct Device: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uuid = uuid
-    }
-}
-
-/// PlayState
-// MARK: - PlayState
-public struct PlayState: Persisted, DataConvertible {
-    public var accessToken: String
-    public var country: String
-    public var createdAt: Date
-    public var createdById: Int?
-    public var deletedAt: Date?
-    public var deletedById: Int?
-    public var deviceUid: String?
-    public var displayName: String
-    public var durationMs: Int?
-    public var email: String
-    public var expiresIn: Int
-    public var id: Int
-    public var playingState: PlayingState?
-    public var playingStateChangedAt: Date?
-    public var playlistUri: String?
-    public var prevPlaylistUri: String?
-    public var prevTrackUri: String?
-    public var product: String
-    public var progressMs: Int?
-    public var refreshToken: String
-    public var roomId: Int?
-    public var scope: String
-    public var status: String?
-    public var statusChangedAt: Date?
-    public var tokenType: String
-    public var trackUri: String?
-    public var updatedAt: Date
-    public var updatedById: Int?
-    public var userName: String
-
-    public enum CodingKeys: String, CodingKey {
-        case accessToken = "accessToken"
-        case country = "country"
-        case createdAt = "createdAt"
-        case createdById = "createdById"
-        case deletedAt = "deletedAt"
-        case deletedById = "deletedById"
-        case deviceUid = "deviceUid"
-        case displayName = "displayName"
-        case durationMs = "durationMs"
-        case email = "email"
-        case expiresIn = "expiresIn"
-        case id = "id"
-        case playingState = "playingState"
-        case playingStateChangedAt = "playingStateChangedAt"
-        case playlistUri = "playlistUri"
-        case prevPlaylistUri = "prevPlaylistUri"
-        case prevTrackUri = "prevTrackUri"
-        case product = "product"
-        case progressMs = "progressMs"
-        case refreshToken = "refreshToken"
-        case roomId = "roomId"
-        case scope = "scope"
-        case status = "status"
-        case statusChangedAt = "statusChangedAt"
-        case tokenType = "tokenType"
-        case trackUri = "trackUri"
-        case updatedAt = "updatedAt"
-        case updatedById = "updatedById"
-        case userName = "userName"
-    }
-
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, prevPlaylistUri: String?, prevTrackUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, status: String?, statusChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
-        self.accessToken = accessToken
-        self.country = country
-        self.createdAt = createdAt
-        self.createdById = createdById
-        self.deletedAt = deletedAt
-        self.deletedById = deletedById
-        self.deviceUid = deviceUid
-        self.displayName = displayName
-        self.durationMs = durationMs
-        self.email = email
-        self.expiresIn = expiresIn
-        self.id = id
-        self.playingState = playingState
-        self.playingStateChangedAt = playingStateChangedAt
-        self.playlistUri = playlistUri
-        self.prevPlaylistUri = prevPlaylistUri
-        self.prevTrackUri = prevTrackUri
-        self.product = product
-        self.progressMs = progressMs
-        self.refreshToken = refreshToken
-        self.roomId = roomId
-        self.scope = scope
-        self.status = status
-        self.statusChangedAt = statusChangedAt
-        self.tokenType = tokenType
-        self.trackUri = trackUri
-        self.updatedAt = updatedAt
-        self.updatedById = updatedById
-        self.userName = userName
     }
 }
 
