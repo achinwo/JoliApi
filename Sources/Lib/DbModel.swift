@@ -221,6 +221,7 @@ public struct Musicroom: Persisted, DataConvertible {
     public var updatedAt: Date
     public var updatedById: Int?
     public var updatedByUser: User?
+    public var voteCount: Int?
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
@@ -249,9 +250,10 @@ public struct Musicroom: Persisted, DataConvertible {
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case updatedByUser = "updatedByUser"
+        case voteCount = "voteCount"
     }
 
-    public init(createdAt: Date, createdById: Int?, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?, updatedByUser: User?) {
+    public init(createdAt: Date, createdById: Int?, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?, updatedByUser: User?, voteCount: Int?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.createdByUser = createdByUser
@@ -278,6 +280,7 @@ public struct Musicroom: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.updatedByUser = updatedByUser
+        self.voteCount = voteCount
     }
 }
 
