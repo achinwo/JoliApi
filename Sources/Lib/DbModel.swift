@@ -24,7 +24,7 @@ public struct AuthToken: Persisted, DataConvertible {
     public var accessToken: String
     public var country: String
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var displayName: String
@@ -38,7 +38,7 @@ public struct AuthToken: Persisted, DataConvertible {
     public var scope: String
     public var tokenType: String
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var userName: String
 
     public enum CodingKeys: String, CodingKey {
@@ -63,7 +63,7 @@ public struct AuthToken: Persisted, DataConvertible {
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, displayName: String, email: String, expiresIn: Int, id: Int, parentId: Int?, product: String, refreshToken: String, roomId: Int?, scope: String, tokenType: String, updatedAt: Date, updatedById: Int?, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, displayName: String, email: String, expiresIn: Int, id: Int, parentId: Int?, product: String, refreshToken: String, roomId: Int?, scope: String, tokenType: String, updatedAt: Date, updatedById: Int, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -91,7 +91,7 @@ public struct AuthToken: Persisted, DataConvertible {
 public struct Artist: Persisted, DataConvertible {
     public var artistId: String
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var followersTotal: Int
@@ -103,7 +103,7 @@ public struct Artist: Persisted, DataConvertible {
     public var name: String
     public var popularity: Int
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var uri: String
 
     public enum CodingKeys: String, CodingKey {
@@ -125,7 +125,7 @@ public struct Artist: Persisted, DataConvertible {
         case uri = "uri"
     }
 
-    public init(artistId: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, followersTotal: Int, href: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, name: String, popularity: Int, updatedAt: Date, updatedById: Int?, uri: String) {
+    public init(artistId: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, followersTotal: Int, href: String, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, name: String, popularity: Int, updatedAt: Date, updatedById: Int, uri: String) {
         self.artistId = artistId
         self.createdAt = createdAt
         self.createdById = createdById
@@ -150,7 +150,7 @@ public struct Artist: Persisted, DataConvertible {
 public struct RoomTrack: Persisted, DataConvertible {
     public var addedBy: Int?
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var id: Int
@@ -159,7 +159,7 @@ public struct RoomTrack: Persisted, DataConvertible {
     public var track: Track?
     public var trackId: Int
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
 
     public enum CodingKeys: String, CodingKey {
         case addedBy = "addedBy"
@@ -176,7 +176,7 @@ public struct RoomTrack: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(addedBy: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, roomId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int?) {
+    public init(addedBy: Int?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, roomId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int) {
         self.addedBy = addedBy
         self.createdAt = createdAt
         self.createdById = createdById
@@ -196,7 +196,7 @@ public struct RoomTrack: Persisted, DataConvertible {
 // MARK: - Musicroom
 public struct Musicroom: Persisted, DataConvertible {
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var createdByUser: User
     public var deletedAt: Date?
     public var deletedById: Int?
@@ -219,9 +219,8 @@ public struct Musicroom: Persisted, DataConvertible {
     public var themeTrackUri2: String?
     public var trackUri: String?
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var updatedByUser: User?
-    public var voteCount: Int?
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
@@ -250,10 +249,9 @@ public struct Musicroom: Persisted, DataConvertible {
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case updatedByUser = "updatedByUser"
-        case voteCount = "voteCount"
     }
 
-    public init(createdAt: Date, createdById: Int?, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int?, updatedByUser: User?, voteCount: Int?) {
+    public init(createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.createdByUser = createdByUser
@@ -280,7 +278,6 @@ public struct Musicroom: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.updatedByUser = updatedByUser
-        self.voteCount = voteCount
     }
 }
 
@@ -291,7 +288,7 @@ public struct User: Persisted, DataConvertible {
     public var activeDeviceUuid: String?
     public var activeRoomId: Int?
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var djRanking: Int?
@@ -307,7 +304,7 @@ public struct User: Persisted, DataConvertible {
     public var playState: PlayState?
     public var refreshTokenSpotify: String?
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
 
     public enum CodingKeys: String, CodingKey {
         case activatedAt = "activatedAt"
@@ -333,7 +330,7 @@ public struct User: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int?) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int) {
         self.activatedAt = activatedAt
         self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
@@ -364,7 +361,7 @@ public struct PlayState: Persisted, DataConvertible {
     public var accessToken: String
     public var country: String
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var deviceUid: String?
@@ -388,7 +385,7 @@ public struct PlayState: Persisted, DataConvertible {
     public var tokenType: String
     public var trackUri: String?
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var userName: String
 
     public enum CodingKeys: String, CodingKey {
@@ -423,7 +420,7 @@ public struct PlayState: Persisted, DataConvertible {
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, prevPlaylistUri: String?, prevTrackUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, status: String?, statusChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int?, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, prevPlaylistUri: String?, prevTrackUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, status: String?, statusChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -468,7 +465,7 @@ public enum PlayingState: String, Codable {
 public struct Entitlement: Persisted, DataConvertible {
     public var acceptedAt: Date?
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var expiresAt: Date?
@@ -476,7 +473,7 @@ public struct Entitlement: Persisted, DataConvertible {
     public var targetRecordId: Int
     public var type: String
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var user: User?
     public var userId: Int
 
@@ -496,7 +493,7 @@ public struct Entitlement: Persisted, DataConvertible {
         case userId = "userId"
     }
 
-    public init(acceptedAt: Date?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int?, user: User?, userId: Int) {
+    public init(acceptedAt: Date?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int, user: User?, userId: Int) {
         self.acceptedAt = acceptedAt
         self.createdAt = createdAt
         self.createdById = createdById
@@ -529,7 +526,7 @@ public struct Track: Persisted, DataConvertible {
     public var colorPrimary: String?
     public var colorSecondary: String?
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var durationMs: Int
@@ -552,7 +549,7 @@ public struct Track: Persisted, DataConvertible {
     public var trackNumber: Int
     public var type: String
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var uri: String
 
     public enum CodingKeys: String, CodingKey {
@@ -590,7 +587,7 @@ public struct Track: Persisted, DataConvertible {
         case uri = "uri"
     }
 
-    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: Date, releaseDatePrecision: String?, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int?, uri: String) {
+    public init(albumId: String, artistName: String, colorBackground: String?, colorDetail: String?, colorPrimary: String?, colorSecondary: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, durationMs: Int, explicit: Bool, href: String, id: Int, imageLarge: String, imageMedium: String, imageSmall: String, isLocal: Bool, isrc: String, name: String, popularity: Int, previewUrl: String?, releaseDate: Date, releaseDatePrecision: String?, thumbnailUrl: String, title: String, trackId: String, trackNumber: Int, type: String, updatedAt: Date, updatedById: Int, uri: String) {
         self.albumId = albumId
         self.artistName = artistName
         self.colorBackground = colorBackground
@@ -630,14 +627,14 @@ public struct Track: Persisted, DataConvertible {
 // MARK: - Session
 public struct Session: Persisted, DataConvertible {
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var deviceUuid: String?
     public var id: Int
     public var token: String
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var userId: Int
 
     public enum CodingKeys: String, CodingKey {
@@ -653,7 +650,7 @@ public struct Session: Persisted, DataConvertible {
         case userId = "userId"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int?, userId: Int) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String?, id: Int, token: String, updatedAt: Date, updatedById: Int, userId: Int) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -671,7 +668,7 @@ public struct Session: Persisted, DataConvertible {
 // MARK: - QueuedTrack
 public struct QueuedTrack: Persisted, DataConvertible {
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var id: Int
@@ -684,7 +681,8 @@ public struct QueuedTrack: Persisted, DataConvertible {
     public var track: Track?
     public var trackId: Int
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
+    public var voteCount: Int?
     public var votes: [QueuedTrackVote]?
 
     public enum CodingKeys: String, CodingKey {
@@ -703,10 +701,11 @@ public struct QueuedTrack: Persisted, DataConvertible {
         case trackId = "trackId"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
+        case voteCount = "voteCount"
         case votes = "votes"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, playEndedAt: Date?, playStartedAt: Date?, progressMsStored: Int?, roomId: Int, roomtrackId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int?, votes: [QueuedTrackVote]?) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, playEndedAt: Date?, playStartedAt: Date?, progressMsStored: Int?, roomId: Int, roomtrackId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int, voteCount: Int?, votes: [QueuedTrackVote]?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -722,6 +721,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         self.trackId = trackId
         self.updatedAt = updatedAt
         self.updatedById = updatedById
+        self.voteCount = voteCount
         self.votes = votes
     }
 }
@@ -730,13 +730,13 @@ public struct QueuedTrack: Persisted, DataConvertible {
 // MARK: - QueuedTrackVote
 public struct QueuedTrackVote: Persisted, DataConvertible {
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var id: Int
     public var queuedTrackId: Int
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
@@ -749,7 +749,7 @@ public struct QueuedTrackVote: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, queuedTrackId: Int, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, queuedTrackId: Int, updatedAt: Date, updatedById: Int) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -765,7 +765,7 @@ public struct QueuedTrackVote: Persisted, DataConvertible {
 // MARK: - RoomMembership
 public struct RoomMembership: Persisted, DataConvertible {
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var id: Int
@@ -774,7 +774,7 @@ public struct RoomMembership: Persisted, DataConvertible {
     public var isAdmin: Int
     public var roomId: Int
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var userId: Int
 
     public enum CodingKeys: String, CodingKey {
@@ -792,7 +792,7 @@ public struct RoomMembership: Persisted, DataConvertible {
         case userId = "userId"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, inviteAcceptedAt: Int?, invitedById: Int, isAdmin: Int, roomId: Int, updatedAt: Date, updatedById: Int?, userId: Int) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, inviteAcceptedAt: Int?, invitedById: Int, isAdmin: Int, roomId: Int, updatedAt: Date, updatedById: Int, userId: Int) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -813,7 +813,7 @@ public struct RoomMembership: Persisted, DataConvertible {
 public struct Device: Persisted, DataConvertible {
     public var apnToken: String?
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var id: Int
@@ -822,7 +822,7 @@ public struct Device: Persisted, DataConvertible {
     public var platform: String
     public var refreshToken: String?
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
     public var uuid: String
 
     public enum CodingKeys: String, CodingKey {
@@ -841,7 +841,7 @@ public struct Device: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(apnToken: String?, createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int?, uuid: String) {
+    public init(apnToken: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
         self.apnToken = apnToken
         self.createdAt = createdAt
         self.createdById = createdById
@@ -862,7 +862,7 @@ public struct Device: Persisted, DataConvertible {
 // MARK: - LogEntry
 public struct LogEntry: Persisted, DataConvertible {
     public var createdAt: Date
-    public var createdById: Int?
+    public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var deviceName: String
@@ -870,7 +870,7 @@ public struct LogEntry: Persisted, DataConvertible {
     public var line: String
     public var platform: String
     public var updatedAt: Date
-    public var updatedById: Int?
+    public var updatedById: Int
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
@@ -885,7 +885,7 @@ public struct LogEntry: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int?, deletedAt: Date?, deletedById: Int?, deviceName: String, id: Int, line: String, platform: String, updatedAt: Date, updatedById: Int?) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceName: String, id: Int, line: String, platform: String, updatedAt: Date, updatedById: Int) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt

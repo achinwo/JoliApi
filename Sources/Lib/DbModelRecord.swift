@@ -267,10 +267,6 @@ extension MusicroomRecord {
         get { properties[.entitlements] as? [Entitlement]}
         set { properties[.entitlements] = newValue as AnyObject }
     }
-    public var voteCount: Int? {
-        get { properties[.voteCount] as? Int}
-        set { properties[.voteCount] = newValue as AnyObject }
-    }
     public var createdByUser: User? {
         get { properties[.createdByUser] as? User}
         set { properties[.createdByUser] = newValue as AnyObject }
@@ -626,6 +622,10 @@ extension QueuedTrackRecord {
     public var votes: [QueuedTrackVote]? {
         get { properties[.votes] as? [QueuedTrackVote]}
         set { properties[.votes] = newValue as AnyObject }
+    }
+    public var voteCount: Int? {
+        get { properties[.voteCount] as? Int}
+        set { properties[.voteCount] = newValue as AnyObject }
     }
     
 }

@@ -211,8 +211,8 @@ public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, 
     var updatedAt: Date { get }
     var deletedAt: Date? { get }
     
-    var createdById: Int? { get }
-    var updatedById: Int? { get }
+    var createdById: Int { get }
+    var updatedById: Int { get }
     var deletedById: Int? { get }
     
 }
