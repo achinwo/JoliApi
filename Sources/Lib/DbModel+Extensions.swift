@@ -199,7 +199,7 @@ public extension Persistable {
 
 
 // MARK: - Persisted
-public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, Hashable {
+public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, Hashable, CustomStringConvertible {
     
     associatedtype CodingKeys: CodingKey & Hashable
     

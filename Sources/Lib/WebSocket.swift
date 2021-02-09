@@ -28,10 +28,19 @@ extension WebSocketMessage {
     
 }
 
-public enum ConnectionState: Equatable {
+public enum ConnectionState: Equatable, CustomStringConvertible {
     case connected
     case reconnecting(Int)
     case stopped
+    
+    public var description: String {
+        
+        guard case let .reconnecting(retry) = self else {
+            return "\(Self.self)(\(self == .connected ? "connected" : "stopped"))"
+        }
+        
+        return "\(Self.self)(retry: \(retry))"
+    }
     
     func lost() -> Self {
         switch self {

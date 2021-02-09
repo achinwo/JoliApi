@@ -322,6 +322,13 @@ public enum Spotify {
         public let height: Int?
         public let url: String
         public let width: Int?
+        
+        public init(url: String, width: Int? = nil, height: Int? = nil){
+            self.url = url
+            self.width = width
+            self.height = height
+        }
+        
     }
     
     public enum ErrorMessage: String {

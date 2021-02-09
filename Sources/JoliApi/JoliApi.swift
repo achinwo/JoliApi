@@ -1,7 +1,7 @@
 import Foundation
 import Promises
 import Combine
-import SwiftyBeaver
+import os
 import JoliCore
 import Version
 
@@ -11,7 +11,7 @@ public struct TrackInfo {
     public var info: Json?
 }
 
-internal let logger = SwiftyBeaver.self
+internal let logger = Logger(subsystem: "live.joli.JoliApi", category: "global.api")
 
 
 // MARK: - JoliApi
@@ -32,35 +32,13 @@ public class JoliApi: ObservableObject, HttpApi {
         }
     }
     
-    //public var playerStateDelegate?
-    
-    private static var loggerInitialized = false
-
-    public static func initLogger() {
-        guard !JoliApi.loggerInitialized else { return }
-        
-        let console = ConsoleDestination()  // log to Xcode Console
-        let file = FileDestination()  // log to default swiftybeaver.log file
-        
-        logger.addDestination(console)
-        logger.addDestination(file)
-        
-        logger.debug("[JoliApi] initialized logger")
-        JoliApi.loggerInitialized = true
-    }
-    
-    public static func getLogger() -> SwiftyBeaver.Type {
-        JoliApi.initLogger()
-        return logger.self
-    }
-    
     public func addTrackToRoom(_ room: Musicroom, _ track: Spotify.Track, on: DispatchQueue? = nil) -> Promise<Json>{
         return room.addTrack(track, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession
             , on: on)
     }
 
     // MARK: - Environment
-    public enum Environment: String {
+    public enum Environment: String, CustomStringConvertible {
         
         public static var CACHED_ENV_CONFIG: [String: AnyObject] = [:]
         
@@ -105,9 +83,13 @@ public class JoliApi: ObservableObject, HttpApi {
                 return .prod
             }
         }
+        
+        public var description: String {
+            return rawValue
+        }
     }
     
-    public enum BaseUrl: RawRepresentable {
+    public enum BaseUrl: RawRepresentable, CustomStringConvertible {
         
         case dev
         case prod
@@ -119,6 +101,10 @@ public class JoliApi: ObservableObject, HttpApi {
         
         case host(String)
         case custom((http: URL, ws: URL))
+        
+        public var description: String {
+            return String(describing: rawValue)
+        }
         
         public var rawValue: (http: URL, ws: URL) {
             switch self {
@@ -194,7 +180,7 @@ public class JoliApi: ObservableObject, HttpApi {
     public func authenticate(email: String, password: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
         return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
             .catch() { error in
-            logger.error("[authenticate] error: \(error)")
+            logger.error("[authenticate] error: \(String(describing: error))")
         }
     }
     
@@ -267,7 +253,6 @@ public class JoliApi: ObservableObject, HttpApi {
     
     // MARK: - init
     public init(baseUrl: BaseUrl = .localhost, authToken: String? = nil, headers: HttpMethod.Headers = [:]){
-        JoliApi.initLogger()
         
         self.urlSessionConfiguration = JoliApi.sharedUrlSession.configuration.withAuthHeader(authToken)
         self.urlSessionConfiguration.httpAdditionalHeaders!.merge(headers) { $1 }
@@ -280,12 +265,16 @@ public class JoliApi: ObservableObject, HttpApi {
         BASE_URL = baseUrl.rawValue
     }
     
-    public enum Subject: String {
+    public enum Subject: String, CustomStringConvertible {
         case playerStateChanged = "PLAYER_STATE_CHANGED"
         case playerStateNowPlaying = "PLAYER_STATE_NOW_PLAYING"
         case activityFeed = "activity_feed"
         case dbUpdates = "database_updates"
         case queryTrackSearch = "QUERY_TRACK_SEARCH"
+        
+        public var description: String {
+            return rawValue
+        }
     }
     
     public func subscribe(subject: Subject, onMessage: @escaping WebSocketClient.ResponseCallback){
@@ -295,7 +284,7 @@ public class JoliApi: ObservableObject, HttpApi {
                 logger.debug("[JoliApi#subscribe] subject=\(subject)")
             }
             .catch(){ error in
-                logger.error("[wsSubscribe] error: \(error)")
+                logger.error("[wsSubscribe] error: \(String(describing: error))")
             }
     }
     
