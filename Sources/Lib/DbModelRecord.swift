@@ -247,10 +247,6 @@ extension MusicroomRecord {
         get { properties[.playingState] as? String}
         set { properties[.playingState] = newValue as AnyObject }
     }
-    public var playingStateChangedAt: Date? {
-        get { properties[.playingStateChangedAt] as? Date}
-        set { properties[.playingStateChangedAt] = newValue as AnyObject }
-    }
     public var imageSmall: String? {
         get { properties[.imageSmall] as? String}
         set { properties[.imageSmall] = newValue as AnyObject }
@@ -874,6 +870,10 @@ extension PlayStateRecord {
     public var statusChangedAt: Date? {
         get { properties[.statusChangedAt] as? Date}
         set { properties[.statusChangedAt] = newValue as AnyObject }
+    }
+    public var track: Track? {
+        get { properties[.track] as? Track}
+        set { properties[.track] = newValue as AnyObject }
     }
     
 }

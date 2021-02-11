@@ -128,9 +128,11 @@ public struct Auth: Codable, Hashable {
     public var user: User
 }
 
-public struct ErrorMessage: Codable, Error {
+public struct ErrorMessage: Codable, Error, Equatable {
     public let status: Int
     public let message: String?
+    public let type: String?
+    public let label: String?
 }
 
 public struct Response<T: Codable>: Codable {

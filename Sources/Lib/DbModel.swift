@@ -210,7 +210,6 @@ public struct Musicroom: Persisted, DataConvertible {
     public var membership: Membership
     public var name: String
     public var playingState: PlayingState?
-    public var playingStateChangedAt: Date?
     public var playlistUri: String?
     public var progressMs: Int?
     public var refreshToken: String?
@@ -238,7 +237,6 @@ public struct Musicroom: Persisted, DataConvertible {
         case membership = "membership"
         case name = "name"
         case playingState = "playingState"
-        case playingStateChangedAt = "playingStateChangedAt"
         case playlistUri = "playlistUri"
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
@@ -251,7 +249,7 @@ public struct Musicroom: Persisted, DataConvertible {
         case updatedByUser = "updatedByUser"
     }
 
-    public init(createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?) {
+    public init(createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.createdByUser = createdByUser
@@ -267,7 +265,6 @@ public struct Musicroom: Persisted, DataConvertible {
         self.membership = membership
         self.name = name
         self.playingState = playingState
-        self.playingStateChangedAt = playingStateChangedAt
         self.playlistUri = playlistUri
         self.progressMs = progressMs
         self.refreshToken = refreshToken
@@ -383,6 +380,7 @@ public struct PlayState: Persisted, DataConvertible {
     public var status: String?
     public var statusChangedAt: Date?
     public var tokenType: String
+    public var track: Track?
     public var trackUri: String?
     public var updatedAt: Date
     public var updatedById: Int
@@ -414,13 +412,14 @@ public struct PlayState: Persisted, DataConvertible {
         case status = "status"
         case statusChangedAt = "statusChangedAt"
         case tokenType = "tokenType"
+        case track = "track"
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, prevPlaylistUri: String?, prevTrackUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, status: String?, statusChangedAt: Date?, tokenType: String, trackUri: String?, updatedAt: Date, updatedById: Int, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUid: String?, displayName: String, durationMs: Int?, email: String, expiresIn: Int, id: Int, playingState: PlayingState?, playingStateChangedAt: Date?, playlistUri: String?, prevPlaylistUri: String?, prevTrackUri: String?, product: String, progressMs: Int?, refreshToken: String, roomId: Int?, scope: String, status: String?, statusChangedAt: Date?, tokenType: String, track: Track?, trackUri: String?, updatedAt: Date, updatedById: Int, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -446,6 +445,7 @@ public struct PlayState: Persisted, DataConvertible {
         self.status = status
         self.statusChangedAt = statusChangedAt
         self.tokenType = tokenType
+        self.track = track
         self.trackUri = trackUri
         self.updatedAt = updatedAt
         self.updatedById = updatedById
@@ -458,62 +458,6 @@ public enum PlayingState: String, Codable {
     case playRequested = "PLAY_REQUESTED"
     case playing = "PLAYING"
     case stopped = "STOPPED"
-}
-
-/// Entitlement
-// MARK: - Entitlement
-public struct Entitlement: Persisted, DataConvertible {
-    public var acceptedAt: Date?
-    public var createdAt: Date
-    public var createdById: Int
-    public var deletedAt: Date?
-    public var deletedById: Int?
-    public var expiresAt: Date?
-    public var id: Int
-    public var targetRecordId: Int
-    public var type: String
-    public var updatedAt: Date
-    public var updatedById: Int
-    public var user: User?
-    public var userId: Int
-
-    public enum CodingKeys: String, CodingKey {
-        case acceptedAt = "acceptedAt"
-        case createdAt = "createdAt"
-        case createdById = "createdById"
-        case deletedAt = "deletedAt"
-        case deletedById = "deletedById"
-        case expiresAt = "expiresAt"
-        case id = "id"
-        case targetRecordId = "targetRecordId"
-        case type = "type"
-        case updatedAt = "updatedAt"
-        case updatedById = "updatedById"
-        case user = "user"
-        case userId = "userId"
-    }
-
-    public init(acceptedAt: Date?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int, user: User?, userId: Int) {
-        self.acceptedAt = acceptedAt
-        self.createdAt = createdAt
-        self.createdById = createdById
-        self.deletedAt = deletedAt
-        self.deletedById = deletedById
-        self.expiresAt = expiresAt
-        self.id = id
-        self.targetRecordId = targetRecordId
-        self.type = type
-        self.updatedAt = updatedAt
-        self.updatedById = updatedById
-        self.user = user
-        self.userId = userId
-    }
-}
-
-public enum Membership: String, Codable {
-    case inviteOnly = "inviteOnly"
-    case membershipOpen = "open"
-    case membershipPrivate = "private"
 }
 
 /// Track
@@ -621,6 +565,62 @@ public struct Track: Persisted, DataConvertible {
         self.updatedById = updatedById
         self.uri = uri
     }
+}
+
+/// Entitlement
+// MARK: - Entitlement
+public struct Entitlement: Persisted, DataConvertible {
+    public var acceptedAt: Date?
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var expiresAt: Date?
+    public var id: Int
+    public var targetRecordId: Int
+    public var type: String
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var user: User?
+    public var userId: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case acceptedAt = "acceptedAt"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case expiresAt = "expiresAt"
+        case id = "id"
+        case targetRecordId = "targetRecordId"
+        case type = "type"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case user = "user"
+        case userId = "userId"
+    }
+
+    public init(acceptedAt: Date?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int, user: User?, userId: Int) {
+        self.acceptedAt = acceptedAt
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.expiresAt = expiresAt
+        self.id = id
+        self.targetRecordId = targetRecordId
+        self.type = type
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.user = user
+        self.userId = userId
+    }
+}
+
+public enum Membership: String, Codable {
+    case inviteOnly = "inviteOnly"
+    case membershipOpen = "open"
+    case membershipPrivate = "private"
 }
 
 /// Session
