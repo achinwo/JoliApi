@@ -192,6 +192,65 @@ public struct RoomTrack: Persisted, DataConvertible {
     }
 }
 
+/// Entitlement
+// MARK: - Entitlement
+public struct Entitlement: Persisted, DataConvertible {
+    public var acceptedAt: Date?
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var expiresAt: Date?
+    public var id: Int
+    public var musicroom: Musicroom?
+    public var rejectedAt: Date?
+    public var targetRecordId: Int
+    public var type: String
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var user: User?
+    public var userId: Int
+    public var uuid: String?
+
+    public enum CodingKeys: String, CodingKey {
+        case acceptedAt = "acceptedAt"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case expiresAt = "expiresAt"
+        case id = "id"
+        case musicroom = "musicroom"
+        case rejectedAt = "rejectedAt"
+        case targetRecordId = "targetRecordId"
+        case type = "type"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case user = "user"
+        case userId = "userId"
+        case uuid = "uuid"
+    }
+
+    public init(acceptedAt: Date?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, musicroom: Musicroom?, rejectedAt: Date?, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int, user: User?, userId: Int, uuid: String?) {
+        self.acceptedAt = acceptedAt
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.expiresAt = expiresAt
+        self.id = id
+        self.musicroom = musicroom
+        self.rejectedAt = rejectedAt
+        self.targetRecordId = targetRecordId
+        self.type = type
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.user = user
+        self.userId = userId
+        self.uuid = uuid
+    }
+}
+
 /// Musicroom
 // MARK: - Musicroom
 public struct Musicroom: Persisted, DataConvertible {
@@ -564,56 +623,6 @@ public struct Track: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uri = uri
-    }
-}
-
-/// Entitlement
-// MARK: - Entitlement
-public struct Entitlement: Persisted, DataConvertible {
-    public var acceptedAt: Date?
-    public var createdAt: Date
-    public var createdById: Int
-    public var deletedAt: Date?
-    public var deletedById: Int?
-    public var expiresAt: Date?
-    public var id: Int
-    public var targetRecordId: Int
-    public var type: String
-    public var updatedAt: Date
-    public var updatedById: Int
-    public var user: User?
-    public var userId: Int
-
-    public enum CodingKeys: String, CodingKey {
-        case acceptedAt = "acceptedAt"
-        case createdAt = "createdAt"
-        case createdById = "createdById"
-        case deletedAt = "deletedAt"
-        case deletedById = "deletedById"
-        case expiresAt = "expiresAt"
-        case id = "id"
-        case targetRecordId = "targetRecordId"
-        case type = "type"
-        case updatedAt = "updatedAt"
-        case updatedById = "updatedById"
-        case user = "user"
-        case userId = "userId"
-    }
-
-    public init(acceptedAt: Date?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, expiresAt: Date?, id: Int, targetRecordId: Int, type: String, updatedAt: Date, updatedById: Int, user: User?, userId: Int) {
-        self.acceptedAt = acceptedAt
-        self.createdAt = createdAt
-        self.createdById = createdById
-        self.deletedAt = deletedAt
-        self.deletedById = deletedById
-        self.expiresAt = expiresAt
-        self.id = id
-        self.targetRecordId = targetRecordId
-        self.type = type
-        self.updatedAt = updatedAt
-        self.updatedById = updatedById
-        self.user = user
-        self.userId = userId
     }
 }
 

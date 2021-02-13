@@ -955,9 +955,17 @@ extension EntitlementRecord {
         get { properties[.targetRecordId] as? Int}
         set { properties[.targetRecordId] = newValue as AnyObject }
     }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
     public var acceptedAt: Date? {
         get { properties[.acceptedAt] as? Date}
         set { properties[.acceptedAt] = newValue as AnyObject }
+    }
+    public var rejectedAt: Date? {
+        get { properties[.rejectedAt] as? Date}
+        set { properties[.rejectedAt] = newValue as AnyObject }
     }
     public var expiresAt: Date? {
         get { properties[.expiresAt] as? Date}
@@ -966,6 +974,10 @@ extension EntitlementRecord {
     public var user: User? {
         get { properties[.user] as? User}
         set { properties[.user] = newValue as AnyObject }
+    }
+    public var musicroom: Musicroom? {
+        get { properties[.musicroom] as? Musicroom}
+        set { properties[.musicroom] = newValue as AnyObject }
     }
     
 }

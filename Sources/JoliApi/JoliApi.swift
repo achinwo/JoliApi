@@ -237,16 +237,7 @@ public class JoliApi: ObservableObject, HttpApi {
     
     public var urlSessionConfiguration: URLSessionConfiguration {
         didSet {
-            urlSession = JoliApi.sharedUrlSession.updated(configuration: self.urlSessionConfiguration)
-            
-            guard let host = self.baseUrl.http.host,
-                var trustedHosts = (urlSession.delegate as? HttpsHook)?.trustedHosts,
-                !trustedHosts.contains(host)
-            else {
-                return
-            }
-            
-            trustedHosts.append(host)
+            self.setupUrlSession()
         }
     }
     public var urlSession: URLSession = JoliApi.sharedUrlSession
@@ -255,7 +246,7 @@ public class JoliApi: ObservableObject, HttpApi {
     public init(baseUrl: BaseUrl = .localhost, authToken: String? = nil, headers: HttpMethod.Headers = [:]){
         
         self.urlSessionConfiguration = JoliApi.sharedUrlSession.configuration.withAuthHeader(authToken)
-        self.urlSessionConfiguration.httpAdditionalHeaders!.merge(headers) { $1 }
+        self.urlSessionConfiguration.httpAdditionalHeaders?.merge(headers) { $1 }
         
         self.baseUrl = baseUrl
         let url = baseUrl.ws.appendingPathComponent("/ws")
@@ -263,6 +254,20 @@ public class JoliApi: ObservableObject, HttpApi {
         
         //(ws: URL, http: URL)
         BASE_URL = baseUrl.rawValue
+        self.setupUrlSession()
+    }
+    
+    private func setupUrlSession() {
+        urlSession = JoliApi.sharedUrlSession.updated(configuration: self.urlSessionConfiguration)
+        
+        guard let host = self.baseUrl.http.host,
+              var trustedHosts = (urlSession.delegate as? HttpsHook)?.trustedHosts,
+              !trustedHosts.contains(host)
+        else {
+            return
+        }
+        
+        trustedHosts.append(host)
     }
     
     public enum Subject: String, CustomStringConvertible {
