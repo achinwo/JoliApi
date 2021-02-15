@@ -154,8 +154,24 @@ public typealias Json = [String: AnyObject]
 
 extension Json {
     
+    static func santized(_ json: Json) throws -> Json {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+
+        let items: [Json.Element] = json.map() { item in
+            let value = item.value
+            switch value {
+            case let date as Date:
+                return (item.key, df.string(from: date) as AnyObject)
+            default:
+                return (item.key, item.value)
+            }
+        }
+        return Json(uniqueKeysWithValues: items)
+    }
+    
     public func toData(writingOptions: JSONSerialization.WritingOptions = []) throws -> Data {
-        return try JSONSerialization.data(withJSONObject: self, options: writingOptions)
+        return try JSONSerialization.data(withJSONObject: try Self.santized(self), options: writingOptions)
     }
     
 }
@@ -176,7 +192,11 @@ public enum HttpBody {
         case .dbModel(let model):
             return try model.toData(outputFormatting: [])
         case .jsons(let jsons):
-            return try JSONSerialization.data(withJSONObject: jsons, options:.prettyPrinted)
+            var santized: [Json] = []
+            for json in jsons {
+                santized.append(try Json.santized(json))
+            }
+            return try JSONSerialization.data(withJSONObject: santized, options:.prettyPrinted)
         }
     }
 }
