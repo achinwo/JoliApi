@@ -190,7 +190,7 @@ public class JoliApi: ObservableObject, HttpApi {
     }
     
     public func setNotificationToken(_ token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Device> {
-        return HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), urlSession: self.urlSession)
+        return HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), baseUrl: self.baseUrlHttp, urlSession: self.urlSession)
     }
     
     public func searchSpotify(q: String, categories: Set<Search.Category> = [.tracks], limit: Int = 10) -> Promise<Spotify.SearchResult> {
@@ -204,7 +204,7 @@ public class JoliApi: ObservableObject, HttpApi {
             URLQueryItem(name: "type", value: typeStr)
         ]
         
-        return HttpMethod.Fetch.get(url: pathComp, dataType: Spotify.SearchResult.self, urlSession: self.urlSession)
+        return HttpMethod.Fetch.get(url: pathComp, dataType: Spotify.SearchResult.self, baseUrl: baseUrlHttp, urlSession: self.urlSession)
     }
     
     @discardableResult
@@ -212,7 +212,7 @@ public class JoliApi: ObservableObject, HttpApi {
         let payload: Json = ["deviceId": deviceId as AnyObject,
                              "volume": volume as AnyObject]
         let urlPath = URLComponents(string: "/api/spotify/volume")!
-        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: payload, urlSession: self.urlSession, on: on)
+        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: payload, baseUrl: baseUrlHttp, urlSession: self.urlSession, on: on)
     }
 
     public var user: User?
@@ -462,8 +462,6 @@ public extension JoliApi {
     
     static func resolveServer(_ baseUrl: URL) -> Promise<Version> {
         
-        logger.info("[resolveServer] baseUrl: \(baseUrl)")
-        
         return Promise() { resolve, reject in
             
             guard let url = URL(string: "/status", relativeTo: baseUrl) else {
@@ -482,7 +480,7 @@ public extension JoliApi {
                     return reject(response == nil ? VersionResolveError.noResponseReceived : VersionResolveError.unrecognisedResponseType)
                 }
                 
-                guard let versionStr = resp.allHeaderFields["X-Server-Version"] as? String else {
+                guard let versionStr = (resp.allHeaderFields["X-Server-Version"] ?? resp.allHeaderFields["x-server-version"]) as? String else {
                     return reject(VersionResolveError.missingVersionField)
                 }
                 

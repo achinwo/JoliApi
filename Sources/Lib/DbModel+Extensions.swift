@@ -26,14 +26,6 @@ public protocol HttpApi {
     
 }
 
-extension HttpApi {
-    
-    public static func setDefault(_ api: HttpApi) {
-        LocalhostApi.default = api
-    }
-    
-}
-
 struct LocalhostApi: HttpApi {
     
     var baseUrlHttp: URL {
