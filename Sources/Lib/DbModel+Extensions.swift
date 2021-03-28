@@ -408,11 +408,13 @@ extension Persisted {
         //decoder.dateDecodingStrategy = .iso8601
 
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
         decoder.dateDecodingStrategy = .custom { decoder in
             let container = try decoder.singleValueContainer()
             let dateString = try container.decode(String.self)
 
-            for dateFormat in ["yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd'T'HH:mm:ss'Z'"] {
+            for dateFormat in ["yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd'T'HH:mm:ssZ"] {//2021-03-28T01:12:01Z
                 formatter.dateFormat = dateFormat
                 guard let date = formatter.date(from: dateString) else {
                     continue
