@@ -112,7 +112,7 @@ public class JoliApi: ObservableObject, HttpApi {
                 return (http: URL(string: "https://dev.jolimc.com")!, ws: URL(string: "wss://dev.jolimc.com")!)
             case .prod:
                 //return (http: URL(string: "https://jolimc.com")!, ws: URL(string: "wss://jolimc.com")!)
-                return (http: URL(string: "https://dev.jolimc.com")!, ws: URL(string: "wss://dev.jolimc.com")!)
+                return (http: URL(string: "https://joli.live")!, ws: URL(string: "wss://joli.live")!)
             case .localhost:
                 return (http: URL(string: "https://localhost:8080")!, ws: URL(string: "wss://localhost:8080")!)
             case .homeLaptop:
