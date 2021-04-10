@@ -259,6 +259,8 @@ public struct Entitlement: Persisted, DataConvertible {
 /// Musicroom
 // MARK: - Musicroom
 public struct Musicroom: Persisted, DataConvertible {
+    public var albumIds: String?
+    public var artistIds: String?
     public var createdAt: Date
     public var createdById: Int
     public var createdByUser: User
@@ -267,6 +269,7 @@ public struct Musicroom: Persisted, DataConvertible {
     public var deletedByUser: User?
     public var details: String
     public var entitlements: [Entitlement]
+    public var genreNames: String?
     public var hostId: Int?
     public var id: Int
     public var imageLarge: String?
@@ -279,14 +282,20 @@ public struct Musicroom: Persisted, DataConvertible {
     public var progressMs: Int?
     public var refreshToken: String?
     public var snapshotId: String?
+    public var themeAlbumIds: String?
+    public var themeArtistIds: String?
+    public var themeGenreNames: String?
     public var themeTrackUri: String
     public var themeTrackUri2: String?
     public var trackUri: String?
     public var updatedAt: Date
     public var updatedById: Int
     public var updatedByUser: User?
+    public var uuid: String?
 
     public enum CodingKeys: String, CodingKey {
+        case albumIds = "albumIds"
+        case artistIds = "artistIds"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case createdByUser = "createdByUser"
@@ -295,6 +304,7 @@ public struct Musicroom: Persisted, DataConvertible {
         case deletedByUser = "deletedByUser"
         case details = "details"
         case entitlements = "entitlements"
+        case genreNames = "genreNames"
         case hostId = "hostId"
         case id = "id"
         case imageLarge = "imageLarge"
@@ -307,15 +317,21 @@ public struct Musicroom: Persisted, DataConvertible {
         case progressMs = "progressMs"
         case refreshToken = "refreshToken"
         case snapshotId = "snapshotId"
+        case themeAlbumIds = "themeAlbumIds"
+        case themeArtistIds = "themeArtistIds"
+        case themeGenreNames = "themeGenreNames"
         case themeTrackUri = "themeTrackUri"
         case themeTrackUri2 = "themeTrackUri2"
         case trackUri = "trackUri"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case updatedByUser = "updatedByUser"
+        case uuid = "uuid"
     }
 
-    public init(createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], hostId: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?) {
+    public init(albumIds: String?, artistIds: String?, createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], genreNames: String?, hostId: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeAlbumIds: String?, themeArtistIds: String?, themeGenreNames: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?, uuid: String?) {
+        self.albumIds = albumIds
+        self.artistIds = artistIds
         self.createdAt = createdAt
         self.createdById = createdById
         self.createdByUser = createdByUser
@@ -324,6 +340,7 @@ public struct Musicroom: Persisted, DataConvertible {
         self.deletedByUser = deletedByUser
         self.details = details
         self.entitlements = entitlements
+        self.genreNames = genreNames
         self.hostId = hostId
         self.id = id
         self.imageLarge = imageLarge
@@ -336,12 +353,16 @@ public struct Musicroom: Persisted, DataConvertible {
         self.progressMs = progressMs
         self.refreshToken = refreshToken
         self.snapshotId = snapshotId
+        self.themeAlbumIds = themeAlbumIds
+        self.themeArtistIds = themeArtistIds
+        self.themeGenreNames = themeGenreNames
         self.themeTrackUri = themeTrackUri
         self.themeTrackUri2 = themeTrackUri2
         self.trackUri = trackUri
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.updatedByUser = updatedByUser
+        self.uuid = uuid
     }
 }
 

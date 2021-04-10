@@ -213,6 +213,34 @@ extension MusicroomRecord {
         get { properties[.updatedAt] as? Date}
         set { properties[.updatedAt] = newValue as AnyObject }
     }
+    public var themeGenreNames: String? {
+        get { properties[.themeGenreNames] as? String}
+        set { properties[.themeGenreNames] = newValue as AnyObject }
+    }
+    public var themeArtistIds: String? {
+        get { properties[.themeArtistIds] as? String}
+        set { properties[.themeArtistIds] = newValue as AnyObject }
+    }
+    public var themeAlbumIds: String? {
+        get { properties[.themeAlbumIds] as? String}
+        set { properties[.themeAlbumIds] = newValue as AnyObject }
+    }
+    public var genreNames: String? {
+        get { properties[.genreNames] as? String}
+        set { properties[.genreNames] = newValue as AnyObject }
+    }
+    public var artistIds: String? {
+        get { properties[.artistIds] as? String}
+        set { properties[.artistIds] = newValue as AnyObject }
+    }
+    public var albumIds: String? {
+        get { properties[.albumIds] as? String}
+        set { properties[.albumIds] = newValue as AnyObject }
+    }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
     public var details: String? {
         get { properties[.details] as? String}
         set { properties[.details] = newValue as AnyObject }
