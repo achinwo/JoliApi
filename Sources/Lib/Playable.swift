@@ -12,6 +12,30 @@ import Promises
 public enum ContentOffset {
     case uri(String)
     case position(Int)
+    case both(String, Int)
+    
+    public var uri: String? {
+        switch self {
+        case .uri(let uri):
+            return uri
+        case .both(let uri, _):
+            return uri
+        default:
+            return nil
+        }
+    }
+    
+    public var position: Int? {
+        switch self {
+        case .position(let pos):
+            return pos
+        case .both(_, let pos):
+            return pos
+        default:
+            return nil
+        }
+    }
+    
 }
 
 // MARK: - Playable
@@ -65,6 +89,9 @@ extension Playable {
                 case .uri(let uri):
                     item["uri"] = uri as AnyObject
                 case .position(let position):
+                    item["position"] = position as AnyObject
+                case .both(let uri, let position):
+                    item["uri"] = uri as AnyObject
                     item["position"] = position as AnyObject
             }
             
