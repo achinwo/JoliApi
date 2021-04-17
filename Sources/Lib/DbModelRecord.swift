@@ -85,6 +85,10 @@ extension AuthTokenRecord {
         get { properties[.userName] as? String}
         set { properties[.userName] = newValue as AnyObject }
     }
+    public var spotifyVersion: String? {
+        get { properties[.spotifyVersion] as? String}
+        set { properties[.spotifyVersion] = newValue as AnyObject }
+    }
     public var roomId: Int? {
         get { properties[.roomId] as? Int}
         set { properties[.roomId] = newValue as AnyObject }
@@ -800,6 +804,10 @@ extension DeviceRecord {
     public var refreshToken: String? {
         get { properties[.refreshToken] as? String}
         set { properties[.refreshToken] = newValue as AnyObject }
+    }
+    public var clientVersion: String? {
+        get { properties[.clientVersion] as? String}
+        set { properties[.clientVersion] = newValue as AnyObject }
     }
     
 }

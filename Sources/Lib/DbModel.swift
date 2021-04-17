@@ -38,6 +38,7 @@ public struct AuthToken: Persisted, DataConvertible {
     public var refreshToken: String
     public var roomId: Int?
     public var scope: String
+    public var spotifyVersion: String?
     public var tokenType: String
     public var updatedAt: Date
     public var updatedById: Int
@@ -59,13 +60,14 @@ public struct AuthToken: Persisted, DataConvertible {
         case refreshToken = "refreshToken"
         case roomId = "roomId"
         case scope = "scope"
+        case spotifyVersion = "spotifyVersion"
         case tokenType = "tokenType"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case userName = "userName"
     }
 
-    public init(accessToken: String, country: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, displayName: String, email: String, expiresIn: Int, id: Int, parentId: Int?, product: String, refreshToken: String, roomId: Int?, scope: String, tokenType: String, updatedAt: Date, updatedById: Int, userName: String) {
+    public init(accessToken: String, country: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, displayName: String, email: String, expiresIn: Int, id: Int, parentId: Int?, product: String, refreshToken: String, roomId: Int?, scope: String, spotifyVersion: String?, tokenType: String, updatedAt: Date, updatedById: Int, userName: String) {
         self.accessToken = accessToken
         self.country = country
         self.createdAt = createdAt
@@ -81,6 +83,7 @@ public struct AuthToken: Persisted, DataConvertible {
         self.refreshToken = refreshToken
         self.roomId = roomId
         self.scope = scope
+        self.spotifyVersion = spotifyVersion
         self.tokenType = tokenType
         self.updatedAt = updatedAt
         self.updatedById = updatedById
@@ -862,6 +865,7 @@ public struct RoomMembership: Persisted, DataConvertible {
 // MARK: - Device
 public struct Device: Persisted, DataConvertible {
     public var apnToken: String?
+    public var clientVersion: String?
     public var createdAt: Date
     public var createdById: Int
     public var deletedAt: Date?
@@ -877,6 +881,7 @@ public struct Device: Persisted, DataConvertible {
 
     public enum CodingKeys: String, CodingKey {
         case apnToken = "apnToken"
+        case clientVersion = "clientVersion"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -891,8 +896,9 @@ public struct Device: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(apnToken: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(apnToken: String?, clientVersion: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
         self.apnToken = apnToken
+        self.clientVersion = clientVersion
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
