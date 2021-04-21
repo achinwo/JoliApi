@@ -621,7 +621,7 @@ extension QueuedTrack: Playable {
     }
     
     public var albumCoverUrl: String {
-        return track!.albumCoverUrl
+        return track!.imageMedium
     }
     
     public var artistName: String {
@@ -642,6 +642,43 @@ extension QueuedTrack: Playable {
     }
     
 }
+
+extension PlayState: Playable {
+    
+    public var explicit: Bool {
+        track!.explicit
+    }
+    
+    public var title: String {
+        track!.title
+    }
+    
+    public var thumbnailUrl: String {
+        track!.thumbnailUrl
+    }
+    
+    public var albumCoverUrl: String {
+        track!.imageMedium
+    }
+    
+    public var artistName: String {
+        track!.artistName
+    }
+    
+    public var uri: String {
+        track!.uri
+    }
+    
+    public var duration: Int {
+        track!.duration
+    }
+    
+    public var isPlayable: Bool {
+        return track != nil
+    }
+    
+}
+
 
 // MARK: - RoomTrack
 extension RoomTrack: Playable {
