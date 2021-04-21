@@ -657,6 +657,10 @@ extension QueuedTrackRecord {
         get { properties[.playEndedAt] as? Date}
         set { properties[.playEndedAt] = newValue as AnyObject }
     }
+    public var skipVoteCount: Int? {
+        get { properties[.skipVoteCount] as? Int}
+        set { properties[.skipVoteCount] = newValue as AnyObject }
+    }
     public var track: Track? {
         get { properties[.track] as? Track}
         set { properties[.track] = newValue as AnyObject }

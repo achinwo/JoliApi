@@ -731,6 +731,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
     public var progressMsStored: Int?
     public var roomId: Int
     public var roomtrackId: Int
+    public var skipVoteCount: Int?
     public var track: Track?
     public var trackId: Int
     public var updatedAt: Date
@@ -750,6 +751,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         case progressMsStored = "progressMsStored"
         case roomId = "roomId"
         case roomtrackId = "roomtrackId"
+        case skipVoteCount = "skipVoteCount"
         case track = "track"
         case trackId = "trackId"
         case updatedAt = "updatedAt"
@@ -758,7 +760,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         case votes = "votes"
     }
 
-    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, playEndedAt: Date?, playStartedAt: Date?, progressMsStored: Int?, roomId: Int, roomtrackId: Int, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int, voteCount: Int?, votes: [QueuedTrackVote]?) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, musicroom: Musicroom?, playEndedAt: Date?, playStartedAt: Date?, progressMsStored: Int?, roomId: Int, roomtrackId: Int, skipVoteCount: Int?, track: Track?, trackId: Int, updatedAt: Date, updatedById: Int, voteCount: Int?, votes: [QueuedTrackVote]?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -770,6 +772,7 @@ public struct QueuedTrack: Persisted, DataConvertible {
         self.progressMsStored = progressMsStored
         self.roomId = roomId
         self.roomtrackId = roomtrackId
+        self.skipVoteCount = skipVoteCount
         self.track = track
         self.trackId = trackId
         self.updatedAt = updatedAt
