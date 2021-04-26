@@ -677,6 +677,10 @@ extension PlayState: Playable {
         return track != nil
     }
     
+    public var releasedAt: Date? {
+        return track?.releaseDate
+    }
+    
 }
 
 
