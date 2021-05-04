@@ -17,6 +17,9 @@
 //   let entitlement = try? newJSONDecoder().decode(Entitlement.self, from: jsonData)
 //   let userNotification = try? newJSONDecoder().decode(UserNotification.self, from: jsonData)
 //   let genre = try? newJSONDecoder().decode(Genre.self, from: jsonData)
+//   let food = try? newJSONDecoder().decode(Food.self, from: jsonData)
+//   let drink = try? newJSONDecoder().decode(Drink.self, from: jsonData)
+//   let event = try? newJSONDecoder().decode(Event.self, from: jsonData)
 
 import Foundation
 
@@ -271,7 +274,7 @@ public struct Musicroom: Persisted, DataConvertible {
     public var deletedById: Int?
     public var deletedByUser: User?
     public var details: String
-    public var entitlements: [Entitlement]
+    public var entitlements: [Entitlement]?
     public var genreNames: String?
     public var hostId: Int?
     public var id: Int
@@ -332,7 +335,7 @@ public struct Musicroom: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(albumIds: String?, artistIds: String?, createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement], genreNames: String?, hostId: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeAlbumIds: String?, themeArtistIds: String?, themeGenreNames: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?, uuid: String?) {
+    public init(albumIds: String?, artistIds: String?, createdAt: Date, createdById: Int, createdByUser: User, deletedAt: Date?, deletedById: Int?, deletedByUser: User?, details: String, entitlements: [Entitlement]?, genreNames: String?, hostId: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, membership: Membership, name: String, playingState: PlayingState?, playlistUri: String?, progressMs: Int?, refreshToken: String?, snapshotId: String?, themeAlbumIds: String?, themeArtistIds: String?, themeGenreNames: String?, themeTrackUri: String, themeTrackUri2: String?, trackUri: String?, updatedAt: Date, updatedById: Int, updatedByUser: User?, uuid: String?) {
         self.albumIds = albumIds
         self.artistIds = artistIds
         self.createdAt = createdAt
@@ -1037,5 +1040,140 @@ public struct Genre: Persisted, DataConvertible {
         self.name = name
         self.updatedAt = updatedAt
         self.updatedById = updatedById
+    }
+}
+
+/// Food
+// MARK: - Food
+public struct Food: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var id: Int
+    public var imageName: String
+    public var region: String
+    public var subtitle: String
+    public var title: String
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case id = "id"
+        case imageName = "imageName"
+        case region = "region"
+        case subtitle = "subtitle"
+        case title = "title"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, imageName: String, region: String, subtitle: String, title: String, updatedAt: Date, updatedById: Int) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.id = id
+        self.imageName = imageName
+        self.region = region
+        self.subtitle = subtitle
+        self.title = title
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+/// Drink
+// MARK: - Drink
+public struct Drink: Persisted, DataConvertible {
+    public var alcoholContent: Int?
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var id: Int
+    public var imageName: String
+    public var subtitle: String
+    public var title: String
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case alcoholContent = "alcoholContent"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case id = "id"
+        case imageName = "imageName"
+        case subtitle = "subtitle"
+        case title = "title"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(alcoholContent: Int?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, imageName: String, subtitle: String, title: String, updatedAt: Date, updatedById: Int) {
+        self.alcoholContent = alcoholContent
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.id = id
+        self.imageName = imageName
+        self.subtitle = subtitle
+        self.title = title
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+/// Event
+// MARK: - Event
+public struct Event: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var endsAt: Date
+    public var id: Int
+    public var startsAt: Date
+    public var subtitle: String
+    public var title: String
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var uuid: String
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case endsAt = "endsAt"
+        case id = "id"
+        case startsAt = "startsAt"
+        case subtitle = "subtitle"
+        case title = "title"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case uuid = "uuid"
+    }
+
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, endsAt: Date, id: Int, startsAt: Date, subtitle: String, title: String, updatedAt: Date, updatedById: Int, uuid: String) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.endsAt = endsAt
+        self.id = id
+        self.startsAt = startsAt
+        self.subtitle = subtitle
+        self.title = title
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.uuid = uuid
     }
 }
