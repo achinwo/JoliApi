@@ -1140,6 +1140,7 @@ public struct Event: Persisted, DataConvertible {
     public var deletedById: Int?
     public var endsAt: Date
     public var id: Int
+    public var roomId: Int
     public var startsAt: Date
     public var subtitle: String
     public var title: String
@@ -1154,6 +1155,7 @@ public struct Event: Persisted, DataConvertible {
         case deletedById = "deletedById"
         case endsAt = "endsAt"
         case id = "id"
+        case roomId = "roomId"
         case startsAt = "startsAt"
         case subtitle = "subtitle"
         case title = "title"
@@ -1162,13 +1164,14 @@ public struct Event: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, endsAt: Date, id: Int, startsAt: Date, subtitle: String, title: String, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, endsAt: Date, id: Int, roomId: Int, startsAt: Date, subtitle: String, title: String, updatedAt: Date, updatedById: Int, uuid: String) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
         self.endsAt = endsAt
         self.id = id
+        self.roomId = roomId
         self.startsAt = startsAt
         self.subtitle = subtitle
         self.title = title

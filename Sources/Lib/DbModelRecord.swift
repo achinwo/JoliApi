@@ -1264,6 +1264,10 @@ extension EventRecord {
         get { properties[.endsAt] as? Date}
         set { properties[.endsAt] = newValue as AnyObject }
     }
+    public var roomId: Int? {
+        get { properties[.roomId] as? Int}
+        set { properties[.roomId] = newValue as AnyObject }
+    }
     
 }
 
