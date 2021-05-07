@@ -127,6 +127,10 @@ func enrichTracks(_ api: JoliApi) -> Promise<[Track?]> {
     
 }
 
+@main
+struct JoliCli {
+    
+}
 
 let main = command(
     Argument<String>("schemaUrl", description: "Your name")

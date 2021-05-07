@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -43,7 +43,7 @@ let package = Package(
                 dependencies: ["Promises", "JSONSchema", "SwiftyBeaver", "Commander", "CancellationToken", "Starscream", "Version", "UIImageColors"],
                 path: "Sources/Lib"
         ),
-        .target(
+        .executableTarget(
             name: "Cli",
             dependencies: ["JoliApi", "SwiftSyntax"]
         ),
