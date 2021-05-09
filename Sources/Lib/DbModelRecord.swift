@@ -2,6 +2,8 @@
 import Foundation
 
 public typealias AuthTokenRecord = Builder<AuthToken>
+public typealias RewardRecord = Builder<Reward>
+public typealias MealChoiceRecord = Builder<MealChoice>
 public typealias UserRecord = Builder<User>
 public typealias MusicroomRecord = Builder<Musicroom>
 public typealias ArtistRecord = Builder<Artist>
@@ -99,6 +101,98 @@ extension AuthTokenRecord {
     public var parentId: Int? {
         get { properties[.parentId] as? Int}
         set { properties[.parentId] = newValue as AnyObject }
+    }
+    
+}
+extension RewardRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var roomId: Int? {
+        get { properties[.roomId] as? Int}
+        set { properties[.roomId] = newValue as AnyObject }
+    }
+    public var eventId: Int? {
+        get { properties[.eventId] as? Int}
+        set { properties[.eventId] = newValue as AnyObject }
+    }
+    public var redeemedById: Int? {
+        get { properties[.redeemedById] as? Int}
+        set { properties[.redeemedById] = newValue as AnyObject }
+    }
+    public var viewCount: Int? {
+        get { properties[.viewCount] as? Int}
+        set { properties[.viewCount] = newValue as AnyObject }
+    }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
+    
+}
+extension MealChoiceRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var type: String? {
+        get { properties[.type] as? String}
+        set { properties[.type] = newValue as AnyObject }
+    }
+    public var targetId: Int? {
+        get { properties[.targetId] as? Int}
+        set { properties[.targetId] = newValue as AnyObject }
+    }
+    public var roomId: Int? {
+        get { properties[.roomId] as? Int}
+        set { properties[.roomId] = newValue as AnyObject }
+    }
+    public var eventId: Int? {
+        get { properties[.eventId] as? Int}
+        set { properties[.eventId] = newValue as AnyObject }
     }
     
 }
@@ -1255,6 +1349,10 @@ extension EventRecord {
     public var subtitle: String? {
         get { properties[.subtitle] as? String}
         set { properties[.subtitle] = newValue as AnyObject }
+    }
+    public var venue: String? {
+        get { properties[.venue] as? String}
+        set { properties[.venue] = newValue as AnyObject }
     }
     public var startsAt: Date? {
         get { properties[.startsAt] as? Date}

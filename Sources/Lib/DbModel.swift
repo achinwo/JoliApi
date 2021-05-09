@@ -2,6 +2,8 @@
 // To parse the JSON, add this file to your project and do:
 //
 //   let authToken = try? newJSONDecoder().decode(AuthToken.self, from: jsonData)
+//   let reward = try? newJSONDecoder().decode(Reward.self, from: jsonData)
+//   let mealChoice = try? newJSONDecoder().decode(MealChoice.self, from: jsonData)
 //   let user = try? newJSONDecoder().decode(User.self, from: jsonData)
 //   let musicroom = try? newJSONDecoder().decode(Musicroom.self, from: jsonData)
 //   let artist = try? newJSONDecoder().decode(Artist.self, from: jsonData)
@@ -92,6 +94,102 @@ public struct AuthToken: Persisted, DataConvertible {
         self.updatedById = updatedById
         self.userName = userName
     }
+}
+
+/// Reward
+// MARK: - Reward
+public struct Reward: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var eventId: Int
+    public var id: Int
+    public var redeemedById: Int?
+    public var roomId: Int
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var uuid: String
+    public var viewCount: Int?
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case eventId = "eventId"
+        case id = "id"
+        case redeemedById = "redeemedById"
+        case roomId = "roomId"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case uuid = "uuid"
+        case viewCount = "viewCount"
+    }
+
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, eventId: Int, id: Int, redeemedById: Int?, roomId: Int, updatedAt: Date, updatedById: Int, uuid: String, viewCount: Int?) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.eventId = eventId
+        self.id = id
+        self.redeemedById = redeemedById
+        self.roomId = roomId
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.uuid = uuid
+        self.viewCount = viewCount
+    }
+}
+
+/// MealChoice
+// MARK: - MealChoice
+public struct MealChoice: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var eventId: Int
+    public var id: Int
+    public var roomId: Int
+    public var targetId: Int?
+    public var type: TypeEnum
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case eventId = "eventId"
+        case id = "id"
+        case roomId = "roomId"
+        case targetId = "targetId"
+        case type = "type"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, eventId: Int, id: Int, roomId: Int, targetId: Int?, type: TypeEnum, updatedAt: Date, updatedById: Int) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.eventId = eventId
+        self.id = id
+        self.roomId = roomId
+        self.targetId = targetId
+        self.type = type
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+public enum TypeEnum: String, Codable {
+    case drink = "drink"
+    case food = "food"
 }
 
 /// Artist
@@ -1147,6 +1245,7 @@ public struct Event: Persisted, DataConvertible {
     public var updatedAt: Date
     public var updatedById: Int
     public var uuid: String
+    public var venue: String?
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
@@ -1162,9 +1261,10 @@ public struct Event: Persisted, DataConvertible {
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case uuid = "uuid"
+        case venue = "venue"
     }
 
-    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, endsAt: Date, id: Int, roomId: Int, startsAt: Date, subtitle: String, title: String, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, endsAt: Date, id: Int, roomId: Int, startsAt: Date, subtitle: String, title: String, updatedAt: Date, updatedById: Int, uuid: String, venue: String?) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -1178,5 +1278,6 @@ public struct Event: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uuid = uuid
+        self.venue = venue
     }
 }
