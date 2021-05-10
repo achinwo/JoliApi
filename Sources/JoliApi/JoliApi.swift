@@ -156,6 +156,7 @@ public class JoliApi: ObservableObject, HttpApi {
         case sessionToken(String)
         case email(String, String)
         case spotifyRefreshToken(String)
+        case apple(String, String, String, String, String)
     }
     
     @discardableResult
@@ -173,6 +174,9 @@ public class JoliApi: ObservableObject, HttpApi {
                 return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
             case .spotifyRefreshToken(let refreshToken):
                 return Session.fromCredentials(spotifyRefreshToken: refreshToken, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+            case .apple(let name, let email, let userId, let idToken, let authToken):
+                return Session.fromCredentials(name: name, email: email, userId: userId, idToken: idToken, authCode: authToken,
+                                               baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
         }
     }
 

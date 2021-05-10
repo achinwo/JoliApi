@@ -545,6 +545,19 @@ extension Session{
                                      baseUrl: baseUrl, urlSession: urlSession, on: on)
     }
     
+    public static func fromCredentials(name: String, email: String, userId: String, idToken: String, authCode: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+        let url = URLComponents(string: "/signin")!
+        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
+                                     payload: .json([
+                                        "name": name as AnyObject,
+                                        "email": email as AnyObject,
+                                        "userId": userId as AnyObject,
+                                        "idToken": idToken as AnyObject,
+                                        "authCode": authCode as AnyObject,
+                                     ]),
+                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+    }
+    
 }
 
 // MARK: - Musicroom
