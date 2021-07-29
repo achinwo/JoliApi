@@ -22,6 +22,8 @@ public typealias GenreRecord = Builder<Genre>
 public typealias FoodRecord = Builder<Food>
 public typealias DrinkRecord = Builder<Drink>
 public typealias EventRecord = Builder<Event>
+public typealias StikrExperienceDataRecord = Builder<StikrExperienceData>
+public typealias VisualCodeRecord = Builder<VisualCode>
 
 
 extension AuthTokenRecord {
@@ -237,6 +239,14 @@ extension UserRecord {
     public var appleIdentifier: String? {
         get { properties[.appleIdentifier] as? String}
         set { properties[.appleIdentifier] = newValue as AnyObject }
+    }
+    public var appleIdToken: String? {
+        get { properties[.appleIdToken] as? String}
+        set { properties[.appleIdToken] = newValue as AnyObject }
+    }
+    public var appleIdAuthCode: String? {
+        get { properties[.appleIdAuthCode] as? String}
+        set { properties[.appleIdAuthCode] = newValue as AnyObject }
     }
     public var refreshTokenSpotify: String? {
         get { properties[.refreshTokenSpotify] as? String}
@@ -1365,6 +1375,134 @@ extension EventRecord {
     public var roomId: Int? {
         get { properties[.roomId] as? Int}
         set { properties[.roomId] = newValue as AnyObject }
+    }
+    
+}
+extension StikrExperienceDataRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var logoImage: String? {
+        get { properties[.logoImage] as? String}
+        set { properties[.logoImage] = newValue as AnyObject }
+    }
+    public var bannerImage: String? {
+        get { properties[.bannerImage] as? String}
+        set { properties[.bannerImage] = newValue as AnyObject }
+    }
+    public var backgroundImage: String? {
+        get { properties[.backgroundImage] as? String}
+        set { properties[.backgroundImage] = newValue as AnyObject }
+    }
+    public var bannerVideoUrl: String? {
+        get { properties[.bannerVideoUrl] as? String}
+        set { properties[.bannerVideoUrl] = newValue as AnyObject }
+    }
+    public var socialInstagramUsername: String? {
+        get { properties[.socialInstagramUsername] as? String}
+        set { properties[.socialInstagramUsername] = newValue as AnyObject }
+    }
+    public var brandName: String? {
+        get { properties[.brandName] as? String}
+        set { properties[.brandName] = newValue as AnyObject }
+    }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
+    public var landingPageText: String? {
+        get { properties[.landingPageText] as? String}
+        set { properties[.landingPageText] = newValue as AnyObject }
+    }
+    public var brandColorPrimary: String? {
+        get { properties[.brandColorPrimary] as? String}
+        set { properties[.brandColorPrimary] = newValue as AnyObject }
+    }
+    public var brandColorSecondary: String? {
+        get { properties[.brandColorSecondary] as? String}
+        set { properties[.brandColorSecondary] = newValue as AnyObject }
+    }
+    public var brandColorAccent: String? {
+        get { properties[.brandColorAccent] as? String}
+        set { properties[.brandColorAccent] = newValue as AnyObject }
+    }
+    
+}
+extension VisualCodeRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var logo: String? {
+        get { properties[.logo] as? String}
+        set { properties[.logo] = newValue as AnyObject }
+    }
+    public var interactionType: String? {
+        get { properties[.interactionType] as? String}
+        set { properties[.interactionType] = newValue as AnyObject }
+    }
+    public var style: String? {
+        get { properties[.style] as? String}
+        set { properties[.style] = newValue as AnyObject }
+    }
+    public var index: Int? {
+        get { properties[.index] as? Int}
+        set { properties[.index] = newValue as AnyObject }
+    }
+    public var url: String? {
+        get { properties[.url] as? String}
+        set { properties[.url] = newValue as AnyObject }
+    }
+    public var backgroundColor: String? {
+        get { properties[.backgroundColor] as? String}
+        set { properties[.backgroundColor] = newValue as AnyObject }
+    }
+    public var foregroundColor: String? {
+        get { properties[.foregroundColor] as? String}
+        set { properties[.foregroundColor] = newValue as AnyObject }
     }
     
 }

@@ -22,6 +22,8 @@
 //   let food = try? newJSONDecoder().decode(Food.self, from: jsonData)
 //   let drink = try? newJSONDecoder().decode(Drink.self, from: jsonData)
 //   let event = try? newJSONDecoder().decode(Event.self, from: jsonData)
+//   let stikrExperienceData = try? newJSONDecoder().decode(StikrExperienceData.self, from: jsonData)
+//   let visualCode = try? newJSONDecoder().decode(VisualCode.self, from: jsonData)
 
 import Foundation
 
@@ -476,6 +478,8 @@ public struct User: Persisted, DataConvertible {
     public var activatedAt: Date?
     public var activeDeviceUuid: String?
     public var activeRoomId: Int?
+    public var appleIdAuthCode: String?
+    public var appleIdToken: String?
     public var appleIdentifier: String?
     public var createdAt: Date
     public var createdById: Int
@@ -501,6 +505,8 @@ public struct User: Persisted, DataConvertible {
         case activatedAt = "activatedAt"
         case activeDeviceUuid = "activeDeviceUuid"
         case activeRoomId = "activeRoomId"
+        case appleIdAuthCode = "appleIdAuthCode"
+        case appleIdToken = "appleIdToken"
         case appleIdentifier = "appleIdentifier"
         case createdAt = "createdAt"
         case createdById = "createdById"
@@ -523,10 +529,12 @@ public struct User: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, appleIdentifier: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, followingUserId: Int?, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, appleIdAuthCode: String?, appleIdToken: String?, appleIdentifier: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, followingUserId: Int?, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int) {
         self.activatedAt = activatedAt
         self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
+        self.appleIdAuthCode = appleIdAuthCode
+        self.appleIdToken = appleIdToken
         self.appleIdentifier = appleIdentifier
         self.createdAt = createdAt
         self.createdById = createdById
@@ -1280,4 +1288,137 @@ public struct Event: Persisted, DataConvertible {
         self.uuid = uuid
         self.venue = venue
     }
+}
+
+/// StikrExperienceData
+// MARK: - StikrExperienceData
+public struct StikrExperienceData: Persisted, DataConvertible {
+    public var backgroundImage: String?
+    public var bannerImage: String?
+    public var bannerVideoUrl: String?
+    public var brandColorAccent: String?
+    public var brandColorPrimary: String?
+    public var brandColorSecondary: String?
+    public var brandName: String
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var id: Int
+    public var landingPageText: String?
+    public var logoImage: String?
+    public var socialInstagramUsername: String?
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var uuid: String
+
+    public enum CodingKeys: String, CodingKey {
+        case backgroundImage = "backgroundImage"
+        case bannerImage = "bannerImage"
+        case bannerVideoUrl = "bannerVideoUrl"
+        case brandColorAccent = "brandColorAccent"
+        case brandColorPrimary = "brandColorPrimary"
+        case brandColorSecondary = "brandColorSecondary"
+        case brandName = "brandName"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case id = "id"
+        case landingPageText = "landingPageText"
+        case logoImage = "logoImage"
+        case socialInstagramUsername = "socialInstagramUsername"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case uuid = "uuid"
+    }
+
+    public init(backgroundImage: String?, bannerImage: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, landingPageText: String?, logoImage: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+        self.backgroundImage = backgroundImage
+        self.bannerImage = bannerImage
+        self.bannerVideoUrl = bannerVideoUrl
+        self.brandColorAccent = brandColorAccent
+        self.brandColorPrimary = brandColorPrimary
+        self.brandColorSecondary = brandColorSecondary
+        self.brandName = brandName
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.id = id
+        self.landingPageText = landingPageText
+        self.logoImage = logoImage
+        self.socialInstagramUsername = socialInstagramUsername
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.uuid = uuid
+    }
+}
+
+/// VisualCode
+// MARK: - VisualCode
+public struct VisualCode: Persisted, DataConvertible {
+    public var backgroundColor: String
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var foregroundColor: String
+    public var id: Int
+    public var index: Int
+    public var interactionType: InteractionType
+    public var logo: Logo
+    public var style: Style
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var url: String
+
+    public enum CodingKeys: String, CodingKey {
+        case backgroundColor = "backgroundColor"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case foregroundColor = "foregroundColor"
+        case id = "id"
+        case index = "index"
+        case interactionType = "interactionType"
+        case logo = "logo"
+        case style = "style"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case url = "url"
+    }
+
+    public init(backgroundColor: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, foregroundColor: String, id: Int, index: Int, interactionType: InteractionType, logo: Logo, style: Style, updatedAt: Date, updatedById: Int, url: String) {
+        self.backgroundColor = backgroundColor
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.foregroundColor = foregroundColor
+        self.id = id
+        self.index = index
+        self.interactionType = interactionType
+        self.logo = logo
+        self.style = style
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.url = url
+    }
+}
+
+public enum InteractionType: String, Codable {
+    case cam = "cam"
+    case nfc = "nfc"
+}
+
+public enum Logo: String, Codable {
+    case badge = "badge"
+    case none = "none"
+}
+
+public enum Style: String, Codable {
+    case appclip = "appclip"
+    case qr = "qr"
 }
