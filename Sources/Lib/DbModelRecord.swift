@@ -24,6 +24,7 @@ public typealias DrinkRecord = Builder<Drink>
 public typealias EventRecord = Builder<Event>
 public typealias StikrExperienceDataRecord = Builder<StikrExperienceData>
 public typealias VisualCodeRecord = Builder<VisualCode>
+public typealias StikrExperienceDataItemRecord = Builder<StikrExperienceDataItem>
 
 
 extension AuthTokenRecord {
@@ -1503,6 +1504,86 @@ extension VisualCodeRecord {
     public var foregroundColor: String? {
         get { properties[.foregroundColor] as? String}
         set { properties[.foregroundColor] = newValue as AnyObject }
+    }
+    
+}
+extension StikrExperienceDataItemRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var itemType: String? {
+        get { properties[.itemType] as? String}
+        set { properties[.itemType] = newValue as AnyObject }
+    }
+    public var itemGrouping: String? {
+        get { properties[.itemGrouping] as? String}
+        set { properties[.itemGrouping] = newValue as AnyObject }
+    }
+    public var itemSubgrouping: String? {
+        get { properties[.itemSubgrouping] as? String}
+        set { properties[.itemSubgrouping] = newValue as AnyObject }
+    }
+    public var experienceId: Int? {
+        get { properties[.experienceId] as? Int}
+        set { properties[.experienceId] = newValue as AnyObject }
+    }
+    public var title: String? {
+        get { properties[.title] as? String}
+        set { properties[.title] = newValue as AnyObject }
+    }
+    public var aliasTitle: String? {
+        get { properties[.aliasTitle] as? String}
+        set { properties[.aliasTitle] = newValue as AnyObject }
+    }
+    public var subtitle: String? {
+        get { properties[.subtitle] as? String}
+        set { properties[.subtitle] = newValue as AnyObject }
+    }
+    public var isOptional: Bool? {
+        get { properties[.isOptional] as? Bool}
+        set { properties[.isOptional] = newValue as AnyObject }
+    }
+    public var duration: Int? {
+        get { properties[.duration] as? Int}
+        set { properties[.duration] = newValue as AnyObject }
+    }
+    public var spicy: String? {
+        get { properties[.spicy] as? String}
+        set { properties[.spicy] = newValue as AnyObject }
+    }
+    public var caution: String? {
+        get { properties[.caution] as? String}
+        set { properties[.caution] = newValue as AnyObject }
+    }
+    public var defaultPrice: Int? {
+        get { properties[.defaultPrice] as? Int}
+        set { properties[.defaultPrice] = newValue as AnyObject }
+    }
+    public var imageName: String? {
+        get { properties[.imageName] as? String}
+        set { properties[.imageName] = newValue as AnyObject }
     }
     
 }

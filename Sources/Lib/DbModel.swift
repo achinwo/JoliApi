@@ -24,6 +24,7 @@
 //   let event = try? newJSONDecoder().decode(Event.self, from: jsonData)
 //   let stikrExperienceData = try? newJSONDecoder().decode(StikrExperienceData.self, from: jsonData)
 //   let visualCode = try? newJSONDecoder().decode(VisualCode.self, from: jsonData)
+//   let stikrExperienceDataItem = try? newJSONDecoder().decode(StikrExperienceDataItem.self, from: jsonData)
 
 import Foundation
 
@@ -1421,4 +1422,88 @@ public enum Logo: String, Codable {
 public enum Style: String, Codable {
     case appclip = "appclip"
     case qr = "qr"
+}
+
+/// StikrExperienceDataItem
+// MARK: - StikrExperienceDataItem
+public struct StikrExperienceDataItem: Persisted, DataConvertible {
+    public var aliasTitle: String?
+    public var caution: String?
+    public var createdAt: Date
+    public var createdById: Int
+    public var defaultPrice: Int?
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var duration: Int?
+    public var experienceId: Int
+    public var id: Int
+    public var imageName: String?
+    public var isOptional: Bool?
+    public var itemGrouping: String?
+    public var itemSubgrouping: String?
+    public var itemType: ItemType
+    public var spicy: Spicy?
+    public var subtitle: String?
+    public var title: String?
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case aliasTitle = "aliasTitle"
+        case caution = "caution"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case defaultPrice = "defaultPrice"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case duration = "duration"
+        case experienceId = "experienceId"
+        case id = "id"
+        case imageName = "imageName"
+        case isOptional = "isOptional"
+        case itemGrouping = "itemGrouping"
+        case itemSubgrouping = "itemSubgrouping"
+        case itemType = "itemType"
+        case spicy = "spicy"
+        case subtitle = "subtitle"
+        case title = "title"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(aliasTitle: String?, caution: String?, createdAt: Date, createdById: Int, defaultPrice: Int?, deletedAt: Date?, deletedById: Int?, duration: Int?, experienceId: Int, id: Int, imageName: String?, isOptional: Bool?, itemGrouping: String?, itemSubgrouping: String?, itemType: ItemType, spicy: Spicy?, subtitle: String?, title: String?, updatedAt: Date, updatedById: Int) {
+        self.aliasTitle = aliasTitle
+        self.caution = caution
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.defaultPrice = defaultPrice
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.duration = duration
+        self.experienceId = experienceId
+        self.id = id
+        self.imageName = imageName
+        self.isOptional = isOptional
+        self.itemGrouping = itemGrouping
+        self.itemSubgrouping = itemSubgrouping
+        self.itemType = itemType
+        self.spicy = spicy
+        self.subtitle = subtitle
+        self.title = title
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+public enum ItemType: String, Codable {
+    case castMember = "castMember"
+    case mealPrepStep = "mealPrepStep"
+    case menuDrinkItem = "menuDrinkItem"
+    case menuFoodItem = "menuFoodItem"
+}
+
+public enum Spicy: String, Codable {
+    case extraHot = "extraHot"
+    case hot = "hot"
+    case mild = "mild"
 }
