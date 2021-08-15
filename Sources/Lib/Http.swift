@@ -178,6 +178,7 @@ extension Json {
 
 public enum HttpBody {
     
+    case data(Data)
     case multipart(Json)
     case json(Json)
     case dbModel(DataConvertible)
@@ -185,6 +186,8 @@ public enum HttpBody {
     
     public func toData() throws -> Data {
         switch self {
+        case .data(let data):
+            return data
         case .multipart(let json):
             return try json.toData()
         case .json(let json):
