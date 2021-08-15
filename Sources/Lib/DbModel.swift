@@ -978,6 +978,7 @@ public struct RoomMembership: Persisted, DataConvertible {
 // MARK: - Device
 public struct Device: Persisted, DataConvertible {
     public var apnToken: String?
+    public var appName: String?
     public var clientVersion: String?
     public var createdAt: Date
     public var createdById: Int
@@ -994,6 +995,7 @@ public struct Device: Persisted, DataConvertible {
 
     public enum CodingKeys: String, CodingKey {
         case apnToken = "apnToken"
+        case appName = "appName"
         case clientVersion = "clientVersion"
         case createdAt = "createdAt"
         case createdById = "createdById"
@@ -1009,8 +1011,9 @@ public struct Device: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(apnToken: String?, clientVersion: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(apnToken: String?, appName: String?, clientVersion: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
         self.apnToken = apnToken
+        self.appName = appName
         self.clientVersion = clientVersion
         self.createdAt = createdAt
         self.createdById = createdById
@@ -1294,6 +1297,7 @@ public struct Event: Persisted, DataConvertible {
 /// StikrExperienceData
 // MARK: - StikrExperienceData
 public struct StikrExperienceData: Persisted, DataConvertible {
+    public var apnToken: String?
     public var backgroundImage: String?
     public var bannerImage: String?
     public var bannerVideoUrl: String?
@@ -1305,6 +1309,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
+    public var deviceUuid: String
     public var id: Int
     public var landingPageText: String?
     public var logoImage: String?
@@ -1314,6 +1319,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var uuid: String
 
     public enum CodingKeys: String, CodingKey {
+        case apnToken = "apnToken"
         case backgroundImage = "backgroundImage"
         case bannerImage = "bannerImage"
         case bannerVideoUrl = "bannerVideoUrl"
@@ -1325,6 +1331,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case createdById = "createdById"
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
+        case deviceUuid = "deviceUuid"
         case id = "id"
         case landingPageText = "landingPageText"
         case logoImage = "logoImage"
@@ -1334,7 +1341,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case uuid = "uuid"
     }
 
-    public init(backgroundImage: String?, bannerImage: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, landingPageText: String?, logoImage: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(apnToken: String?, backgroundImage: String?, bannerImage: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, id: Int, landingPageText: String?, logoImage: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+        self.apnToken = apnToken
         self.backgroundImage = backgroundImage
         self.bannerImage = bannerImage
         self.bannerVideoUrl = bannerVideoUrl
@@ -1346,6 +1354,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
+        self.deviceUuid = deviceUuid
         self.id = id
         self.landingPageText = landingPageText
         self.logoImage = logoImage
@@ -1364,6 +1373,7 @@ public struct VisualCode: Persisted, DataConvertible {
     public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
+    public var experienceId: Int
     public var foregroundColor: String
     public var id: Int
     public var index: Int
@@ -1380,6 +1390,7 @@ public struct VisualCode: Persisted, DataConvertible {
         case createdById = "createdById"
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
+        case experienceId = "experienceId"
         case foregroundColor = "foregroundColor"
         case id = "id"
         case index = "index"
@@ -1391,12 +1402,13 @@ public struct VisualCode: Persisted, DataConvertible {
         case url = "url"
     }
 
-    public init(backgroundColor: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, foregroundColor: String, id: Int, index: Int, interactionType: InteractionType, logo: Logo, style: Style, updatedAt: Date, updatedById: Int, url: String) {
+    public init(backgroundColor: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, experienceId: Int, foregroundColor: String, id: Int, index: Int, interactionType: InteractionType, logo: Logo, style: Style, updatedAt: Date, updatedById: Int, url: String) {
         self.backgroundColor = backgroundColor
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
+        self.experienceId = experienceId
         self.foregroundColor = foregroundColor
         self.id = id
         self.index = index
@@ -1436,12 +1448,13 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
     public var deletedById: Int?
     public var duration: Int?
     public var experienceId: Int
+    public var experienceItemType: ExperienceItemType
     public var id: Int
     public var imageName: String?
     public var isOptional: Bool?
     public var itemGrouping: String?
     public var itemSubgrouping: String?
-    public var itemType: ItemType
+    public var parentExperienceItemId: Int?
     public var spicy: Spicy?
     public var subtitle: String?
     public var title: String?
@@ -1458,12 +1471,13 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
         case deletedById = "deletedById"
         case duration = "duration"
         case experienceId = "experienceId"
+        case experienceItemType = "experienceItemType"
         case id = "id"
         case imageName = "imageName"
         case isOptional = "isOptional"
         case itemGrouping = "itemGrouping"
         case itemSubgrouping = "itemSubgrouping"
-        case itemType = "itemType"
+        case parentExperienceItemId = "parentExperienceItemId"
         case spicy = "spicy"
         case subtitle = "subtitle"
         case title = "title"
@@ -1471,7 +1485,7 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(aliasTitle: String?, caution: String?, createdAt: Date, createdById: Int, defaultPrice: Int?, deletedAt: Date?, deletedById: Int?, duration: Int?, experienceId: Int, id: Int, imageName: String?, isOptional: Bool?, itemGrouping: String?, itemSubgrouping: String?, itemType: ItemType, spicy: Spicy?, subtitle: String?, title: String?, updatedAt: Date, updatedById: Int) {
+    public init(aliasTitle: String?, caution: String?, createdAt: Date, createdById: Int, defaultPrice: Int?, deletedAt: Date?, deletedById: Int?, duration: Int?, experienceId: Int, experienceItemType: ExperienceItemType, id: Int, imageName: String?, isOptional: Bool?, itemGrouping: String?, itemSubgrouping: String?, parentExperienceItemId: Int?, spicy: Spicy?, subtitle: String?, title: String?, updatedAt: Date, updatedById: Int) {
         self.aliasTitle = aliasTitle
         self.caution = caution
         self.createdAt = createdAt
@@ -1481,12 +1495,13 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
         self.deletedById = deletedById
         self.duration = duration
         self.experienceId = experienceId
+        self.experienceItemType = experienceItemType
         self.id = id
         self.imageName = imageName
         self.isOptional = isOptional
         self.itemGrouping = itemGrouping
         self.itemSubgrouping = itemSubgrouping
-        self.itemType = itemType
+        self.parentExperienceItemId = parentExperienceItemId
         self.spicy = spicy
         self.subtitle = subtitle
         self.title = title
@@ -1495,11 +1510,14 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
     }
 }
 
-public enum ItemType: String, Codable {
-    case castMember = "castMember"
+public enum ExperienceItemType: String, Codable {
+    case mealPrepIngredient = "mealPrepIngredient"
     case mealPrepStep = "mealPrepStep"
     case menuDrinkItem = "menuDrinkItem"
     case menuFoodItem = "menuFoodItem"
+    case menuFoodNutrition = "menuFoodNutrition"
+    case person = "person"
+    case profileSkill = "profileSkill"
 }
 
 public enum Spicy: String, Codable {

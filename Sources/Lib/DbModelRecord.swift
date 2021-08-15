@@ -921,6 +921,10 @@ extension DeviceRecord {
         get { properties[.clientVersion] as? String}
         set { properties[.clientVersion] = newValue as AnyObject }
     }
+    public var appName: String? {
+        get { properties[.appName] as? String}
+        set { properties[.appName] = newValue as AnyObject }
+    }
     
 }
 extension PlayStateRecord {
@@ -1449,6 +1453,14 @@ extension StikrExperienceDataRecord {
         get { properties[.brandColorAccent] as? String}
         set { properties[.brandColorAccent] = newValue as AnyObject }
     }
+    public var deviceUuid: String? {
+        get { properties[.deviceUuid] as? String}
+        set { properties[.deviceUuid] = newValue as AnyObject }
+    }
+    public var apnToken: String? {
+        get { properties[.apnToken] as? String}
+        set { properties[.apnToken] = newValue as AnyObject }
+    }
     
 }
 extension VisualCodeRecord {
@@ -1488,6 +1500,10 @@ extension VisualCodeRecord {
     public var style: String? {
         get { properties[.style] as? String}
         set { properties[.style] = newValue as AnyObject }
+    }
+    public var experienceId: Int? {
+        get { properties[.experienceId] as? Int}
+        set { properties[.experienceId] = newValue as AnyObject }
     }
     public var index: Int? {
         get { properties[.index] as? Int}
@@ -1533,9 +1549,9 @@ extension StikrExperienceDataItemRecord {
         get { properties[.updatedAt] as? Date}
         set { properties[.updatedAt] = newValue as AnyObject }
     }
-    public var itemType: String? {
-        get { properties[.itemType] as? String}
-        set { properties[.itemType] = newValue as AnyObject }
+    public var experienceItemType: String? {
+        get { properties[.experienceItemType] as? String}
+        set { properties[.experienceItemType] = newValue as AnyObject }
     }
     public var itemGrouping: String? {
         get { properties[.itemGrouping] as? String}
@@ -1548,6 +1564,10 @@ extension StikrExperienceDataItemRecord {
     public var experienceId: Int? {
         get { properties[.experienceId] as? Int}
         set { properties[.experienceId] = newValue as AnyObject }
+    }
+    public var parentExperienceItemId: Int? {
+        get { properties[.parentExperienceItemId] as? Int}
+        set { properties[.parentExperienceItemId] = newValue as AnyObject }
     }
     public var title: String? {
         get { properties[.title] as? String}
