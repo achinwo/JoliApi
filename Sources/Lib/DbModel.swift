@@ -988,6 +988,7 @@ public struct Device: Persisted, DataConvertible {
     public var model: String
     public var name: String
     public var platform: String
+    public var platformVersion: String?
     public var refreshToken: String?
     public var updatedAt: Date
     public var updatedById: Int
@@ -1005,13 +1006,14 @@ public struct Device: Persisted, DataConvertible {
         case model = "model"
         case name = "name"
         case platform = "platform"
+        case platformVersion = "platformVersion"
         case refreshToken = "refreshToken"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case uuid = "uuid"
     }
 
-    public init(apnToken: String?, appName: String?, clientVersion: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(apnToken: String?, appName: String?, clientVersion: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, model: String, name: String, platform: String, platformVersion: String?, refreshToken: String?, updatedAt: Date, updatedById: Int, uuid: String) {
         self.apnToken = apnToken
         self.appName = appName
         self.clientVersion = clientVersion
@@ -1023,6 +1025,7 @@ public struct Device: Persisted, DataConvertible {
         self.model = model
         self.name = name
         self.platform = platform
+        self.platformVersion = platformVersion
         self.refreshToken = refreshToken
         self.updatedAt = updatedAt
         self.updatedById = updatedById

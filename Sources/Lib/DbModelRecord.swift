@@ -901,6 +901,10 @@ extension DeviceRecord {
         get { properties[.platform] as? String}
         set { properties[.platform] = newValue as AnyObject }
     }
+    public var platformVersion: String? {
+        get { properties[.platformVersion] as? String}
+        set { properties[.platformVersion] = newValue as AnyObject }
+    }
     public var model: String? {
         get { properties[.model] as? String}
         set { properties[.model] = newValue as AnyObject }
