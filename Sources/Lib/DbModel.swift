@@ -1315,6 +1315,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var deviceUuid: String
     public var experienceTypeName: String?
     public var id: Int
+    public var items: [StikrExperienceDataItem]?
     public var landingPageText: String?
     public var logoImageUrl: String?
     public var releaseDate: Date?
@@ -1325,6 +1326,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var updatedAt: Date
     public var updatedById: Int
     public var uuid: String
+    public var visualcodes: [VisualCode]?
 
     public enum CodingKeys: String, CodingKey {
         case apnToken = "apnToken"
@@ -1342,6 +1344,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case deviceUuid = "deviceUuid"
         case experienceTypeName = "experienceTypeName"
         case id = "id"
+        case items = "items"
         case landingPageText = "landingPageText"
         case logoImageUrl = "logoImageUrl"
         case releaseDate = "releaseDate"
@@ -1352,9 +1355,10 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case uuid = "uuid"
+        case visualcodes = "visualcodes"
     }
 
-    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String?, id: Int, landingPageText: String?, logoImageUrl: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String?, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
         self.apnToken = apnToken
         self.backgroundImageUrl = backgroundImageUrl
         self.bannerImageUrl = bannerImageUrl
@@ -1370,6 +1374,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.deviceUuid = deviceUuid
         self.experienceTypeName = experienceTypeName
         self.id = id
+        self.items = items
         self.landingPageText = landingPageText
         self.logoImageUrl = logoImageUrl
         self.releaseDate = releaseDate
@@ -1380,78 +1385,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uuid = uuid
+        self.visualcodes = visualcodes
     }
-}
-
-/// VisualCode
-// MARK: - VisualCode
-public struct VisualCode: Persisted, DataConvertible {
-    public var backgroundColor: String
-    public var createdAt: Date
-    public var createdById: Int
-    public var deletedAt: Date?
-    public var deletedById: Int?
-    public var experienceId: Int
-    public var foregroundColor: String
-    public var id: Int
-    public var index: Int
-    public var interactionType: InteractionType
-    public var logo: Logo
-    public var style: Style
-    public var updatedAt: Date
-    public var updatedById: Int
-    public var url: String
-
-    public enum CodingKeys: String, CodingKey {
-        case backgroundColor = "backgroundColor"
-        case createdAt = "createdAt"
-        case createdById = "createdById"
-        case deletedAt = "deletedAt"
-        case deletedById = "deletedById"
-        case experienceId = "experienceId"
-        case foregroundColor = "foregroundColor"
-        case id = "id"
-        case index = "index"
-        case interactionType = "interactionType"
-        case logo = "logo"
-        case style = "style"
-        case updatedAt = "updatedAt"
-        case updatedById = "updatedById"
-        case url = "url"
-    }
-
-    public init(backgroundColor: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, experienceId: Int, foregroundColor: String, id: Int, index: Int, interactionType: InteractionType, logo: Logo, style: Style, updatedAt: Date, updatedById: Int, url: String) {
-        self.backgroundColor = backgroundColor
-        self.createdAt = createdAt
-        self.createdById = createdById
-        self.deletedAt = deletedAt
-        self.deletedById = deletedById
-        self.experienceId = experienceId
-        self.foregroundColor = foregroundColor
-        self.id = id
-        self.index = index
-        self.interactionType = interactionType
-        self.logo = logo
-        self.style = style
-        self.updatedAt = updatedAt
-        self.updatedById = updatedById
-        self.url = url
-    }
-}
-
-public enum InteractionType: String, Codable {
-    case cam = "cam"
-    case nfc = "nfc"
-}
-
-public enum Logo: String, Codable {
-    case badge = "badge"
-    case none = "none"
-}
-
-public enum Style: String, Codable {
-    case appclip = "appclip"
-    case qr = "qr"
 }
 
 /// StikrExperienceDataItem
@@ -1542,4 +1477,75 @@ public enum Spicy: String, Codable {
     case extraHot = "extraHot"
     case hot = "hot"
     case mild = "mild"
+}
+
+/// VisualCode
+// MARK: - VisualCode
+public struct VisualCode: Persisted, DataConvertible {
+    public var backgroundColor: String
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var experienceId: Int
+    public var foregroundColor: String
+    public var id: Int
+    public var index: Int
+    public var interactionType: InteractionType
+    public var logo: Logo
+    public var style: Style
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var url: String
+
+    public enum CodingKeys: String, CodingKey {
+        case backgroundColor = "backgroundColor"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case experienceId = "experienceId"
+        case foregroundColor = "foregroundColor"
+        case id = "id"
+        case index = "index"
+        case interactionType = "interactionType"
+        case logo = "logo"
+        case style = "style"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case url = "url"
+    }
+
+    public init(backgroundColor: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, experienceId: Int, foregroundColor: String, id: Int, index: Int, interactionType: InteractionType, logo: Logo, style: Style, updatedAt: Date, updatedById: Int, url: String) {
+        self.backgroundColor = backgroundColor
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.experienceId = experienceId
+        self.foregroundColor = foregroundColor
+        self.id = id
+        self.index = index
+        self.interactionType = interactionType
+        self.logo = logo
+        self.style = style
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.url = url
+    }
+}
+
+public enum InteractionType: String, Codable {
+    case cam = "cam"
+    case nfc = "nfc"
+}
+
+public enum Logo: String, Codable {
+    case badge = "badge"
+    case none = "none"
+}
+
+public enum Style: String, Codable {
+    case appclip = "appclip"
+    case qr = "qr"
 }

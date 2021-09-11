@@ -1485,6 +1485,14 @@ extension StikrExperienceDataRecord {
         get { properties[.releasePlatformInstaUsername] as? String}
         set { properties[.releasePlatformInstaUsername] = newValue as AnyObject }
     }
+    public var items: [StikrExperienceDataItem]? {
+        get { properties[.items] as? [StikrExperienceDataItem]}
+        set { properties[.items] = newValue as AnyObject }
+    }
+    public var visualcodes: [VisualCode]? {
+        get { properties[.visualcodes] as? [VisualCode]}
+        set { properties[.visualcodes] = newValue as AnyObject }
+    }
     
 }
 extension VisualCodeRecord {
