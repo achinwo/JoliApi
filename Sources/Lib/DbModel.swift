@@ -1301,8 +1301,8 @@ public struct Event: Persisted, DataConvertible {
 // MARK: - StikrExperienceData
 public struct StikrExperienceData: Persisted, DataConvertible {
     public var apnToken: String?
-    public var backgroundImage: String?
-    public var bannerImage: String?
+    public var backgroundImageUrl: String?
+    public var bannerImageUrl: String?
     public var bannerVideoUrl: String?
     public var brandColorAccent: String?
     public var brandColorPrimary: String?
@@ -1313,9 +1313,14 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var deletedAt: Date?
     public var deletedById: Int?
     public var deviceUuid: String
+    public var experienceTypeName: String?
     public var id: Int
     public var landingPageText: String?
-    public var logoImage: String?
+    public var logoImageUrl: String?
+    public var releaseDate: Date?
+    public var releasePlatformInstaUsername: String?
+    public var releasePlatformLogoUrl: String?
+    public var releasePlatformName: String?
     public var socialInstagramUsername: String?
     public var updatedAt: Date
     public var updatedById: Int
@@ -1323,8 +1328,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
 
     public enum CodingKeys: String, CodingKey {
         case apnToken = "apnToken"
-        case backgroundImage = "backgroundImage"
-        case bannerImage = "bannerImage"
+        case backgroundImageUrl = "backgroundImageUrl"
+        case bannerImageUrl = "bannerImageUrl"
         case bannerVideoUrl = "bannerVideoUrl"
         case brandColorAccent = "brandColorAccent"
         case brandColorPrimary = "brandColorPrimary"
@@ -1335,19 +1340,24 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
         case deviceUuid = "deviceUuid"
+        case experienceTypeName = "experienceTypeName"
         case id = "id"
         case landingPageText = "landingPageText"
-        case logoImage = "logoImage"
+        case logoImageUrl = "logoImageUrl"
+        case releaseDate = "releaseDate"
+        case releasePlatformInstaUsername = "releasePlatformInstaUsername"
+        case releasePlatformLogoUrl = "releasePlatformLogoUrl"
+        case releasePlatformName = "releasePlatformName"
         case socialInstagramUsername = "socialInstagramUsername"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case uuid = "uuid"
     }
 
-    public init(apnToken: String?, backgroundImage: String?, bannerImage: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, id: Int, landingPageText: String?, logoImage: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String) {
+    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String?, id: Int, landingPageText: String?, logoImageUrl: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String) {
         self.apnToken = apnToken
-        self.backgroundImage = backgroundImage
-        self.bannerImage = bannerImage
+        self.backgroundImageUrl = backgroundImageUrl
+        self.bannerImageUrl = bannerImageUrl
         self.bannerVideoUrl = bannerVideoUrl
         self.brandColorAccent = brandColorAccent
         self.brandColorPrimary = brandColorPrimary
@@ -1358,9 +1368,14 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.deletedAt = deletedAt
         self.deletedById = deletedById
         self.deviceUuid = deviceUuid
+        self.experienceTypeName = experienceTypeName
         self.id = id
         self.landingPageText = landingPageText
-        self.logoImage = logoImage
+        self.logoImageUrl = logoImageUrl
+        self.releaseDate = releaseDate
+        self.releasePlatformInstaUsername = releasePlatformInstaUsername
+        self.releasePlatformLogoUrl = releasePlatformLogoUrl
+        self.releasePlatformName = releasePlatformName
         self.socialInstagramUsername = socialInstagramUsername
         self.updatedAt = updatedAt
         self.updatedById = updatedById

@@ -1413,21 +1413,25 @@ extension StikrExperienceDataRecord {
         get { properties[.updatedAt] as? Date}
         set { properties[.updatedAt] = newValue as AnyObject }
     }
-    public var logoImage: String? {
-        get { properties[.logoImage] as? String}
-        set { properties[.logoImage] = newValue as AnyObject }
+    public var logoImageUrl: String? {
+        get { properties[.logoImageUrl] as? String}
+        set { properties[.logoImageUrl] = newValue as AnyObject }
     }
-    public var bannerImage: String? {
-        get { properties[.bannerImage] as? String}
-        set { properties[.bannerImage] = newValue as AnyObject }
+    public var bannerImageUrl: String? {
+        get { properties[.bannerImageUrl] as? String}
+        set { properties[.bannerImageUrl] = newValue as AnyObject }
     }
-    public var backgroundImage: String? {
-        get { properties[.backgroundImage] as? String}
-        set { properties[.backgroundImage] = newValue as AnyObject }
+    public var backgroundImageUrl: String? {
+        get { properties[.backgroundImageUrl] as? String}
+        set { properties[.backgroundImageUrl] = newValue as AnyObject }
     }
     public var bannerVideoUrl: String? {
         get { properties[.bannerVideoUrl] as? String}
         set { properties[.bannerVideoUrl] = newValue as AnyObject }
+    }
+    public var experienceTypeName: String? {
+        get { properties[.experienceTypeName] as? String}
+        set { properties[.experienceTypeName] = newValue as AnyObject }
     }
     public var socialInstagramUsername: String? {
         get { properties[.socialInstagramUsername] as? String}
@@ -1464,6 +1468,22 @@ extension StikrExperienceDataRecord {
     public var apnToken: String? {
         get { properties[.apnToken] as? String}
         set { properties[.apnToken] = newValue as AnyObject }
+    }
+    public var releaseDate: Date? {
+        get { properties[.releaseDate] as? Date}
+        set { properties[.releaseDate] = newValue as AnyObject }
+    }
+    public var releasePlatformName: String? {
+        get { properties[.releasePlatformName] as? String}
+        set { properties[.releasePlatformName] = newValue as AnyObject }
+    }
+    public var releasePlatformLogoUrl: String? {
+        get { properties[.releasePlatformLogoUrl] as? String}
+        set { properties[.releasePlatformLogoUrl] = newValue as AnyObject }
+    }
+    public var releasePlatformInstaUsername: String? {
+        get { properties[.releasePlatformInstaUsername] as? String}
+        set { properties[.releasePlatformInstaUsername] = newValue as AnyObject }
     }
     
 }
