@@ -16,6 +16,24 @@ extension Data {
     
 }
 
+public typealias MultilineString = String
+
+
+public extension String {
+    func count(of needle: Character) -> Int {
+        return reduce(0) {
+            $1 == needle ? $0 + 1 : $0
+        }
+    }
+}
+
+public extension URL {
+    
+    init(staticString: StaticString){
+        self.init(string: "\(staticString)")!
+    }
+}
+
 public class HttpsHook: NSObject, URLSessionDelegate {
     
     public let trustedHosts: [String]

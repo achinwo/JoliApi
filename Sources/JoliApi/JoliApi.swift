@@ -102,6 +102,9 @@ public class JoliApi: ObservableObject, HttpApi {
         case host(String)
         case custom((http: URL, ws: URL))
         
+        public static var defaultDevUrl = URL(staticString: "https://dev.jolimc.com")
+        public static var defaultProdUrl = URL(staticString: "https://dev.jolimc.com")
+        
         public var description: String {
             return String(describing: rawValue)
         }
@@ -109,18 +112,17 @@ public class JoliApi: ObservableObject, HttpApi {
         public var rawValue: (http: URL, ws: URL) {
             switch self {
             case .dev:
-                return (http: URL(string: "https://dev.jolimc.com")!, ws: URL(string: "wss://dev.jolimc.com")!)
+                return (http: Self.defaultDevUrl, ws: Self.defaultDevUrl)
             case .prod:
-                return (http: URL(string: "https://dev.jolimc.com")!, ws: URL(string: "wss://dev.jolimc.com")!)
-                //return (http: URL(string: "https://joli.live")!, ws: URL(string: "wss://joli.live")!)
+                return (http: Self.defaultProdUrl, ws: Self.defaultProdUrl)
             case .localhost:
-                return (http: URL(string: "https://localhost:8080")!, ws: URL(string: "wss://localhost:8080")!)
+                return (http: URL(staticString: "https://localhost:8080"), ws: URL(staticString: "wss://localhost:8080"))
             case .homeLaptop:
-                return (http: URL(string: "https://192.168.1.173:8080")!, ws: URL(string: "wss://192.168.1.173:8080")!)
+                return (http: URL(staticString: "https://192.168.1.173:8080"), ws: URL(staticString: "wss://192.168.1.173:8080"))
             case .homeDesktop:
-                return (http: URL(string: "https://192.168.1.188:8080")!, ws: URL(string: "wss://192.168.1.188:8080")!)
+                return (http: URL(staticString: "https://192.168.1.188:8080"), ws: URL(staticString: "wss://192.168.1.188:8080"))
             case .mobileHotspot:
-                return (http: URL(string: "https://172.20.10.2:8080")!, ws: URL(string: "wss://172.20.10.2:8080")!)
+                return (http: URL(staticString: "https://172.20.10.2:8080"), ws: URL(staticString: "wss://172.20.10.2:8080"))
             case .host(let urlString):
                 return (http: URL(string: "https://\(urlString)")!, ws: URL(string: "wss://\(urlString)")!)
             case .custom(let urls):
