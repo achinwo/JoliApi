@@ -23,9 +23,7 @@ let package = Package(
         .package(name: "Promises", url: "https://github.com/google/promises.git", from: "1.2.10"),
         .package(name: "JSONSchema", url: "https://github.com/kylef/JSONSchema.swift.git", from: "0.5.0"),
         .package(url: "https://github.com/kylef/Commander.git", from: "0.9.1"),
-        .package(url: "https://github.com/SwiftyBeaver/SwiftyBeaver.git", .upToNextMajor(from: "1.9.1")),
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", from: "0.50100.0"),
-        .package(name: "CancellationToken", url: "https://github.com/tomlokhorst/swift-cancellationtoken.git", from: "3.2.0"),
         .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMajor(from: "4.0.4")),
         .package(name: "Version", url: "https://github.com/mxcl/Version.git", .upToNextMajor(from: "2.0.0")),
         .package(url: "https://github.com/jathu/UIImageColors.git", .upToNextMajor(from: "2.2.0")),
@@ -41,12 +39,12 @@ let package = Package(
 //            .linkedFramework("SpotifyiOS"),
 //        ]),
         .target(name: "JoliCore",
-                dependencies: ["Promises", "JSONSchema", "SwiftyBeaver", "Commander", "CancellationToken", "Starscream", "Version", "UIImageColors"],
+                dependencies: ["Promises", "Commander", "Starscream", "Version", "UIImageColors"],
                 path: "Sources/Lib"
         ),
         .executableTarget(
             name: "Cli",
-            dependencies: ["JoliApi", "SwiftSyntax"]
+            dependencies: ["JoliApi", "SwiftSyntax", "JSONSchema"]
         ),
         .target(
             name: "JoliApi",
