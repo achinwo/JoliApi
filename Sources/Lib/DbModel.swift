@@ -482,23 +482,32 @@ public struct User: Persisted, DataConvertible {
     public var appleIdAuthCode: String?
     public var appleIdToken: String?
     public var appleIdentifier: String?
+    public var autoRenewEnabled: Bool?
+    public var autoRenewProductId: String?
+    public var consumedProductDiscounts: String?
     public var createdAt: Date
     public var createdById: Int
     public var deletedAt: Date?
     public var deletedById: Int?
     public var djRanking: Int?
     public var email: String
+    public var expirationIntent: String?
     public var followingUserId: Int?
     public var heartPoints: Int?
     public var id: Int
     public var imageLarge: String?
     public var imageMedium: String?
     public var imageSmall: String?
+    public var inBillingRetry: Bool?
     public var isServiceAccount: Bool?
+    public var latestExpiryDate: Date?
+    public var latestReceiptData: String?
     public var name: String
+    public var originalTransactionId: String?
     public var passwordHash: String?
     public var playState: PlayState?
     public var refreshTokenSpotify: String?
+    public var subscriptionProductId: String?
     public var updatedAt: Date
     public var updatedById: Int
 
@@ -509,51 +518,69 @@ public struct User: Persisted, DataConvertible {
         case appleIdAuthCode = "appleIdAuthCode"
         case appleIdToken = "appleIdToken"
         case appleIdentifier = "appleIdentifier"
+        case autoRenewEnabled = "autoRenewEnabled"
+        case autoRenewProductId = "autoRenewProductId"
+        case consumedProductDiscounts = "consumedProductDiscounts"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
         case djRanking = "djRanking"
         case email = "email"
+        case expirationIntent = "expirationIntent"
         case followingUserId = "followingUserId"
         case heartPoints = "heartPoints"
         case id = "id"
         case imageLarge = "imageLarge"
         case imageMedium = "imageMedium"
         case imageSmall = "imageSmall"
+        case inBillingRetry = "inBillingRetry"
         case isServiceAccount = "isServiceAccount"
+        case latestExpiryDate = "latestExpiryDate"
+        case latestReceiptData = "latestReceiptData"
         case name = "name"
+        case originalTransactionId = "originalTransactionId"
         case passwordHash = "passwordHash"
         case playState = "playState"
         case refreshTokenSpotify = "refreshTokenSpotify"
+        case subscriptionProductId = "subscriptionProductId"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, appleIdAuthCode: String?, appleIdToken: String?, appleIdentifier: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, followingUserId: Int?, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, isServiceAccount: Bool?, name: String, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, updatedAt: Date, updatedById: Int) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, appleIdAuthCode: String?, appleIdToken: String?, appleIdentifier: String?, autoRenewEnabled: Bool?, autoRenewProductId: String?, consumedProductDiscounts: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, expirationIntent: String?, followingUserId: Int?, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, inBillingRetry: Bool?, isServiceAccount: Bool?, latestExpiryDate: Date?, latestReceiptData: String?, name: String, originalTransactionId: String?, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, subscriptionProductId: String?, updatedAt: Date, updatedById: Int) {
         self.activatedAt = activatedAt
         self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
         self.appleIdAuthCode = appleIdAuthCode
         self.appleIdToken = appleIdToken
         self.appleIdentifier = appleIdentifier
+        self.autoRenewEnabled = autoRenewEnabled
+        self.autoRenewProductId = autoRenewProductId
+        self.consumedProductDiscounts = consumedProductDiscounts
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
         self.deletedById = deletedById
         self.djRanking = djRanking
         self.email = email
+        self.expirationIntent = expirationIntent
         self.followingUserId = followingUserId
         self.heartPoints = heartPoints
         self.id = id
         self.imageLarge = imageLarge
         self.imageMedium = imageMedium
         self.imageSmall = imageSmall
+        self.inBillingRetry = inBillingRetry
         self.isServiceAccount = isServiceAccount
+        self.latestExpiryDate = latestExpiryDate
+        self.latestReceiptData = latestReceiptData
         self.name = name
+        self.originalTransactionId = originalTransactionId
         self.passwordHash = passwordHash
         self.playState = playState
         self.refreshTokenSpotify = refreshTokenSpotify
+        self.subscriptionProductId = subscriptionProductId
         self.updatedAt = updatedAt
         self.updatedById = updatedById
     }

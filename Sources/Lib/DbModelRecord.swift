@@ -249,6 +249,42 @@ extension UserRecord {
         get { properties[.appleIdAuthCode] as? String}
         set { properties[.appleIdAuthCode] = newValue as AnyObject }
     }
+    public var originalTransactionId: String? {
+        get { properties[.originalTransactionId] as? String}
+        set { properties[.originalTransactionId] = newValue as AnyObject }
+    }
+    public var latestReceiptData: String? {
+        get { properties[.latestReceiptData] as? String}
+        set { properties[.latestReceiptData] = newValue as AnyObject }
+    }
+    public var latestExpiryDate: Date? {
+        get { properties[.latestExpiryDate] as? Date}
+        set { properties[.latestExpiryDate] = newValue as AnyObject }
+    }
+    public var subscriptionProductId: String? {
+        get { properties[.subscriptionProductId] as? String}
+        set { properties[.subscriptionProductId] = newValue as AnyObject }
+    }
+    public var consumedProductDiscounts: String? {
+        get { properties[.consumedProductDiscounts] as? String}
+        set { properties[.consumedProductDiscounts] = newValue as AnyObject }
+    }
+    public var inBillingRetry: Bool? {
+        get { properties[.inBillingRetry] as? Bool}
+        set { properties[.inBillingRetry] = newValue as AnyObject }
+    }
+    public var autoRenewEnabled: Bool? {
+        get { properties[.autoRenewEnabled] as? Bool}
+        set { properties[.autoRenewEnabled] = newValue as AnyObject }
+    }
+    public var autoRenewProductId: String? {
+        get { properties[.autoRenewProductId] as? String}
+        set { properties[.autoRenewProductId] = newValue as AnyObject }
+    }
+    public var expirationIntent: String? {
+        get { properties[.expirationIntent] as? String}
+        set { properties[.expirationIntent] = newValue as AnyObject }
+    }
     public var refreshTokenSpotify: String? {
         get { properties[.refreshTokenSpotify] as? String}
         set { properties[.refreshTokenSpotify] = newValue as AnyObject }
