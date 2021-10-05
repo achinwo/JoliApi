@@ -458,7 +458,7 @@ public struct ServerInfo: CustomStringConvertible {
     }
     
     public struct Feature: CustomStringConvertible {
-        var paymentsEnabled = false
+        public var paymentsEnabled = false
         
         public var description: String {
             return "\(Self.self)(paymentsEnabled: \(paymentsEnabled))"
