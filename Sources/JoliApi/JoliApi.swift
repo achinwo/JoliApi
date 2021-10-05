@@ -451,6 +451,25 @@ public extension URLSessionConfiguration {
     
 }
 
+public struct ServerInfo: CustomStringConvertible {
+    
+    public var description: String {
+        return "ServerInfo(version: \(version), feature: \(feature))"
+    }
+    
+    public struct Feature: CustomStringConvertible {
+        var paymentsEnabled = false
+        
+        public var description: String {
+            return "\(Self.self)(paymentsEnabled: \(paymentsEnabled))"
+        }
+    }
+    
+    public let version: Version
+    public let feature: Feature
+    
+}
+
 public extension JoliApi {
     
     func createMusicroom(name: String, details: String, on: DispatchQueue? = nil) -> Promise<Musicroom> {
@@ -467,7 +486,11 @@ public extension JoliApi {
         case malformedBaseUrl(URL)
     }
     
-    static func resolveServer(_ baseUrl: URL) -> Promise<Version> {
+    static func insensitiveGet<V>(_ dictionary: [AnyHashable: Any], key: String, valueType: V.Type) -> V? {
+        return (dictionary[key] ?? dictionary[key.lowercased()]) as? V
+    }
+    
+    static func resolveServer(_ baseUrl: URL) -> Promise<ServerInfo> {
         
         return Promise() { resolve, reject in
             
@@ -476,7 +499,7 @@ public extension JoliApi {
             }
             
             var req = URLRequest(url: url)
-            req.httpMethod = "HEAD"
+            req.httpMethod = HttpMethod.post.rawValue
             
             let task = JoliApi.sharedUrlSession.dataTask(with: baseUrl) { (data, response, error) in
                 guard error == nil else {
@@ -487,7 +510,7 @@ public extension JoliApi {
                     return reject(response == nil ? VersionResolveError.noResponseReceived : VersionResolveError.unrecognisedResponseType)
                 }
                 
-                guard let versionStr = (resp.allHeaderFields["X-Server-Version"] ?? resp.allHeaderFields["x-server-version"]) as? String else {
+                guard let versionStr = insensitiveGet(resp.allHeaderFields, key: "X-Server-Version", valueType: String.self) else {
                     return reject(VersionResolveError.missingVersionField)
                 }
                 
@@ -495,7 +518,9 @@ public extension JoliApi {
                     return reject(VersionResolveError.malformedString(versionStr))
                 }
                 
-                resolve(version)
+                let paymentsEnabled = insensitiveGet(resp.allHeaderFields, key: "X-Server-Payments-Enabled", valueType: String.self) == "1"
+                
+                resolve(ServerInfo(version: version, feature: ServerInfo.Feature(paymentsEnabled: paymentsEnabled)))
             }
             
             task.resume()
