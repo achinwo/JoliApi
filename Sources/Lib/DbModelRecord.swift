@@ -25,6 +25,7 @@ public typealias EventRecord = Builder<Event>
 public typealias StikrExperienceDataRecord = Builder<StikrExperienceData>
 public typealias VisualCodeRecord = Builder<VisualCode>
 public typealias StikrExperienceDataItemRecord = Builder<StikrExperienceDataItem>
+public typealias ProductSummaryRecord = Builder<ProductSummary>
 
 
 extension AuthTokenRecord {
@@ -1672,6 +1673,74 @@ extension StikrExperienceDataItemRecord {
     public var imageName: String? {
         get { properties[.imageName] as? String}
         set { properties[.imageName] = newValue as AnyObject }
+    }
+    
+}
+extension ProductSummaryRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var localizedDescription: String? {
+        get { properties[.localizedDescription] as? String}
+        set { properties[.localizedDescription] = newValue as AnyObject }
+    }
+    public var localizedTitle: String? {
+        get { properties[.localizedTitle] as? String}
+        set { properties[.localizedTitle] = newValue as AnyObject }
+    }
+    public var price: Int? {
+        get { properties[.price] as? Int}
+        set { properties[.price] = newValue as AnyObject }
+    }
+    public var priceLocale: String? {
+        get { properties[.priceLocale] as? String}
+        set { properties[.priceLocale] = newValue as AnyObject }
+    }
+    public var productIdentifier: String? {
+        get { properties[.productIdentifier] as? String}
+        set { properties[.productIdentifier] = newValue as AnyObject }
+    }
+    public var isDownloadable: Bool? {
+        get { properties[.isDownloadable] as? Bool}
+        set { properties[.isDownloadable] = newValue as AnyObject }
+    }
+    public var isFamilyShareable: Bool? {
+        get { properties[.isFamilyShareable] as? Bool}
+        set { properties[.isFamilyShareable] = newValue as AnyObject }
+    }
+    public var subscriptionGroupIdentifier: String? {
+        get { properties[.subscriptionGroupIdentifier] as? String}
+        set { properties[.subscriptionGroupIdentifier] = newValue as AnyObject }
+    }
+    public var subscriptionPeriodUnit: Int? {
+        get { properties[.subscriptionPeriodUnit] as? Int}
+        set { properties[.subscriptionPeriodUnit] = newValue as AnyObject }
+    }
+    public var subscriptionPeriodUnits: Int? {
+        get { properties[.subscriptionPeriodUnits] as? Int}
+        set { properties[.subscriptionPeriodUnits] = newValue as AnyObject }
     }
     
 }

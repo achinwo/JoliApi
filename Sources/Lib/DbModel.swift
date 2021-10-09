@@ -25,6 +25,7 @@
 //   let stikrExperienceData = try? newJSONDecoder().decode(StikrExperienceData.self, from: jsonData)
 //   let visualCode = try? newJSONDecoder().decode(VisualCode.self, from: jsonData)
 //   let stikrExperienceDataItem = try? newJSONDecoder().decode(StikrExperienceDataItem.self, from: jsonData)
+//   let productSummary = try? newJSONDecoder().decode(ProductSummary.self, from: jsonData)
 
 import Foundation
 
@@ -1575,4 +1576,66 @@ public enum Logo: String, Codable {
 public enum Style: String, Codable {
     case appclip = "appclip"
     case qr = "qr"
+}
+
+/// ProductSummary
+// MARK: - ProductSummary
+public struct ProductSummary: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var id: Int
+    public var isDownloadable: Bool
+    public var isFamilyShareable: Bool
+    public var localizedDescription: String
+    public var localizedTitle: String
+    public var price: Int
+    public var priceLocale: String
+    public var productIdentifier: String
+    public var subscriptionGroupIdentifier: String?
+    public var subscriptionPeriodUnit: Int?
+    public var subscriptionPeriodUnits: Int?
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case id = "id"
+        case isDownloadable = "isDownloadable"
+        case isFamilyShareable = "isFamilyShareable"
+        case localizedDescription = "localizedDescription"
+        case localizedTitle = "localizedTitle"
+        case price = "price"
+        case priceLocale = "priceLocale"
+        case productIdentifier = "productIdentifier"
+        case subscriptionGroupIdentifier = "subscriptionGroupIdentifier"
+        case subscriptionPeriodUnit = "subscriptionPeriodUnit"
+        case subscriptionPeriodUnits = "subscriptionPeriodUnits"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, id: Int, isDownloadable: Bool, isFamilyShareable: Bool, localizedDescription: String, localizedTitle: String, price: Int, priceLocale: String, productIdentifier: String, subscriptionGroupIdentifier: String?, subscriptionPeriodUnit: Int?, subscriptionPeriodUnits: Int?, updatedAt: Date, updatedById: Int) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.id = id
+        self.isDownloadable = isDownloadable
+        self.isFamilyShareable = isFamilyShareable
+        self.localizedDescription = localizedDescription
+        self.localizedTitle = localizedTitle
+        self.price = price
+        self.priceLocale = priceLocale
+        self.productIdentifier = productIdentifier
+        self.subscriptionGroupIdentifier = subscriptionGroupIdentifier
+        self.subscriptionPeriodUnit = subscriptionPeriodUnit
+        self.subscriptionPeriodUnits = subscriptionPeriodUnits
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
 }
