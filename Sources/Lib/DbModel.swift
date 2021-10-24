@@ -1346,6 +1346,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var items: [StikrExperienceDataItem]?
     public var landingPageText: String?
     public var logoImageUrl: String?
+    public var productDescription: String?
+    public var productImageUrl: String?
     public var releaseDate: Date?
     public var releasePlatformInstaUsername: String?
     public var releasePlatformLogoUrl: String?
@@ -1375,6 +1377,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case items = "items"
         case landingPageText = "landingPageText"
         case logoImageUrl = "logoImageUrl"
+        case productDescription = "productDescription"
+        case productImageUrl = "productImageUrl"
         case releaseDate = "releaseDate"
         case releasePlatformInstaUsername = "releasePlatformInstaUsername"
         case releasePlatformLogoUrl = "releasePlatformLogoUrl"
@@ -1386,7 +1390,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case visualcodes = "visualcodes"
     }
 
-    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String?, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
+    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String?, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialInstagramUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
         self.apnToken = apnToken
         self.backgroundImageUrl = backgroundImageUrl
         self.bannerImageUrl = bannerImageUrl
@@ -1405,6 +1409,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.items = items
         self.landingPageText = landingPageText
         self.logoImageUrl = logoImageUrl
+        self.productDescription = productDescription
+        self.productImageUrl = productImageUrl
         self.releaseDate = releaseDate
         self.releasePlatformInstaUsername = releasePlatformInstaUsername
         self.releasePlatformLogoUrl = releasePlatformLogoUrl
