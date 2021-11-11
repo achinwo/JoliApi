@@ -420,10 +420,11 @@ public class JoliApi: ObservableObject, HttpApi {
        BaseUrl.mobileHotspot.rawValue.http.host!,
        BaseUrl.localhost.rawValue.http.host!,
        BaseUrl.dev.rawValue.http.host!,
-       URL(string: "https://192.168.1.113:8080")!.host!,
-       URL(string: "https://192.168.1.106:8080")!.host!,
-       URL(string: "https://192.168.1.26:8080")!.host!,
-       URL(string: "https://192.168.1.233:8080")!.host!,
+       URL(staticString: "https://dev.jolimc.com").host!,
+       URL(staticString: "https://192.168.1.113:8080").host!,
+       URL(staticString: "https://192.168.1.106:8080").host!,
+       URL(staticString: "https://192.168.1.26:8080").host!,
+       URL(staticString: "https://192.168.1.233:8080").host!,
     ])
     
     public static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
