@@ -1630,6 +1630,10 @@ extension StikrExperienceDataItemRecord {
         get { properties[.experienceItemType] as? String}
         set { properties[.experienceItemType] = newValue as AnyObject }
     }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
     public var itemGrouping: String? {
         get { properties[.itemGrouping] as? String}
         set { properties[.itemGrouping] = newValue as AnyObject }

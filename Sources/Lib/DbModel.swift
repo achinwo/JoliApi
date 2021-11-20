@@ -1447,6 +1447,7 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
     public var title: String?
     public var updatedAt: Date
     public var updatedById: Int
+    public var uuid: String
 
     public enum CodingKeys: String, CodingKey {
         case aliasTitle = "aliasTitle"
@@ -1470,9 +1471,10 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
         case title = "title"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
+        case uuid = "uuid"
     }
 
-    public init(aliasTitle: String?, caution: String?, createdAt: Date, createdById: Int, defaultPrice: Int?, deletedAt: Date?, deletedById: Int?, duration: Int?, experienceId: Int, experienceItemType: ExperienceItemType, id: Int, imageName: String?, isOptional: Bool?, itemGrouping: String?, itemSubgrouping: String?, parentExperienceItemId: Int?, spicy: Spicy?, subtitle: String?, title: String?, updatedAt: Date, updatedById: Int) {
+    public init(aliasTitle: String?, caution: String?, createdAt: Date, createdById: Int, defaultPrice: Int?, deletedAt: Date?, deletedById: Int?, duration: Int?, experienceId: Int, experienceItemType: ExperienceItemType, id: Int, imageName: String?, isOptional: Bool?, itemGrouping: String?, itemSubgrouping: String?, parentExperienceItemId: Int?, spicy: Spicy?, subtitle: String?, title: String?, updatedAt: Date, updatedById: Int, uuid: String) {
         self.aliasTitle = aliasTitle
         self.caution = caution
         self.createdAt = createdAt
@@ -1494,6 +1496,7 @@ public struct StikrExperienceDataItem: Persisted, DataConvertible {
         self.title = title
         self.updatedAt = updatedAt
         self.updatedById = updatedById
+        self.uuid = uuid
     }
 }
 
