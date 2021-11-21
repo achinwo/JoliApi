@@ -1462,6 +1462,10 @@ extension StikrExperienceDataRecord {
         get { properties[.backgroundImageUrl] as? String}
         set { properties[.backgroundImageUrl] = newValue as AnyObject }
     }
+    public var productName: String? {
+        get { properties[.productName] as? String}
+        set { properties[.productName] = newValue as AnyObject }
+    }
     public var productImageUrl: String? {
         get { properties[.productImageUrl] as? String}
         set { properties[.productImageUrl] = newValue as AnyObject }

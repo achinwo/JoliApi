@@ -80,6 +80,9 @@ public enum SocialLink {
 
 public class HttpsHook: NSObject, URLSessionDelegate {
     
+    static let validIpAddressRegex = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+    
+    
     public let trustedHosts: [String]
     
     public init(trustedHosts: [String]) {
@@ -87,7 +90,23 @@ public class HttpsHook: NSObject, URLSessionDelegate {
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-
+        
+        let allowConnect = {
+                //logger.debug("[HttpsHook] protectionSpace: \(challenge.protectionSpace) - \(challenge.protectionSpace.host)")
+            let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+                //print("[HttpsHook] replacing: \(credential)")
+            
+            challenge.sender?.use(credential, for: challenge)
+            completionHandler(URLSession.AuthChallengeDisposition.useCredential, credential)
+        }
+        
+        let host = challenge.protectionSpace.host
+        
+        guard host.range(of: HttpsHook.validIpAddressRegex, options: .regularExpression, range: nil, locale: nil) != nil else {
+            allowConnect()
+            return
+        }
+        
         let trustedHostArray: [String] = trustedHosts
 
         //logger.debug("[HttpsHook] trusted: \(trustedHostArray) - \(challenge.protectionSpace.authenticationMethod)")
@@ -101,12 +120,7 @@ public class HttpsHook: NSObject, URLSessionDelegate {
             return
         }
 
-        //logger.debug("[HttpsHook] protectionSpace: \(challenge.protectionSpace) - \(challenge.protectionSpace.host)")
-        let credential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
-        //print("[HttpsHook] replacing: \(credential)")
-
-        challenge.sender?.use(credential, for: challenge)
-        completionHandler(URLSession.AuthChallengeDisposition.useCredential, credential)
+        allowConnect()
     }
     
 }
