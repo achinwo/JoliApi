@@ -5,6 +5,11 @@ import os
 import JoliCore
 import Version
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 
 public struct TrackInfo {
     public var track: Track?
@@ -528,4 +533,135 @@ public extension JoliApi {
         }
     }
     
+}
+
+#if os(macOS)
+public extension NSImage {
+    
+    static func convertImage(_ image: NSImage, to imageType: NSBitmapImageRep.FileType) -> Data? {
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+            return nil
+        }
+        
+        let bitmapRep = NSBitmapImageRep(cgImage: cgImage)
+        return bitmapRep.representation(using: imageType, properties: [:])
+    }
+    
+    func jpegData(compressionQuality: Double? = nil) -> Data? {
+        return Self.convertImage(self, to: .jpeg)
+    }
+    
+    func pngData() -> Data? {
+        return Self.convertImage(self, to: .png)
+    }
+    
+}
+#endif
+
+public extension JoliApi {
+    
+    static func createMultipartBody(data: Data, boundary: String, file: String) -> Data {
+        var body = Data()
+        let ln = "\r\n"
+        let boundaryPrefix = "--\(boundary)\(ln)"
+        body.append(boundaryPrefix)
+        body.append("Content-Disposition: form-data; name=\"\(file)\"; filename=\"\(file)\"\(ln)")
+        body.append("Content-Type: application/octet-stream;charset=utf-8\(ln + ln)")
+        body.append(data)
+        body.append(ln)
+        body.append("--\(boundary)--\(ln)")
+        return body
+    }
+    
+    @available(iOS 14.0, *)
+    static func upload(_ image: UIImage, fileName: String? = nil, ext: ImageExtension = .jpeg, timeout: TimeInterval = 60.0, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<URL> {
+        
+        let fileName = fileName ?? "\(ShortCodeGenerator.getCode().lowercased()).\(ext.rawValue)"
+        
+        let fileExt = URL(fileURLWithPath: fileName).pathExtension
+        guard let extResolved = ImageExtension(rawValue: fileExt), extResolved == ext else {
+            print("[upload] Unable to resolve extension: \(fileExt)")
+            return Promise(NetworkError.badRequest("Invalid file extension \"\(fileExt)\""))
+        }
+        
+        
+        guard let imageData = (ext == .jpeg ? image.jpegData(compressionQuality: 0.2) : image.pngData()) else {
+            return Promise(NetworkError.badRequest("Unable to convert image to data"))
+        }
+        
+        let boundary = "Boundary-562F49C8-26CD-4D87-9C8F-DEA380DE4BF007"
+        let url = URL(string: "/images", relativeTo: baseUrl)!
+        
+        var urlRequest: URLRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HttpMethod.post.rawValue
+        
+        let data = Self.createMultipartBody(data: imageData, boundary: boundary, file: fileName)
+        urlRequest.httpBody = data
+        urlRequest.timeoutInterval = timeout
+        
+        urlRequest.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue(data.count.description, forHTTPHeaderField: "Content-Length")
+        
+        let session = urlSession ?? URLSession.shared
+        
+        print("actual size of image in Mb: \(imageData.sizeFormatted)")
+        
+        return Promise() { (resolve, reject) in
+            let task = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) in
+                
+                guard error == nil else {
+                    reject(NetworkError.badResponse(error!.localizedDescription))
+                    return
+                }
+                
+                guard let data = data,
+                      let json = try? JSONSerialization.jsonObject(with: data, options: []) as? Json,
+                      let fileName = json["fileName"] as? String,
+                      let url = URL(string: fileName, relativeTo: baseUrl) else {
+                    reject(NetworkError.badResponse("Deserialization error - image upload \(ext) \(String(data: data ?? Data(), encoding: .utf8))"))
+                    return
+                }
+                
+                resolve(url)
+            }
+            
+            task.resume()
+        }
+    }
+}
+
+public enum ImageExtension: String, CaseIterable {
+    
+    case jpeg = "jpg"
+    case png = "png"
+    
+    public init?(rawValue: String) {
+        switch rawValue.lowercased() {
+            case Self.png.rawValue:
+                self = .png
+            case Self.jpeg.rawValue, "jpeg":
+                self = .jpeg
+            default:
+                return nil
+        }
+    }
+    
+}
+
+public struct ShortCodeGenerator {
+
+    private static let base62chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".unicodeScalars.map() {
+        Character($0)
+    }
+    
+    private static let maxBase: UInt32 = 62
+
+    static func getCode(withBase base: UInt32 = maxBase, length: Int = 16) -> String {
+        var code = ""
+        for _ in 0..<length {
+            let random = Int(arc4random_uniform(min(base, maxBase)))
+            code.append(base62chars[random])
+        }
+        return code
+    }
 }
