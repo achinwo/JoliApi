@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Promises
 
 
 struct WebSocketMessage: Encodable {
@@ -133,21 +132,20 @@ public class WebSocketClient: HttpsHook {
     
     // TODO: handle non-subscription topics
     // MARK: - Send Message
-    public func subscribe(_ subject: String, headers: HttpMethod.Headers? = nil, handler: @escaping ResponseCallback) -> Promise<Void> {
+    public func subscribe(_ subject: String, headers: HttpMethod.Headers? = nil, handler: @escaping ResponseCallback) async throws -> Void {
 
         let msg = WebSocketMessage(topic: MessageTopic.subscribe(subject).stringValue, headers: headers ?? [:])
         let message = URLSessionWebSocketTask.Message.string(msg.jsonString())
 
         self.addSubscription(subject, message: message, callback: handler)
         
-        return Promise() { (resolve, reject) in
-        
+        return try await withCheckedThrowingContinuation() { continuation in
             self.task?.send(message) { error in
                 guard let error = error else {
-                    resolve(())
+                    continuation.resume()
                     return
                 }
-                reject(error)
+                continuation.resume(with: .failure(error))
             }
         }
     }

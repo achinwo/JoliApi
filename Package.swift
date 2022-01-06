@@ -20,7 +20,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "Promises", url: "https://github.com/google/promises.git", from: "1.2.10"),
         .package(name: "JSONSchema", url: "https://github.com/kylef/JSONSchema.swift.git", from: "0.5.0"),
         .package(url: "https://github.com/kylef/Commander.git", from: "0.9.1"),
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", from: "0.50100.0"),
@@ -39,7 +38,7 @@ let package = Package(
 //            .linkedFramework("SpotifyiOS"),
 //        ]),
         .target(name: "JoliCore",
-                dependencies: ["Promises", "Commander", "Starscream", "Version", "UIImageColors"],
+                dependencies: ["Commander", "Starscream", "Version", "UIImageColors"],
                 path: "Sources/Lib"
         ),
         .executableTarget(

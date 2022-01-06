@@ -1,5 +1,4 @@
 import Foundation
-import Promises
 import Combine
 import os
 import JoliCore
@@ -37,9 +36,8 @@ public class JoliApi: ObservableObject, HttpApi {
         }
     }
     
-    public func addTrackToRoom(_ room: Musicroom, _ track: Spotify.Track, on: DispatchQueue? = nil) -> Promise<Json>{
-        return room.addTrack(track, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession
-            , on: on)
+    public func addTrackToRoom(_ room: Musicroom, _ track: Spotify.Track) async throws -> Json {
+        return try await room.addTrack(track, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession)
     }
 
     // MARK: - Environment
@@ -167,44 +165,46 @@ public class JoliApi: ObservableObject, HttpApi {
     }
     
     @discardableResult
-    public func authenticate(_ credentials: AuthCredentials, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+    public func authenticate(_ credentials: AuthCredentials, urlSession: URLSession? = nil) async throws -> Auth? {
         
         switch credentials {
             case .email(let email, let password):
-                return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+                return try await Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession)
             case .sessionToken(let token):
                 
                 guard !token.isEmpty else {
-                    return Promise(nil)
+                    return nil
                 }
                 
-                return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+                return try await Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession)
             case .spotifyRefreshToken(let refreshToken):
-                return Session.fromCredentials(spotifyRefreshToken: refreshToken, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+                return try await Session.fromCredentials(spotifyRefreshToken: refreshToken, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession)
             case .apple(let name, let email, let userId, let idToken, let authToken):
-                return Session.fromCredentials(name: name, email: email, userId: userId, idToken: idToken, authCode: authToken,
-                                               baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+                return try await Session.fromCredentials(name: name, email: email, userId: userId, idToken: idToken, authCode: authToken,
+                                               baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession)
         }
     }
 
     @discardableResult
-    public func authenticate(email: String, password: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
-        return Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
-            .catch() { error in
+    public func authenticate(email: String, password: String, urlSession: URLSession? = nil) async throws -> Auth? {
+        do {
+            return try await Session.fromCredentials(email: email, password: password, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession)
+        } catch {
             logger.error("[authenticate] error: \(String(describing: error))")
+            throw error
         }
     }
     
     @discardableResult
-    public func authenticate(token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
-        return Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession, on: on)
+    public func authenticate(token: String, urlSession: URLSession? = nil) async throws -> Auth? {
+        return try await Session.fromCredentials(token: token, baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession ?? self.urlSession)
     }
     
-    public func setNotificationToken(_ token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Device> {
-        return HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), baseUrl: self.baseUrlHttp, urlSession: self.urlSession)
+    public func setNotificationToken(_ token: String, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> Device {
+        return try await HttpMethod.Fetch.post(url: "/api/apn", dataType: Device.self, payload: .json(["token": token as AnyObject]), baseUrl: self.baseUrlHttp, urlSession: self.urlSession)
     }
     
-    public func searchSpotify(q: String, categories: Set<Search.Category> = [.tracks], limit: Int = 10) -> Promise<Spotify.SearchResult> {
+    public func searchSpotify(q: String, categories: Set<Search.Category> = [.tracks], limit: Int = 10) async throws -> Spotify.SearchResult {
         
         let typeStr = Array(categories).map() { $0.label.lowercased() }.joined(separator: ",")
         var pathComp = URLComponents(string: "/api/spotify/search")!
@@ -215,15 +215,15 @@ public class JoliApi: ObservableObject, HttpApi {
             URLQueryItem(name: "type", value: typeStr)
         ]
         
-        return HttpMethod.Fetch.get(url: pathComp, dataType: Spotify.SearchResult.self, baseUrl: baseUrlHttp, urlSession: self.urlSession)
+        return try await HttpMethod.Fetch.get(url: pathComp, dataType: Spotify.SearchResult.self, baseUrl: baseUrlHttp, urlSession: self.urlSession)
     }
     
     @discardableResult
-    public func setVolume(_ volume: Int, deviceId: String, on: DispatchQueue? = nil) -> Promise<Json>{
+    public func setVolume(_ volume: Int, deviceId: String, on: DispatchQueue? = nil) async throws -> Json {
         let payload: Json = ["deviceId": deviceId as AnyObject,
                              "volume": volume as AnyObject]
         let urlPath = URLComponents(string: "/api/spotify/volume")!
-        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: payload, baseUrl: baseUrlHttp, urlSession: self.urlSession, on: on)
+        return try await HttpMethod.post.fetchJson(urlPath: urlPath, payload: payload, baseUrl: baseUrlHttp, urlSession: self.urlSession)
     }
 
     public var user: User?
@@ -293,15 +293,15 @@ public class JoliApi: ObservableObject, HttpApi {
         }
     }
     
-    public func subscribe(subject: Subject, onMessage: @escaping WebSocketClient.ResponseCallback){
+    public func subscribe(subject: Subject, onMessage: @escaping WebSocketClient.ResponseCallback) async {
         let headers = self.urlSessionConfiguration.httpAdditionalHeaders as? HttpMethod.Headers
-        self.wsClient.subscribe(subject.rawValue, headers: headers, handler: onMessage)
-            .then() {
-                logger.debug("[JoliApi#subscribe] subject=\(subject)")
-            }
-            .catch(){ error in
-                logger.error("[wsSubscribe] error: \(String(describing: error))")
-            }
+        
+        do {
+            try await self.wsClient.subscribe(subject.rawValue, headers: headers, handler: onMessage)
+            logger.debug("[JoliApi#subscribe] subject=\(subject)")
+        } catch {
+            logger.error("[wsSubscribe] error: \(String(describing: error))")
+        }
     }
     
 //    public func unsubscribe(subject: Subject){
@@ -318,25 +318,24 @@ public class JoliApi: ObservableObject, HttpApi {
 //        }
 //    }
     
-    public func fetchSpotifyDevices(on: DispatchQueue? = nil) -> Promise<[Spotify.Device]> {
+    public func fetchSpotifyDevices() async throws -> [Spotify.Device] {
         let baseUrl = self.baseUrl.rawValue.http
-        let queue = on ?? DispatchQueue.main
-        return HttpMethod.Fetch.get(url: "/api/spotify/devices", dataType: [String: [Spotify.Device]].self, baseUrl: baseUrl, urlSession: self.urlSession, on: queue)
-            .then(on: queue) { (dict) -> [Spotify.Device] in
-                guard let devices = dict["devices"] else {
-                    throw NetworkError.badResponse("expected key \"devices\" in response: \(dict)")
-                }
-                return devices
+        let dict = try await HttpMethod.Fetch.get(url: "/api/spotify/devices", dataType: [String: [Spotify.Device]].self, baseUrl: baseUrl, urlSession: self.urlSession)
+        
+        guard let devices = dict["devices"] else {
+            throw NetworkError.badResponse("expected key \"devices\" in response: \(dict)")
         }
+        
+        return devices
     }
     
-    public func fetchSpotifyUserProfile(on: DispatchQueue? = nil) -> Promise<Spotify.UserProfile> {
-        return HttpMethod.Fetch.get(url: "/api/spotify/me", dataType: Spotify.UserProfile.self, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession, on: on)
+    public func fetchSpotifyUserProfile() async throws -> Spotify.UserProfile {
+        return try await HttpMethod.Fetch.get(url: "/api/spotify/me", dataType: Spotify.UserProfile.self, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession)
     }
     
     @discardableResult
-    public func delete<T>(_ model: T, on: DispatchQueue? = nil) -> Promise<T> where T: Persisted {
-        return model.delete(baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession, on: on)
+    public func delete<T>(_ model: T) async throws -> T where T: Persisted {
+        return try await model.delete(baseUrl: self.baseUrl.rawValue.http, urlSession: urlSession)
     }
     
     // MARK: - Test
@@ -478,9 +477,9 @@ public struct ServerInfo: CustomStringConvertible {
 
 public extension JoliApi {
     
-    func createMusicroom(name: String, details: String, on: DispatchQueue? = nil) -> Promise<Musicroom> {
+    func createMusicroom(name: String, details: String, on: DispatchQueue? = nil) async throws -> Musicroom {
         let musicroom = Musicroom.build([.name: name as AnyObject, .details: details as AnyObject])
-        return musicroom.save(baseUrl: baseUrl.rawValue.http, urlSession: urlSession, on: on)
+        return try await musicroom.save(baseUrl: baseUrl.rawValue.http, urlSession: urlSession)
     }
     
     
@@ -496,41 +495,32 @@ public extension JoliApi {
         return (dictionary[key] ?? dictionary[key.lowercased()]) as? V
     }
     
-    static func resolveServer(_ baseUrl: URL) -> Promise<ServerInfo> {
-        
-        return Promise() { resolve, reject in
+    static func resolveServer(_ baseUrl: URL) async throws -> ServerInfo {
             
-            guard let url = URL(string: "/status", relativeTo: baseUrl) else {
-                return reject(VersionResolveError.malformedBaseUrl(baseUrl))
-            }
-            
-            var req = URLRequest(url: url)
-            req.httpMethod = HttpMethod.post.rawValue
-            
-            let task = JoliApi.sharedUrlSession.dataTask(with: baseUrl) { (data, response, error) in
-                guard error == nil else {
-                    return reject(error!)
-                }
-                
-                guard let resp = response as? HTTPURLResponse else {
-                    return reject(response == nil ? VersionResolveError.noResponseReceived : VersionResolveError.unrecognisedResponseType)
-                }
-                
-                guard let versionStr = insensitiveGet(resp.allHeaderFields, key: "X-Server-Version", valueType: String.self) else {
-                    return reject(VersionResolveError.missingVersionField)
-                }
-                
-                guard let version = Version(versionStr) else {
-                    return reject(VersionResolveError.malformedString(versionStr))
-                }
-                
-                let paymentsEnabled = insensitiveGet(resp.allHeaderFields, key: "X-Server-Payments-Enabled", valueType: String.self) == "1"
-                
-                resolve(ServerInfo(version: version, feature: ServerInfo.Feature(paymentsEnabled: paymentsEnabled)))
-            }
-            
-            task.resume()
+        guard let url = URL(string: "/status", relativeTo: baseUrl) else {
+            throw VersionResolveError.malformedBaseUrl(baseUrl)
         }
+        
+        var req = URLRequest(url: url)
+        req.httpMethod = HttpMethod.post.rawValue
+        
+        let (_, response) = try await JoliApi.sharedUrlSession.data(from: baseUrl)
+        
+        guard let resp = response as? HTTPURLResponse else {
+            throw VersionResolveError.unrecognisedResponseType
+        }
+        
+        guard let versionStr = insensitiveGet(resp.allHeaderFields, key: "X-Server-Version", valueType: String.self) else {
+            throw VersionResolveError.missingVersionField
+        }
+
+        guard let version = Version(versionStr) else {
+            throw VersionResolveError.malformedString(versionStr)
+        }
+        
+        let paymentsEnabled = insensitiveGet(resp.allHeaderFields, key: "X-Server-Payments-Enabled", valueType: String.self) == "1"
+        
+        return ServerInfo(version: version, feature: ServerInfo.Feature(paymentsEnabled: paymentsEnabled))
     }
     
 }
@@ -574,19 +564,19 @@ public extension JoliApi {
     }
     
     @available(iOS 14.0, *)
-    static func upload(_ image: UIImage, fileName: String? = nil, ext: ImageExtension = .jpeg, timeout: TimeInterval = 60.0, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<URL> {
+    static func upload(_ image: UIImage, fileName: String? = nil, ext: ImageExtension = .jpeg, timeout: TimeInterval = 60.0, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> URL {
         
         let fileName = fileName ?? "\(ShortCodeGenerator.getCode().lowercased()).\(ext.rawValue)"
         
         let fileExt = URL(fileURLWithPath: fileName).pathExtension
         guard let extResolved = ImageExtension(rawValue: fileExt), extResolved == ext else {
             print("[upload] Unable to resolve extension: \(fileExt)")
-            return Promise(NetworkError.badRequest("Invalid file extension \"\(fileExt)\""))
+            throw NetworkError.badRequest("Invalid file extension \"\(fileExt)\"")
         }
         
         
         guard let imageData = (ext == .jpeg ? image.jpegData(compressionQuality: 0.2) : image.pngData()) else {
-            return Promise(NetworkError.badRequest("Unable to convert image to data"))
+            throw NetworkError.badRequest("Unable to convert image to data")
         }
         
         let boundary = "Boundary-562F49C8-26CD-4D87-9C8F-DEA380DE4BF007"
@@ -606,11 +596,11 @@ public extension JoliApi {
         
         print("actual size of image in Mb: \(imageData.sizeFormatted)")
         
-        return Promise() { (resolve, reject) in
+        return try await withCheckedThrowingContinuation() { continuation in
             let task = session.dataTask(with: urlRequest) { (data: Data?, response: URLResponse?, error: Error?) in
                 
                 guard error == nil else {
-                    reject(NetworkError.badResponse(error!.localizedDescription))
+                    continuation.resume(throwing: NetworkError.badResponse(error!.localizedDescription))
                     return
                 }
                 
@@ -618,11 +608,11 @@ public extension JoliApi {
                       let json = try? JSONSerialization.jsonObject(with: data, options: []) as? Json,
                       let fileName = json["fileName"] as? String,
                       let url = URL(string: fileName, relativeTo: baseUrl) else {
-                    reject(NetworkError.badResponse("Deserialization error - image upload \(ext) \(String(data: data ?? Data(), encoding: .utf8))"))
+                          continuation.resume(throwing: NetworkError.badResponse("Deserialization error - image upload \(ext) \(String(data: data ?? Data(), encoding: .utf8))"))
                     return
                 }
                 
-                resolve(url)
+                continuation.resume(returning: url)
             }
             
             task.resume()

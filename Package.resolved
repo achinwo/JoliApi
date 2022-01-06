@@ -29,15 +29,6 @@
         }
       },
       {
-        "package": "Promises",
-        "repositoryURL": "https://github.com/google/promises.git",
-        "state": {
-          "branch": null,
-          "revision": "d8accebc8fa32f57196df191e733f946e955c549",
-          "version": "1.2.11"
-        }
-      },
-      {
         "package": "Spectre",
         "repositoryURL": "https://github.com/kylef/Spectre.git",
         "state": {
@@ -56,30 +47,12 @@
         }
       },
       {
-        "package": "CancellationToken",
-        "repositoryURL": "https://github.com/tomlokhorst/swift-cancellationtoken.git",
-        "state": {
-          "branch": null,
-          "revision": "5356a8c2c1dffd202878d724ddbfbc42d31e0be7",
-          "version": "3.2.0"
-        }
-      },
-      {
         "package": "SwiftSyntax",
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
           "branch": null,
           "revision": "3e3eb191fcdbecc6031522660c4ed6ce25282c25",
           "version": "0.50100.0"
-        }
-      },
-      {
-        "package": "SwiftyBeaver",
-        "repositoryURL": "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
-        "state": {
-          "branch": null,
-          "revision": "2c513a2e8fbfbd6495afc4a05941d8e3fdba68e9",
-          "version": "1.9.3"
         }
       },
       {

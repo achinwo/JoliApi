@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import  Promises
 
 public enum Spotify {
     
@@ -51,9 +50,9 @@ public enum Spotify {
             return try Musicroom.jsonEncoder(outputFormatting: outputFormatting ?? []).encode(self)
         }
         
-        public static func me(baseUrl: URL? = nil, urlSession: URLSession? = nil) -> Promise<Device>{
+        public static func me(baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Device {
             
-            return HttpMethod.Fetch.get(url: "/api/this/device", dataType: Device.self, baseUrl: baseUrl, urlSession: urlSession)
+            return try await HttpMethod.Fetch.get(url: "/api/this/device", dataType: Device.self, baseUrl: baseUrl, urlSession: urlSession)
         }
     }
     
@@ -194,8 +193,8 @@ public enum Spotify {
         }
         
         @discardableResult
-        public static func fetch(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<CurrentlyPlayingContent?> {
-            return HttpMethod.Fetch.get(url: "/api/spotify/current-playing", dataType: CurrentlyPlayingContent?.self, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        public static func fetch(baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> CurrentlyPlayingContent? {
+            return try await HttpMethod.Fetch.get(url: "/api/spotify/current-playing", dataType: CurrentlyPlayingContent?.self, baseUrl: baseUrl, urlSession: urlSession)
         }
         
     }

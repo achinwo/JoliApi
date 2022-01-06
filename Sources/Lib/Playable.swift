@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Promises
 
 
 public enum ContentOffset {
@@ -52,7 +51,7 @@ public protocol Playable {
     var duration: Int { get }
     var releasedAt: Date? { get }
     
-    func play(deviceId: String?, positionMs: Int?, offset: ContentOffset?, baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PlayState>
+    func play(deviceId: String?, positionMs: Int?, offset: ContentOffset?, baseUrl: URL?, urlSession: URLSession?) async throws -> PlayState
 }
 
 
@@ -67,7 +66,7 @@ extension Playable {
     }
     
     @discardableResult
-    public static func playContent(_ uri: String, deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
+    public static func playContent(_ uri: String, deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> PlayState {
         var urlPath = URLComponents(string: "/api/spotify/play")!
         var queryItems: [URLQueryItem] = []
         
@@ -105,12 +104,12 @@ extension Playable {
         
         urlPath.queryItems = queryItems
         
-        return HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload), baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return try await HttpMethod.Fetch.post(url: urlPath, dataType: PlayState.self, payload: .json(payload), baseUrl: baseUrl, urlSession: urlSession)
     }
     
     @discardableResult
-    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
-        return Self.playContent(self.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession, on: on)
+    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> PlayState {
+        return try await Self.playContent(self.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession)
     }
     
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Promises
 
 extension Data {
     
@@ -25,6 +24,26 @@ public extension String {
             $1 == needle ? $0 + 1 : $0
         }
     }
+}
+
+@available(iOS, deprecated: 15.0, message: "Use the built-in API instead")
+public extension URLSession {
+    
+    func data(from url: URL) async throws -> (Data, URLResponse) {
+        return try await withCheckedThrowingContinuation { continuation in
+            let task = self.dataTask(with: url) { data, response, error in
+                guard let data = data, let response = response else {
+                    let error = error ?? URLError(.badServerResponse)
+                    return continuation.resume(throwing: error)
+                }
+                
+                continuation.resume(returning: (data, response))
+            }
+            
+            task.resume()
+        }
+    }
+    
 }
 
 public extension URL {
@@ -322,38 +341,36 @@ public enum HttpMethod: String {
     
     public enum Fetch {
         
-        public static func post<T: Codable>(url: UrlConvertible, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil)  -> Promise<T> {
-            return HttpMethod.Fetch.execute(method: .post, url: url, dataType: dataType, payload: payload, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        public static func post<T: Codable>(url: UrlConvertible, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> T {
+            return try await HttpMethod.Fetch.execute(method: .post, url: url, dataType: dataType, payload: payload, baseUrl: baseUrl, urlSession: urlSession)
         }
         
-        public static func delete<T: Codable>(url: UrlConvertible, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil)  -> Promise<T> {
-            return HttpMethod.Fetch.execute(method: .delete, url: url, dataType: dataType, payload: payload, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        public static func delete<T: Codable>(url: UrlConvertible, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> T {
+            return try await HttpMethod.Fetch.execute(method: .delete, url: url, dataType: dataType, payload: payload, baseUrl: baseUrl, urlSession: urlSession)
         }
         
-        public static func get<T: Codable>(url: UrlConvertible, dataType: T.Type, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil)  -> Promise<T> {
-            return HttpMethod.Fetch.execute(method: .get, url: url, dataType: dataType, payload: nil, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        public static func get<T: Codable>(url: UrlConvertible, dataType: T.Type, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> T {
+            return try await HttpMethod.Fetch.execute(method: .get, url: url, dataType: dataType, payload: nil, baseUrl: baseUrl, urlSession: urlSession)
         }
         
-        public static func head<T: Codable>(url: UrlConvertible, dataType: T.Type, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil)  -> Promise<T> {
-            return HttpMethod.Fetch.execute(method: .head, url: url, dataType: dataType, payload: nil, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        public static func head<T: Codable>(url: UrlConvertible, dataType: T.Type, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> T {
+            return try await HttpMethod.Fetch.execute(method: .head, url: url, dataType: dataType, payload: nil, baseUrl: baseUrl, urlSession: urlSession)
         }
         
-        public static func execute<T: Codable>(method: HttpMethod, url urlLike: UrlConvertible, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
+        public static func execute<T: Codable>(method: HttpMethod, url urlLike: UrlConvertible, dataType: T.Type, payload: HttpBody? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> T {
             
             let baseUrl = baseUrl == nil ? (urlLike as? URL)?.baseURL ?? LocalhostApi.default.baseUrlHttp : baseUrl
             
             guard let url = urlLike.url(relativeTo: baseUrl) else {
-                return Promise(NetworkError.badUrl(urlLike, baseUrl))
+                throw NetworkError.badUrl(urlLike, baseUrl)
             }
         
-            let queue = on ?? DispatchQueue.global(qos: .default)
-            //debugPrint("[fetch] \(url) - \(payload)")
-            return Promise<T>(on: queue) { (resolve, reject) in
+            return try await withCheckedThrowingContinuation { continuation in
                 
                 let callback = { (data: Data?, resp: URLResponse?, error: Error?) -> Void in
                     
                     guard let data = data else {
-                        return reject(error!)
+                        return continuation.resume(throwing: error ?? URLError(.badServerResponse))
                     }
 
                     do {
@@ -364,12 +381,12 @@ public enum HttpMethod: String {
                                 NetworkError.errorMessage(respObj.error!) :
                                 NetworkError.badResponse(data.stringUtf8 ?? "<<Data to string failed>>")
                             
-                            return reject(error)
+                            return continuation.resume(throwing: error)
                         }
                         
-                        resolve(respData)
+                        continuation.resume(returning: respData)
                     } catch {
-                        reject(NetworkError.deserialization(data.stringUtf8, resp, error))
+                        continuation.resume(throwing: NetworkError.deserialization(data.stringUtf8, resp, error))
                     }
                 }
                 
@@ -386,7 +403,7 @@ public enum HttpMethod: String {
                 case .post, .put:
                         
                     guard let payloadData = try? (payload ?? .json([:])).toData() else {
-                            return reject(NetworkError.badRequest("bad payload for post request: \(String(describing: payload))"))
+                            return continuation.resume(throwing: NetworkError.badRequest("bad payload for post request: \(String(describing: payload))"))
                         }
                         
                         task = urlSession.uploadTask(with: request, from: payloadData, completionHandler: callback)
@@ -399,42 +416,39 @@ public enum HttpMethod: String {
         
     }
     
-    public func fetchJson(urlPath: URLComponents, payload: Json, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) ->  Promise<Json> {
-        return fetchJson(urlPath: urlPath,
+    public func fetchJson(urlPath: URLComponents, payload: Json, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Json {
+        return try await fetchJson(urlPath: urlPath,
                          payload: .json(payload), baseUrl: baseUrl,
-                         urlSession: urlSession,
-                         on: on)
+                         urlSession: urlSession)
     }
     
-    public func fetchJson(urlPath: URLComponents, payload: HttpBody, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) ->  Promise<Json> {
-        
-        let queue = on ?? DispatchQueue.global(qos: .default)
+    public func fetchJson(urlPath: URLComponents, payload: HttpBody, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws ->  Json {
         let baseUrl = baseUrl ?? Track.baseUrl.http
         
         guard let url = urlPath.url(relativeTo: baseUrl) else {
-            return Promise(NetworkError.invalidUrl(urlPath, baseUrl))
+            throw NetworkError.invalidUrl(urlPath, baseUrl)
         }
         
-        return Promise<Json>(on: queue) { (resolve, reject) in
+        return try await withCheckedThrowingContinuation { continuation in
             
             let callback = { (data: Data?, resp: URLResponse?, error: Error?) -> Void in
                 
                 guard let data = data else {
-                    return reject(error!)
+                    return continuation.resume(throwing: error ?? URLError(.badServerResponse))
                 }
                 
                 do {
 
                     let respObj = try JSONSerialization.jsonObject(with: data, options: [])
                     
-                    resolve(respObj as! Json)
+                    continuation.resume(returning: respObj as! Json)
                 } catch {
-                    reject(error)
+                    continuation.resume(throwing: error)
                 }
             }
             
             guard let payloadData = try? payload.toData() else {
-                return reject(NetworkError.badRequest("bad paylod for post request: \(String(describing: payload))"))
+                return continuation.resume(throwing: NetworkError.badRequest("bad paylod for post request: \(String(describing: payload))"))
             }
             
             let urlSession = urlSession ?? URLSession.shared

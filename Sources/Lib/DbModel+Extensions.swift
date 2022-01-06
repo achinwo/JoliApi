@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Promises
 import UIImageColors
 import SwiftUI
 
@@ -271,7 +270,7 @@ public protocol Persistable {
     associatedtype PersistedType: Persisted
     
     var json: Json { get }
-    func save(baseUrl: URL?, urlSession: URLSession?, on: DispatchQueue?) -> Promise<PersistedType>
+    func save(baseUrl: URL?, urlSession: URLSession?) async throws -> PersistedType
     
 }
 
@@ -378,15 +377,14 @@ public struct Builder<T: Persisted>: Persistable, Identifiable, Equatable {
         return properties[key] as? V
     }
     
-    public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<T> {
+    public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> T {
         let urlComp = "/api/db/\(T.className())"
         //"/api/db/\(T.className())"
-        return HttpMethod.Fetch.post(url: urlComp,
+        return try await HttpMethod.Fetch.post(url: urlComp,
                                      dataType: T.self,
                                      payload: .json(self.json),
                                      baseUrl: baseUrl,
-                                     urlSession: urlSession,
-                                     on: on)
+                                     urlSession: urlSession)
     }
 }
 
@@ -438,15 +436,14 @@ extension Persisted {
         return Builder<Self>(properties: properties(), id: id)
     }
     
-    public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self> {
+    public func save(baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Self {
         let urlComp = "/api/db/\(Self.className())/\(id)"
         //return Self.post(urlPath: urlComp, dataType: Self?.self, payload: self, on: on)
-        return HttpMethod.Fetch.post(url: urlComp,
+        return try await HttpMethod.Fetch.post(url: urlComp,
                                      dataType: Self.self,
                                      payload: .dbModel(self),
                                      baseUrl: baseUrl,
-                                     urlSession: urlSession,
-                                     on: on)
+                                     urlSession: urlSession)
     }
     
     public static func fromJson(_ json: Json) -> Self? {
@@ -477,14 +474,13 @@ extension Persisted {
     }
     
     @discardableResult
-    public func delete(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self> {
+    public func delete(baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Self {
         
         let urlComp = "/api/db/\(Self.className())/\(id)"
-        return HttpMethod.Fetch.delete(url: urlComp,
+        return try await HttpMethod.Fetch.delete(url: urlComp,
                                      dataType: Self.self,
                                      baseUrl: baseUrl,
-                                     urlSession: urlSession,
-                                     on: on)
+                                     urlSession: urlSession)
     }
     
     //192.168.1.132
@@ -536,15 +532,15 @@ extension Persisted {
         return encoder
     }
     
-    public func fetchUpdatedBy(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<User?> {
-        return User.findById(id: id, baseUrl: baseUrl, urlSession: urlSession, on: on)
+    public func fetchUpdatedBy(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> User? {
+        return try await User.findById(id: id, baseUrl: baseUrl, urlSession: urlSession)
     }
     
     public static func className() -> String {
         return String(describing: Self.self)
     }
     
-    public static func all(where whereClause: PropertiesDict? = nil, limit: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<[Self]> {
+    public static func all(where whereClause: PropertiesDict? = nil, limit: Int? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> [Self] {
         var queryPath = URLComponents(string: "/api/db/\(Self.className())")!
         
         queryPath.queryItems = []
@@ -556,20 +552,20 @@ extension Persisted {
             queryPath.queryItems?.append(URLQueryItem(name: "limit", value: String(limit)))
         }
         
-        return HttpMethod.Fetch.get(url: queryPath, dataType: [Self].self, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return try await HttpMethod.Fetch.get(url: queryPath, dataType: [Self].self, baseUrl: baseUrl, urlSession: urlSession)
     }
     
-    public static func findById(id: Int, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Self?> {
-        return HttpMethod.Fetch.get(url: "/api/db/\(Self.className())/\(id)",
-            dataType: Self?.self, baseUrl: baseUrl, urlSession: urlSession, on: on)
+    public static func findById(id: Int, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> Self? {
+        return try await HttpMethod.Fetch.get(url: "/api/db/\(Self.className())/\(id)",
+            dataType: Self?.self, baseUrl: baseUrl, urlSession: urlSession)
     }
     
-    public static func findByIds(ids: [Int], baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<[Self]> {
+    public static func findByIds(ids: [Int], baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> [Self] {
         var comp = URLComponents(string: "/api/db/\(Self.className())")!
         comp.queryItems = [URLQueryItem(name: "ids", value: ids.map({$0.description}).joined(separator: ","))]
         
-        return HttpMethod.Fetch.get(url: comp, dataType: [Self].self,
-                                    baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return try await HttpMethod.Fetch.get(url: comp, dataType: [Self].self,
+                                    baseUrl: baseUrl, urlSession: urlSession)
     }
     
     func properties() -> Self.PropertiesDict {
@@ -599,11 +595,11 @@ extension User: Discjockey {
         return DiscjockeyPosition(rawValue: self.djRanking ?? 0) ?? DiscjockeyPosition.personal
     }
     
-    public func fetchActiveRoom(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Musicroom?> {
+    public func fetchActiveRoom(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> Musicroom? {
         guard let roomId = self.activeRoomId else {
-            return Promise(nil)
+            return nil
         }
-        return Musicroom.findById(id: roomId, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return try await Musicroom.findById(id: roomId, baseUrl: baseUrl, urlSession: urlSession)
     }
     
 //    public func setActiveRoom(_ , baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Musicroom?> {
@@ -618,30 +614,30 @@ extension User: Discjockey {
 // MARK: - Session
 extension Session{
     
-    public static func fromCredentials(email: String, password: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+    public static func fromCredentials(email: String, password: String, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Auth? {
         let url = URLComponents(string: "/signin")!
-        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
+        return try await HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
                                      payload: .json(["email": email as AnyObject, "password": password as AnyObject]),
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+                                     baseUrl: baseUrl, urlSession: urlSession)
     }
     
-    public static func fromCredentials(token: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+    public static func fromCredentials(token: String, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Auth? {
         let url = URLComponents(string: "/signin")!
-        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
+        return try await HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
                                      payload: .json(["token": token as AnyObject]),
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+                                     baseUrl: baseUrl, urlSession: urlSession)
     }
     
-    public static func fromCredentials(spotifyRefreshToken: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+    public static func fromCredentials(spotifyRefreshToken: String, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Auth? {
         let url = URLComponents(string: "/signin")!
-        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
+        return try await HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
                                      payload: .json(["spotifyRefreshToken": spotifyRefreshToken as AnyObject]),
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+                                     baseUrl: baseUrl, urlSession: urlSession)
     }
     
-    public static func fromCredentials(name: String, email: String, userId: String, idToken: String, authCode: String, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Auth?> {
+    public static func fromCredentials(name: String, email: String, userId: String, idToken: String, authCode: String, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> Auth? {
         let url = URLComponents(string: "/signin")!
-        return HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
+        return try await HttpMethod.Fetch.post(url: url, dataType: Auth?.self,
                                      payload: .json([
                                         "name": name as AnyObject,
                                         "email": email as AnyObject,
@@ -649,7 +645,7 @@ extension Session{
                                         "idToken": idToken as AnyObject,
                                         "authCode": authCode as AnyObject,
                                      ]),
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+                                     baseUrl: baseUrl, urlSession: urlSession)
     }
     
 }
@@ -658,7 +654,7 @@ extension Session{
 extension Musicroom {
     
     @discardableResult
-    public func addTrack(_ track: Spotify.Track, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<Json> {
+    public func addTrack(_ track: Spotify.Track, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> Json {
         let urlPath = URLComponents(string: "/add_room_track")!
         let data = try! Self.jsonEncoder(outputFormatting: .prettyPrinted).encode(track)
         var payloadData = try! JSONSerialization.jsonObject(with: data, options: []) as! Json
@@ -667,28 +663,28 @@ extension Musicroom {
         payloadData[Track.CodingKeys.title.stringValue] = track.title as AnyObject
         payloadData[Track.CodingKeys.thumbnailUrl.stringValue] = track.thumbnailUrl as AnyObject
         
-        return HttpMethod.post.fetchJson(urlPath: urlPath, payload: ["roomId": id as AnyObject,
+        return try await HttpMethod.post.fetchJson(urlPath: urlPath, payload: ["roomId": id as AnyObject,
                                                         "track": payloadData as AnyObject],
-                            baseUrl: baseUrl, urlSession: urlSession, on: on)
+                            baseUrl: baseUrl, urlSession: urlSession)
     }
     
     // get users
     // get tracks
     
-    public func queueTrack(_ track: Playable, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<QueuedTrack>{
+    public func queueTrack(_ track: Playable, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> QueuedTrack {
         
         let urlPath = "/api/musicrooms/\(id)/\(track.uri)"
-        return HttpMethod.Fetch.post(url: urlPath,
+        return try await HttpMethod.Fetch.post(url: urlPath,
                                      dataType: QueuedTrack.self,
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+                                     baseUrl: baseUrl, urlSession: urlSession)
     }
     
-    public func fetchTracks(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<[Track]> {
+    public func fetchTracks(baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> [Track] {
         let urlPath = "/get_room_tracks"
-        return HttpMethod.Fetch.post(url: urlPath,
+        return try await HttpMethod.Fetch.post(url: urlPath,
                                      dataType: [Track].self,
                                      payload: .json(["roomId": id as AnyObject]),
-                                     baseUrl: baseUrl, urlSession: urlSession, on: on)
+                                     baseUrl: baseUrl, urlSession: urlSession)
     }
     
 }
@@ -739,13 +735,13 @@ extension QueuedTrack: Playable {
         return track!.uri
     }
     
-    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL?  = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
+    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL?  = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> PlayState {
         
         guard let track = track else {
-            return Promise(NetworkError.badRequest("Track is null"))
+            throw NetworkError.badRequest("Track is null")
         }
         
-        return Self.playContent(track.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return try await Self.playContent(track.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession)
     }
     
 }
@@ -830,13 +826,13 @@ extension RoomTrack: Playable {
         return track!.uri
     }
     
-    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) -> Promise<PlayState> {
+    public func play(deviceId: String?, positionMs: Int? = nil, offset: ContentOffset? = nil, baseUrl: URL? = nil, urlSession: URLSession? = nil) async throws -> PlayState {
         
         guard let track = track else {
-            return Promise(NetworkError.badRequest("Track is null"))
+            throw NetworkError.badRequest("Track is null")
         }
         
-        return Self.playContent(track.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession, on: on)
+        return try await Self.playContent(track.uri, deviceId: deviceId, positionMs: positionMs, offset: offset, baseUrl: baseUrl, urlSession: urlSession)
     }
     
         
