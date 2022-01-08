@@ -511,6 +511,7 @@ public extension JoliApi {
         }
         
         guard let versionStr = insensitiveGet(resp.allHeaderFields, key: "X-Server-Version", valueType: String.self) else {
+            print("[HEADERS] \(resp.allHeaderFields)")
             throw VersionResolveError.missingVersionField
         }
 
