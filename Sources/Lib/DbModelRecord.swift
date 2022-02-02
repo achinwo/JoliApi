@@ -1486,6 +1486,22 @@ extension StikrExperienceDataRecord {
         get { properties[.socialInstagramUsername] as? String}
         set { properties[.socialInstagramUsername] = newValue as AnyObject }
     }
+    public var socialInstagramTag: String? {
+        get { properties[.socialInstagramTag] as? String}
+        set { properties[.socialInstagramTag] = newValue as AnyObject }
+    }
+    public var socialFacebookPage: String? {
+        get { properties[.socialFacebookPage] as? String}
+        set { properties[.socialFacebookPage] = newValue as AnyObject }
+    }
+    public var socialTiktokUsername: String? {
+        get { properties[.socialTiktokUsername] as? String}
+        set { properties[.socialTiktokUsername] = newValue as AnyObject }
+    }
+    public var brandContactEmail: String? {
+        get { properties[.brandContactEmail] as? String}
+        set { properties[.brandContactEmail] = newValue as AnyObject }
+    }
     public var brandName: String? {
         get { properties[.brandName] as? String}
         set { properties[.brandName] = newValue as AnyObject }
@@ -1649,6 +1665,10 @@ extension StikrExperienceDataItemRecord {
     public var experienceId: Int? {
         get { properties[.experienceId] as? Int}
         set { properties[.experienceId] = newValue as AnyObject }
+    }
+    public var itemNo: Int? {
+        get { properties[.itemNo] as? Int}
+        set { properties[.itemNo] = newValue as AnyObject }
     }
     public var parentExperienceItemId: Int? {
         get { properties[.parentExperienceItemId] as? Int}
