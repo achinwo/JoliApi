@@ -62,23 +62,45 @@ public extension URL {
     }
 }
 
-public enum SocialLink {
+public enum SocialLink: CustomStringConvertible {
     
     case instagramUser(String)
     case instagramHashtag(String)
     case youtubeChannel(String)
     case youtubeUser(String)
     
+    static func normalizeName(_ nameOrUrl:  String) -> String {
+        return URL(string: nameOrUrl)?.lastPathComponent ?? nameOrUrl
+    }
+    
+    public var normalizedName: String {
+        switch self {
+            case .instagramUser(let base), .instagramHashtag(let base), .youtubeChannel(let base), .youtubeUser(let base):
+                return Self.normalizeName(base)
+        }
+    }
+    
+    public var description: String {
+        switch self {
+            case .instagramUser(let base):
+                return "@\(Self.normalizeName(base))"
+            case .instagramHashtag(let base):
+                return "#\(Self.normalizeName(base))"
+            case .youtubeChannel(let base), .youtubeUser(let base):
+                return Self.normalizeName(base)
+        }
+    }
+    
     public var url: URL {
         switch self {
-            case .instagramUser(let username):
-                return baseUrl.appendingPathComponent(username, isDirectory: true)
-            case .instagramHashtag(let hashtag):
-                return baseUrl.appendingPathComponent("/explore/tags/\(hashtag)", isDirectory: true)
-            case .youtubeChannel(let channel):
-                return baseUrl.appendingPathComponent("/channel/\(channel)")
-            case .youtubeUser(let username):
-                return baseUrl.appendingPathComponent("/user/\(username)")
+            case .instagramUser(_):
+                return baseUrl.appendingPathComponent(self.normalizedName, isDirectory: true)
+            case .instagramHashtag(_):
+                return baseUrl.appendingPathComponent("/explore/tags/\(self.normalizedName)", isDirectory: true)
+            case .youtubeChannel(_):
+                return baseUrl.appendingPathComponent("/channel/\(self.normalizedName)")
+            case .youtubeUser(_):
+                return baseUrl.appendingPathComponent("/user/\(self.normalizedName)")
         }
     }
     
