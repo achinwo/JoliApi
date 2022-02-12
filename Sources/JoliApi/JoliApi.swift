@@ -425,7 +425,7 @@ public class JoliApi: ObservableObject, HttpApi {
        BaseUrl.localhost.rawValue.http.host!,
        BaseUrl.dev.rawValue.http.host!,
        URL(staticString: "https://dev.jolimc.com").host!,
-       URL(staticString: "https://192.168.1.113:8080").host!,
+       URL(staticString: "https://192.168.1.103:8090").host!,
        URL(staticString: "https://192.168.1.106:8080").host!,
        URL(staticString: "https://192.168.1.26:8080").host!,
        URL(staticString: "https://192.168.1.233:8080").host!,
