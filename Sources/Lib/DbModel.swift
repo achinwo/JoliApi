@@ -1342,7 +1342,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var deletedAt: Date?
     public var deletedById: Int?
     public var deviceUuid: String
-    public var experienceTypeName: String?
+    public var experienceTypeName: String
     public var id: Int
     public var items: [StikrExperienceDataItem]?
     public var landingPageText: String?
@@ -1400,7 +1400,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case visualcodes = "visualcodes"
     }
 
-    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String?, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
+    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
         self.apnToken = apnToken
         self.backgroundImageUrl = backgroundImageUrl
         self.bannerImageUrl = bannerImageUrl
