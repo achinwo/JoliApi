@@ -273,6 +273,7 @@ extension Json {
     
     static func santized(_ json: Json) throws -> Json {
         let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
         df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
 
         let items: [Json.Element] = json.map() { item in
