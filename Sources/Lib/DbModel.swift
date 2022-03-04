@@ -1525,6 +1525,7 @@ public enum ExperienceItemType: String, Codable {
     case menuFoodItem = "menuFoodItem"
     case menuFoodNutrition = "menuFoodNutrition"
     case person = "person"
+    case product = "product"
     case profileSkill = "profileSkill"
 }
 
