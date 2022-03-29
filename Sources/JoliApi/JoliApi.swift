@@ -503,16 +503,16 @@ public extension JoliApi {
         }
         
         var req = URLRequest(url: url)
-        req.httpMethod = HttpMethod.post.rawValue
+        req.httpMethod = HttpMethod.head.rawValue
         
-        let (_, response) = try await JoliApi.sharedUrlSession.data(from: baseUrl)
+        let (_, response) = try await JoliApi.sharedUrlSession.data(from: req)
         
         guard let resp = response as? HTTPURLResponse else {
             throw VersionResolveError.unrecognisedResponseType
         }
         
         guard let versionStr = insensitiveGet(resp.allHeaderFields, key: "X-Server-Version", valueType: String.self) else {
-            print("[HEADERS] \(resp.allHeaderFields)")
+            print("[Missing HEADERS] \(resp.allHeaderFields)")
             throw VersionResolveError.missingVersionField
         }
 
