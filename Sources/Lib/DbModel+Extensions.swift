@@ -26,19 +26,19 @@ public protocol HttpApi {
     
 }
 
-struct LocalhostApi: HttpApi {
+public struct LocalhostApi: HttpApi {
     
-    var baseUrlHttp: URL {
+    public var baseUrlHttp: URL {
         return URL(string: "https://localhost:8080")!
     }
     
-    var baseUrlWs: URL {
+    public var baseUrlWs: URL {
         return URL(string: "https://localhost:8080")!
     }
     
-    var urlSession: URLSession = URLSession.shared
+    public var urlSession: URLSession = URLSession.shared
     
-    var user: User? = nil
+    public var user: User? = nil
     
     public static var `default`: HttpApi = LocalhostApi()
 }
