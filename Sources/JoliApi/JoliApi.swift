@@ -461,7 +461,7 @@ public extension URLSessionConfiguration {
 public struct ServerInfo: CustomStringConvertible {
     
     public var description: String {
-        return "ServerInfo(version: \(version), feature: \(feature))"
+        return "ServerInfo(version: \(version), feature: \(feature), preferredClientVersion: \(String(describing: preferredClientVersion))"
     }
     
     public struct Feature: CustomStringConvertible {
@@ -474,6 +474,7 @@ public struct ServerInfo: CustomStringConvertible {
     
     public let version: Version
     public let feature: Feature
+    public let preferredClientVersion: Version?
     
 }
 
@@ -522,8 +523,9 @@ public extension JoliApi {
         }
         
         let paymentsEnabled = insensitiveGet(resp.allHeaderFields, key: "X-Server-Payments-Enabled", valueType: String.self) == "1"
+        let preferredClientVersionStr = insensitiveGet(resp.allHeaderFields, key: "X-Preferred-Client-Version-iOS", valueType: String.self) ?? ""
         
-        return ServerInfo(version: version, feature: ServerInfo.Feature(paymentsEnabled: paymentsEnabled))
+        return ServerInfo(version: version, feature: ServerInfo.Feature(paymentsEnabled: paymentsEnabled), preferredClientVersion: Version(preferredClientVersionStr))
     }
     
 }
