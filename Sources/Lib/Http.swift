@@ -263,7 +263,7 @@ public enum NetworkError: Error {
     case invalidUrlPath(String)
     case badRequest(String)
     case badResponse(String)
-    case errorMessage(ErrorMessage)
+    case errorMessage(ErrorMessage?)
     case deserialization(String?, URLResponse?, Error)
 }
 
