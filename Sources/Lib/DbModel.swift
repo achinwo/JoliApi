@@ -1342,6 +1342,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var deletedAt: Date?
     public var deletedById: Int?
     public var deviceUuid: String
+    public var experienceDataAccess: ExperienceDataAccess?
     public var experienceTypeName: String
     public var id: Int
     public var items: [StikrExperienceDataItem]?
@@ -1378,6 +1379,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case deletedAt = "deletedAt"
         case deletedById = "deletedById"
         case deviceUuid = "deviceUuid"
+        case experienceDataAccess = "experienceDataAccess"
         case experienceTypeName = "experienceTypeName"
         case id = "id"
         case items = "items"
@@ -1400,7 +1402,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case visualcodes = "visualcodes"
     }
 
-    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
+    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
         self.apnToken = apnToken
         self.backgroundImageUrl = backgroundImageUrl
         self.bannerImageUrl = bannerImageUrl
@@ -1415,6 +1417,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.deletedAt = deletedAt
         self.deletedById = deletedById
         self.deviceUuid = deviceUuid
+        self.experienceDataAccess = experienceDataAccess
         self.experienceTypeName = experienceTypeName
         self.id = id
         self.items = items
@@ -1436,6 +1439,12 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.uuid = uuid
         self.visualcodes = visualcodes
     }
+}
+
+public enum ExperienceDataAccess: String, Codable {
+    case experienceDataAccessPrivate = "private"
+    case experienceDataAccessPublic = "public"
+    case restricted = "restricted"
 }
 
 /// StikrExperienceDataItem

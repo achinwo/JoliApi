@@ -1550,6 +1550,10 @@ extension StikrExperienceDataRecord {
         get { properties[.releasePlatformInstaUsername] as? String}
         set { properties[.releasePlatformInstaUsername] = newValue as AnyObject }
     }
+    public var experienceDataAccess: String? {
+        get { properties[.experienceDataAccess] as? String}
+        set { properties[.experienceDataAccess] = newValue as AnyObject }
+    }
     public var items: [StikrExperienceDataItem]? {
         get { properties[.items] as? [StikrExperienceDataItem]}
         set { properties[.items] = newValue as AnyObject }
