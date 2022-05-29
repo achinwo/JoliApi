@@ -260,8 +260,8 @@ public class JoliApi: ObservableObject, HttpApi {
         self.urlSessionConfiguration.httpAdditionalHeaders?.merge(headers) { $1 }
         
         self.baseUrl = baseUrl
-        let url = baseUrl.ws.appendingPathComponent("/api/ws")
-        self.wsClient = WebSocketClient(url: url, headers: headers, trustedHosts: JoliApi.sharedUrlSessionDelegate.trustedHosts + [baseUrl.http.host!])
+        let wsUrl = baseUrl.ws.appendingPathComponent(Self.debug ? "/api/ws" : "/ws")
+        self.wsClient = WebSocketClient(url: wsUrl, headers: headers, trustedHosts: JoliApi.sharedUrlSessionDelegate.trustedHosts + [baseUrl.http.host!])
         
         //(ws: URL, http: URL)
         BASE_URL = baseUrl.rawValue
