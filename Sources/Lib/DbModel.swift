@@ -1,31 +1,31 @@
 // This file was generated from JSON Schema using quicktype, do not modify it directly.
 // To parse the JSON, add this file to your project and do:
 //
-//   let authToken = try? newJSONDecoder().decode(AuthToken.self, from: jsonData)
-//   let reward = try? newJSONDecoder().decode(Reward.self, from: jsonData)
-//   let mealChoice = try? newJSONDecoder().decode(MealChoice.self, from: jsonData)
-//   let user = try? newJSONDecoder().decode(User.self, from: jsonData)
-//   let musicroom = try? newJSONDecoder().decode(Musicroom.self, from: jsonData)
-//   let artist = try? newJSONDecoder().decode(Artist.self, from: jsonData)
-//   let roomTrack = try? newJSONDecoder().decode(RoomTrack.self, from: jsonData)
-//   let track = try? newJSONDecoder().decode(Track.self, from: jsonData)
-//   let session = try? newJSONDecoder().decode(Session.self, from: jsonData)
-//   let queuedTrack = try? newJSONDecoder().decode(QueuedTrack.self, from: jsonData)
-//   let queuedTrackVote = try? newJSONDecoder().decode(QueuedTrackVote.self, from: jsonData)
-//   let roomMembership = try? newJSONDecoder().decode(RoomMembership.self, from: jsonData)
-//   let device = try? newJSONDecoder().decode(Device.self, from: jsonData)
-//   let playState = try? newJSONDecoder().decode(PlayState.self, from: jsonData)
-//   let logEntry = try? newJSONDecoder().decode(LogEntry.self, from: jsonData)
-//   let entitlement = try? newJSONDecoder().decode(Entitlement.self, from: jsonData)
-//   let userNotification = try? newJSONDecoder().decode(UserNotification.self, from: jsonData)
-//   let genre = try? newJSONDecoder().decode(Genre.self, from: jsonData)
-//   let food = try? newJSONDecoder().decode(Food.self, from: jsonData)
-//   let drink = try? newJSONDecoder().decode(Drink.self, from: jsonData)
-//   let event = try? newJSONDecoder().decode(Event.self, from: jsonData)
-//   let stikrExperienceData = try? newJSONDecoder().decode(StikrExperienceData.self, from: jsonData)
-//   let visualCode = try? newJSONDecoder().decode(VisualCode.self, from: jsonData)
-//   let stikrExperienceDataItem = try? newJSONDecoder().decode(StikrExperienceDataItem.self, from: jsonData)
-//   let productSummary = try? newJSONDecoder().decode(ProductSummary.self, from: jsonData)
+//   let authToken = try? JSONDecoder().decode(AuthToken.self, from: jsonData)
+//   let reward = try? JSONDecoder().decode(Reward.self, from: jsonData)
+//   let mealChoice = try? JSONDecoder().decode(MealChoice.self, from: jsonData)
+//   let user = try? JSONDecoder().decode(User.self, from: jsonData)
+//   let musicroom = try? JSONDecoder().decode(Musicroom.self, from: jsonData)
+//   let artist = try? JSONDecoder().decode(Artist.self, from: jsonData)
+//   let roomTrack = try? JSONDecoder().decode(RoomTrack.self, from: jsonData)
+//   let track = try? JSONDecoder().decode(Track.self, from: jsonData)
+//   let session = try? JSONDecoder().decode(Session.self, from: jsonData)
+//   let queuedTrack = try? JSONDecoder().decode(QueuedTrack.self, from: jsonData)
+//   let queuedTrackVote = try? JSONDecoder().decode(QueuedTrackVote.self, from: jsonData)
+//   let roomMembership = try? JSONDecoder().decode(RoomMembership.self, from: jsonData)
+//   let device = try? JSONDecoder().decode(Device.self, from: jsonData)
+//   let playState = try? JSONDecoder().decode(PlayState.self, from: jsonData)
+//   let logEntry = try? JSONDecoder().decode(LogEntry.self, from: jsonData)
+//   let entitlement = try? JSONDecoder().decode(Entitlement.self, from: jsonData)
+//   let userNotification = try? JSONDecoder().decode(UserNotification.self, from: jsonData)
+//   let genre = try? JSONDecoder().decode(Genre.self, from: jsonData)
+//   let food = try? JSONDecoder().decode(Food.self, from: jsonData)
+//   let drink = try? JSONDecoder().decode(Drink.self, from: jsonData)
+//   let event = try? JSONDecoder().decode(Event.self, from: jsonData)
+//   let stikrExperienceData = try? JSONDecoder().decode(StikrExperienceData.self, from: jsonData)
+//   let visualCode = try? JSONDecoder().decode(VisualCode.self, from: jsonData)
+//   let stikrExperienceDataItem = try? JSONDecoder().decode(StikrExperienceDataItem.self, from: jsonData)
+//   let productSummary = try? JSONDecoder().decode(ProductSummary.self, from: jsonData)
 
 import Foundation
 
@@ -150,6 +150,7 @@ public struct Reward: Persisted, DataConvertible {
 /// MealChoice
 // MARK: - MealChoice
 public struct MealChoice: Persisted, DataConvertible {
+    public var additionalInfo: String?
     public var createdAt: Date
     public var createdById: Int
     public var deletedAt: Date?
@@ -163,6 +164,7 @@ public struct MealChoice: Persisted, DataConvertible {
     public var updatedById: Int
 
     public enum CodingKeys: String, CodingKey {
+        case additionalInfo = "additionalInfo"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -176,7 +178,8 @@ public struct MealChoice: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, eventId: Int, id: Int, roomId: Int, targetId: Int?, type: TypeEnum, updatedAt: Date, updatedById: Int) {
+    public init(additionalInfo: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, eventId: Int, id: Int, roomId: Int, targetId: Int?, type: TypeEnum, updatedAt: Date, updatedById: Int) {
+        self.additionalInfo = additionalInfo
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt

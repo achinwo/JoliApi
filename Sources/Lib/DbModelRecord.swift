@@ -198,6 +198,10 @@ extension MealChoiceRecord {
         get { properties[.eventId] as? Int}
         set { properties[.eventId] = newValue as AnyObject }
     }
+    public var additionalInfo: String? {
+        get { properties[.additionalInfo] as? String}
+        set { properties[.additionalInfo] = newValue as AnyObject }
+    }
     
 }
 extension UserRecord {
