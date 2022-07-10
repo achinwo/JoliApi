@@ -164,6 +164,15 @@ public class JoliApi: ObservableObject, HttpApi {
         case apple(String, String, String, String, String)
     }
     
+    public func accountDelete() async throws -> Bool {
+        let res = try await HttpMethod.delete.fetchJson(urlPath: URLComponents(string: "/api/account")!, payload: [:], baseUrl: baseUrlHttp, urlSession: urlSession)
+        //print("[accountDelete] res: \(String(describing: res))")
+        
+        guard let status = res["status"] as? Int else { return false }
+        
+        return status == 200
+    }
+    
     @discardableResult
     public func authenticate(_ credentials: AuthCredentials, urlSession: URLSession? = nil) async throws -> Auth? {
         
