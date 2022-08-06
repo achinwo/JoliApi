@@ -39,6 +39,20 @@ public class JoliApi: ObservableObject, HttpApi {
     public func addTrackToRoom(_ room: Musicroom, _ track: Spotify.Track) async throws -> Json {
         return try await room.addTrack(track, baseUrl: self.baseUrl.rawValue.http, urlSession: self.urlSession)
     }
+    
+    public func submitRating(_ rating: Int, tag: String, deviceUid: String) async throws -> UserRating {
+        return try await UserRatingRecord(properties: [
+            .tag: tag as AnyObject,
+            .rating: rating as AnyObject,
+            .createdById: 17 as AnyObject,
+            .updatedById: 17 as AnyObject,
+            .deviceUuid: deviceUid as AnyObject]
+        ).save(baseUrl: self.baseUrlHttp, urlSession: self.urlSession)
+    }
+    
+    public func fetchRating(tag: String) async -> UserRating? {
+        return try? await HttpMethod.Fetch.get(url: "/api/rating?tag=\(tag)", dataType: UserRating.self, baseUrl: self.baseUrlHttp, urlSession: self.urlSession)
+    }
 
     // MARK: - Environment
     public enum Environment: String, CustomStringConvertible {

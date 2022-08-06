@@ -5,6 +5,7 @@ public typealias AuthTokenRecord = Builder<AuthToken>
 public typealias RewardRecord = Builder<Reward>
 public typealias MealChoiceRecord = Builder<MealChoice>
 public typealias UserRecord = Builder<User>
+public typealias UserRatingRecord = Builder<UserRating>
 public typealias MusicroomRecord = Builder<Musicroom>
 public typealias ArtistRecord = Builder<Artist>
 public typealias RoomTrackRecord = Builder<RoomTrack>
@@ -334,9 +335,61 @@ extension UserRecord {
         get { properties[.imageLarge] as? String}
         set { properties[.imageLarge] = newValue as AnyObject }
     }
+    public var appleAccessToken: String? {
+        get { properties[.appleAccessToken] as? String}
+        set { properties[.appleAccessToken] = newValue as AnyObject }
+    }
+    public var appleExpiresIn: Int? {
+        get { properties[.appleExpiresIn] as? Int}
+        set { properties[.appleExpiresIn] = newValue as AnyObject }
+    }
+    public var appleRefreshToken: String? {
+        get { properties[.appleRefreshToken] as? String}
+        set { properties[.appleRefreshToken] = newValue as AnyObject }
+    }
     public var playState: PlayState? {
         get { properties[.playState] as? PlayState}
         set { properties[.playState] = newValue as AnyObject }
+    }
+    
+}
+extension UserRatingRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var tag: String? {
+        get { properties[.tag] as? String}
+        set { properties[.tag] = newValue as AnyObject }
+    }
+    public var rating: Int? {
+        get { properties[.rating] as? Int}
+        set { properties[.rating] = newValue as AnyObject }
+    }
+    public var deviceUuid: String? {
+        get { properties[.deviceUuid] as? String}
+        set { properties[.deviceUuid] = newValue as AnyObject }
     }
     
 }

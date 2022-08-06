@@ -5,6 +5,7 @@
 //   let reward = try? JSONDecoder().decode(Reward.self, from: jsonData)
 //   let mealChoice = try? JSONDecoder().decode(MealChoice.self, from: jsonData)
 //   let user = try? JSONDecoder().decode(User.self, from: jsonData)
+//   let userRating = try? JSONDecoder().decode(UserRating.self, from: jsonData)
 //   let musicroom = try? JSONDecoder().decode(Musicroom.self, from: jsonData)
 //   let artist = try? JSONDecoder().decode(Artist.self, from: jsonData)
 //   let roomTrack = try? JSONDecoder().decode(RoomTrack.self, from: jsonData)
@@ -197,6 +198,47 @@ public struct MealChoice: Persisted, DataConvertible {
 public enum TypeEnum: String, Codable {
     case drink = "drink"
     case food = "food"
+}
+
+/// UserRating
+// MARK: - UserRating
+public struct UserRating: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var deviceUuid: String
+    public var id: Int
+    public var rating: Int
+    public var tag: String
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case deviceUuid = "deviceUuid"
+        case id = "id"
+        case rating = "rating"
+        case tag = "tag"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, id: Int, rating: Int, tag: String, updatedAt: Date, updatedById: Int) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.deviceUuid = deviceUuid
+        self.id = id
+        self.rating = rating
+        self.tag = tag
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
 }
 
 /// Artist
@@ -483,9 +525,12 @@ public struct User: Persisted, DataConvertible {
     public var activatedAt: Date?
     public var activeDeviceUuid: String?
     public var activeRoomId: Int?
+    public var appleAccessToken: String?
+    public var appleExpiresIn: Int?
     public var appleIdAuthCode: String?
     public var appleIdToken: String?
     public var appleIdentifier: String?
+    public var appleRefreshToken: String?
     public var autoRenewEnabled: Bool?
     public var autoRenewProductId: String?
     public var consumedProductDiscounts: String?
@@ -519,9 +564,12 @@ public struct User: Persisted, DataConvertible {
         case activatedAt = "activatedAt"
         case activeDeviceUuid = "activeDeviceUuid"
         case activeRoomId = "activeRoomId"
+        case appleAccessToken = "appleAccessToken"
+        case appleExpiresIn = "appleExpiresIn"
         case appleIdAuthCode = "appleIdAuthCode"
         case appleIdToken = "appleIdToken"
         case appleIdentifier = "appleIdentifier"
+        case appleRefreshToken = "appleRefreshToken"
         case autoRenewEnabled = "autoRenewEnabled"
         case autoRenewProductId = "autoRenewProductId"
         case consumedProductDiscounts = "consumedProductDiscounts"
@@ -552,13 +600,16 @@ public struct User: Persisted, DataConvertible {
         case updatedById = "updatedById"
     }
 
-    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, appleIdAuthCode: String?, appleIdToken: String?, appleIdentifier: String?, autoRenewEnabled: Bool?, autoRenewProductId: String?, consumedProductDiscounts: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, expirationIntent: String?, followingUserId: Int?, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, inBillingRetry: Bool?, isServiceAccount: Bool?, latestExpiryDate: Date?, latestReceiptData: String?, name: String, originalTransactionId: String?, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, subscriptionProductId: String?, updatedAt: Date, updatedById: Int) {
+    public init(activatedAt: Date?, activeDeviceUuid: String?, activeRoomId: Int?, appleAccessToken: String?, appleExpiresIn: Int?, appleIdAuthCode: String?, appleIdToken: String?, appleIdentifier: String?, appleRefreshToken: String?, autoRenewEnabled: Bool?, autoRenewProductId: String?, consumedProductDiscounts: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, djRanking: Int?, email: String, expirationIntent: String?, followingUserId: Int?, heartPoints: Int?, id: Int, imageLarge: String?, imageMedium: String?, imageSmall: String?, inBillingRetry: Bool?, isServiceAccount: Bool?, latestExpiryDate: Date?, latestReceiptData: String?, name: String, originalTransactionId: String?, passwordHash: String?, playState: PlayState?, refreshTokenSpotify: String?, subscriptionProductId: String?, updatedAt: Date, updatedById: Int) {
         self.activatedAt = activatedAt
         self.activeDeviceUuid = activeDeviceUuid
         self.activeRoomId = activeRoomId
+        self.appleAccessToken = appleAccessToken
+        self.appleExpiresIn = appleExpiresIn
         self.appleIdAuthCode = appleIdAuthCode
         self.appleIdToken = appleIdToken
         self.appleIdentifier = appleIdentifier
+        self.appleRefreshToken = appleRefreshToken
         self.autoRenewEnabled = autoRenewEnabled
         self.autoRenewProductId = autoRenewProductId
         self.consumedProductDiscounts = consumedProductDiscounts
