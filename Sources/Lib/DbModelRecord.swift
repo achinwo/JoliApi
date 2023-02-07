@@ -1555,6 +1555,18 @@ extension StikrExperienceDataRecord {
         get { properties[.socialTiktokUsername] as? String}
         set { properties[.socialTiktokUsername] = newValue as AnyObject }
     }
+    public var websiteUrl: String? {
+        get { properties[.websiteUrl] as? String}
+        set { properties[.websiteUrl] = newValue as AnyObject }
+    }
+    public var websiteLabel: String? {
+        get { properties[.websiteLabel] as? String}
+        set { properties[.websiteLabel] = newValue as AnyObject }
+    }
+    public var socialTwitterUsername: String? {
+        get { properties[.socialTwitterUsername] as? String}
+        set { properties[.socialTwitterUsername] = newValue as AnyObject }
+    }
     public var brandContactEmail: String? {
         get { properties[.brandContactEmail] as? String}
         set { properties[.brandContactEmail] = newValue as AnyObject }
@@ -1570,6 +1582,14 @@ extension StikrExperienceDataRecord {
     public var landingPageText: String? {
         get { properties[.landingPageText] as? String}
         set { properties[.landingPageText] = newValue as AnyObject }
+    }
+    public var callToActionLabel: String? {
+        get { properties[.callToActionLabel] as? String}
+        set { properties[.callToActionLabel] = newValue as AnyObject }
+    }
+    public var callToActionIconName: String? {
+        get { properties[.callToActionIconName] as? String}
+        set { properties[.callToActionIconName] = newValue as AnyObject }
     }
     public var brandColorPrimary: String? {
         get { properties[.brandColorPrimary] as? String}

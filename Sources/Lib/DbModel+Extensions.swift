@@ -288,7 +288,6 @@ public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, 
     
     associatedtype CodingKeys: CodingKey & Hashable
     
-    typealias PropertiesDict = [Self.CodingKeys: AnyObject]
     
     var id: Int { get }
     
@@ -300,6 +299,10 @@ public protocol Persisted: Identifiable, Codable, DataConvertible, Persistable, 
     var updatedById: Int { get }
     var deletedById: Int? { get }
     
+}
+
+public extension Persisted where CodingKeys: Hashable {
+    typealias PropertiesDict = [Self.CodingKeys: AnyObject]
 }
 
 extension Array where Element: Persisted {

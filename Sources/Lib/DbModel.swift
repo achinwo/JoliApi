@@ -1391,6 +1391,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var brandColorSecondary: String?
     public var brandContactEmail: String?
     public var brandName: String
+    public var callToActionIconName: String?
+    public var callToActionLabel: String?
     public var createdAt: Date
     public var createdById: Int
     public var deletedAt: Date?
@@ -1413,10 +1415,13 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var socialInstagramTag: String?
     public var socialInstagramUsername: String?
     public var socialTiktokUsername: String?
+    public var socialTwitterUsername: String?
     public var updatedAt: Date
     public var updatedById: Int
     public var uuid: String
     public var visualcodes: [VisualCode]?
+    public var websiteLabel: String?
+    public var websiteUrl: String?
 
     public enum CodingKeys: String, CodingKey {
         case apnToken = "apnToken"
@@ -1428,6 +1433,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case brandColorSecondary = "brandColorSecondary"
         case brandContactEmail = "brandContactEmail"
         case brandName = "brandName"
+        case callToActionIconName = "callToActionIconName"
+        case callToActionLabel = "callToActionLabel"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -1450,13 +1457,16 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case socialInstagramTag = "socialInstagramTag"
         case socialInstagramUsername = "socialInstagramUsername"
         case socialTiktokUsername = "socialTiktokUsername"
+        case socialTwitterUsername = "socialTwitterUsername"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
         case uuid = "uuid"
         case visualcodes = "visualcodes"
+        case websiteLabel = "websiteLabel"
+        case websiteUrl = "websiteUrl"
     }
 
-    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?) {
+    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, callToActionIconName: String?, callToActionLabel: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, socialTwitterUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?, websiteLabel: String?, websiteUrl: String?) {
         self.apnToken = apnToken
         self.backgroundImageUrl = backgroundImageUrl
         self.bannerImageUrl = bannerImageUrl
@@ -1466,6 +1476,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.brandColorSecondary = brandColorSecondary
         self.brandContactEmail = brandContactEmail
         self.brandName = brandName
+        self.callToActionIconName = callToActionIconName
+        self.callToActionLabel = callToActionLabel
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -1488,10 +1500,13 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.socialInstagramTag = socialInstagramTag
         self.socialInstagramUsername = socialInstagramUsername
         self.socialTiktokUsername = socialTiktokUsername
+        self.socialTwitterUsername = socialTwitterUsername
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.uuid = uuid
         self.visualcodes = visualcodes
+        self.websiteLabel = websiteLabel
+        self.websiteUrl = websiteUrl
     }
 }
 

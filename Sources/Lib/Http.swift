@@ -68,6 +68,7 @@ public enum SocialLink: CustomStringConvertible {
     case instagramHashtag(String)
     case youtubeChannel(String)
     case youtubeUser(String)
+    case twitterUser(String)
     
     static func normalizeName(_ nameOrUrl:  String) -> String {
         return URL(string: nameOrUrl)?.lastPathComponent ?? nameOrUrl
@@ -75,7 +76,7 @@ public enum SocialLink: CustomStringConvertible {
     
     public var normalizedName: String {
         switch self {
-            case .instagramUser(let base), .instagramHashtag(let base), .youtubeChannel(let base), .youtubeUser(let base):
+            case .instagramUser(let base), .instagramHashtag(let base), .youtubeChannel(let base), .youtubeUser(let base), .twitterUser(let base):
                 return Self.normalizeName(base)
         }
     }
@@ -86,14 +87,14 @@ public enum SocialLink: CustomStringConvertible {
                 return "@\(Self.normalizeName(base))"
             case .instagramHashtag(let base):
                 return "#\(Self.normalizeName(base))"
-            case .youtubeChannel(let base), .youtubeUser(let base):
+            case .youtubeChannel(let base), .youtubeUser(let base), .twitterUser(let base):
                 return Self.normalizeName(base)
         }
     }
     
     public var url: URL {
         switch self {
-            case .instagramUser(_):
+            case .instagramUser(_), .twitterUser(_):
                 return baseUrl.appendingPathComponent(self.normalizedName, isDirectory: true)
             case .instagramHashtag(_):
                 return baseUrl.appendingPathComponent("/explore/tags/\(self.normalizedName)", isDirectory: true)
@@ -104,9 +105,12 @@ public enum SocialLink: CustomStringConvertible {
         }
     }
     
-    public static var urls: (instagram: URL, youtube: URL) {
-        return (instagram: URL(staticString: "https://www.instagram.com"),
-                youtube: URL(staticString: "https://www.youtube.com"))
+    public static var urls: (instagram: URL, youtube: URL, twitter: URL) {
+        return (
+            instagram: URL(staticString: "https://www.instagram.com"),
+            youtube: URL(staticString: "https://www.youtube.com"),
+            twitter: URL(staticString: "https://twitter.com")
+        )
     }
     
     public var baseUrl: URL {
@@ -115,6 +119,8 @@ public enum SocialLink: CustomStringConvertible {
                 return Self.urls.instagram
             case .youtubeChannel(_), .youtubeUser(_):
                 return Self.urls.youtube
+            case .twitterUser(_):
+                return Self.urls.twitter
         }
     }
 }
