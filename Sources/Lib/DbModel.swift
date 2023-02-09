@@ -1383,6 +1383,8 @@ public struct Event: Persisted, DataConvertible {
 // MARK: - StikrExperienceData
 public struct StikrExperienceData: Persisted, DataConvertible {
     public var apnToken: String?
+    public var backgroundColor1: String?
+    public var backgroundColor2: String?
     public var backgroundImageUrl: String?
     public var bannerImageUrl: String?
     public var bannerVideoUrl: String?
@@ -1425,6 +1427,8 @@ public struct StikrExperienceData: Persisted, DataConvertible {
 
     public enum CodingKeys: String, CodingKey {
         case apnToken = "apnToken"
+        case backgroundColor1 = "backgroundColor1"
+        case backgroundColor2 = "backgroundColor2"
         case backgroundImageUrl = "backgroundImageUrl"
         case bannerImageUrl = "bannerImageUrl"
         case bannerVideoUrl = "bannerVideoUrl"
@@ -1466,8 +1470,10 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case websiteUrl = "websiteUrl"
     }
 
-    public init(apnToken: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, callToActionIconName: String?, callToActionLabel: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, socialTwitterUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?, websiteLabel: String?, websiteUrl: String?) {
+    public init(apnToken: String?, backgroundColor1: String?, backgroundColor2: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, callToActionIconName: String?, callToActionLabel: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, socialTwitterUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?, websiteLabel: String?, websiteUrl: String?) {
         self.apnToken = apnToken
+        self.backgroundColor1 = backgroundColor1
+        self.backgroundColor2 = backgroundColor2
         self.backgroundImageUrl = backgroundImageUrl
         self.bannerImageUrl = bannerImageUrl
         self.bannerVideoUrl = bannerVideoUrl
