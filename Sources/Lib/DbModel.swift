@@ -27,6 +27,7 @@
 //   let visualCode = try? JSONDecoder().decode(VisualCode.self, from: jsonData)
 //   let stikrExperienceDataItem = try? JSONDecoder().decode(StikrExperienceDataItem.self, from: jsonData)
 //   let productSummary = try? JSONDecoder().decode(ProductSummary.self, from: jsonData)
+//   let puData = try? JSONDecoder().decode(PuData.self, from: jsonData)
 
 import Foundation
 
@@ -1395,6 +1396,9 @@ public struct StikrExperienceData: Persisted, DataConvertible {
     public var brandName: String
     public var callToActionIconName: String?
     public var callToActionLabel: String?
+    public var cardImageUrl: String?
+    public var cardSubtitle: String?
+    public var cardTitle: String?
     public var createdAt: Date
     public var createdById: Int
     public var deletedAt: Date?
@@ -1439,6 +1443,9 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case brandName = "brandName"
         case callToActionIconName = "callToActionIconName"
         case callToActionLabel = "callToActionLabel"
+        case cardImageUrl = "cardImageUrl"
+        case cardSubtitle = "cardSubtitle"
+        case cardTitle = "cardTitle"
         case createdAt = "createdAt"
         case createdById = "createdById"
         case deletedAt = "deletedAt"
@@ -1470,7 +1477,7 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         case websiteUrl = "websiteUrl"
     }
 
-    public init(apnToken: String?, backgroundColor1: String?, backgroundColor2: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, callToActionIconName: String?, callToActionLabel: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, socialTwitterUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?, websiteLabel: String?, websiteUrl: String?) {
+    public init(apnToken: String?, backgroundColor1: String?, backgroundColor2: String?, backgroundImageUrl: String?, bannerImageUrl: String?, bannerVideoUrl: String?, brandColorAccent: String?, brandColorPrimary: String?, brandColorSecondary: String?, brandContactEmail: String?, brandName: String, callToActionIconName: String?, callToActionLabel: String?, cardImageUrl: String?, cardSubtitle: String?, cardTitle: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, deviceUuid: String, experienceDataAccess: ExperienceDataAccess?, experienceTypeName: String, id: Int, items: [StikrExperienceDataItem]?, landingPageText: String?, logoImageUrl: String?, productDescription: String?, productImageUrl: String?, productName: String?, releaseDate: Date?, releasePlatformInstaUsername: String?, releasePlatformLogoUrl: String?, releasePlatformName: String?, socialFacebookPage: String?, socialInstagramTag: String?, socialInstagramUsername: String?, socialTiktokUsername: String?, socialTwitterUsername: String?, updatedAt: Date, updatedById: Int, uuid: String, visualcodes: [VisualCode]?, websiteLabel: String?, websiteUrl: String?) {
         self.apnToken = apnToken
         self.backgroundColor1 = backgroundColor1
         self.backgroundColor2 = backgroundColor2
@@ -1484,6 +1491,9 @@ public struct StikrExperienceData: Persisted, DataConvertible {
         self.brandName = brandName
         self.callToActionIconName = callToActionIconName
         self.callToActionLabel = callToActionLabel
+        self.cardImageUrl = cardImageUrl
+        self.cardSubtitle = cardSubtitle
+        self.cardTitle = cardTitle
         self.createdAt = createdAt
         self.createdById = createdById
         self.deletedAt = deletedAt
@@ -1749,5 +1759,127 @@ public struct ProductSummary: Persisted, DataConvertible {
         self.subscriptionPeriodUnits = subscriptionPeriodUnits
         self.updatedAt = updatedAt
         self.updatedById = updatedById
+    }
+}
+
+/// PuData
+// MARK: - PuData
+public struct PuData: Persisted, DataConvertible {
+    public var containsAlterations: Bool?
+    public var containsIncorrectPuName: Bool?
+    public var contributorUsername: String?
+    public var createdAt: Date
+    public var createdById: Int
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var documentHash: String?
+    public var documentSize: Int
+    public var documentType: String
+    public var documentUpdatedAt: String
+    public var documentUrl: String
+    public var electionSession: Int?
+    public var id: Int
+    public var isInecStampAbsent: Bool?
+    public var isNoneEceightForm: Bool?
+    public var isPuNameCorrect: Bool?
+    public var isResultIllegible: Bool?
+    public var isResultLegible: Bool?
+    public var lgaId: Int?
+    public var lgaName: String?
+    public var name: String
+    public var numberOfPrevDocuments: Int?
+    public var puCode: String
+    public var puId: String
+    public var stateId: String
+    public var stateName: String?
+    public var updatedAt: Date
+    public var updatedById: Int
+    public var votersAccredited: Int?
+    public var votesApc: Int?
+    public var votesCast: Int?
+    public var votesLp: Int?
+    public var votesNnpp: Int?
+    public var votesPdp: Int?
+    public var wardId: String
+    public var wardName: String
+
+    public enum CodingKeys: String, CodingKey {
+        case containsAlterations = "containsAlterations"
+        case containsIncorrectPuName = "containsIncorrectPuName"
+        case contributorUsername = "contributorUsername"
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case documentHash = "documentHash"
+        case documentSize = "documentSize"
+        case documentType = "documentType"
+        case documentUpdatedAt = "documentUpdatedAt"
+        case documentUrl = "documentUrl"
+        case electionSession = "electionSession"
+        case id = "id"
+        case isInecStampAbsent = "isInecStampAbsent"
+        case isNoneEceightForm = "isNoneEceightForm"
+        case isPuNameCorrect = "isPuNameCorrect"
+        case isResultIllegible = "isResultIllegible"
+        case isResultLegible = "isResultLegible"
+        case lgaId = "lgaId"
+        case lgaName = "lgaName"
+        case name = "name"
+        case numberOfPrevDocuments = "numberOfPrevDocuments"
+        case puCode = "puCode"
+        case puId = "puId"
+        case stateId = "stateId"
+        case stateName = "stateName"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+        case votersAccredited = "votersAccredited"
+        case votesApc = "votesApc"
+        case votesCast = "votesCast"
+        case votesLp = "votesLp"
+        case votesNnpp = "votesNnpp"
+        case votesPdp = "votesPdp"
+        case wardId = "wardId"
+        case wardName = "wardName"
+    }
+
+    public init(containsAlterations: Bool?, containsIncorrectPuName: Bool?, contributorUsername: String?, createdAt: Date, createdById: Int, deletedAt: Date?, deletedById: Int?, documentHash: String?, documentSize: Int, documentType: String, documentUpdatedAt: String, documentUrl: String, electionSession: Int?, id: Int, isInecStampAbsent: Bool?, isNoneEceightForm: Bool?, isPuNameCorrect: Bool?, isResultIllegible: Bool?, isResultLegible: Bool?, lgaId: Int?, lgaName: String?, name: String, numberOfPrevDocuments: Int?, puCode: String, puId: String, stateId: String, stateName: String?, updatedAt: Date, updatedById: Int, votersAccredited: Int?, votesApc: Int?, votesCast: Int?, votesLp: Int?, votesNnpp: Int?, votesPdp: Int?, wardId: String, wardName: String) {
+        self.containsAlterations = containsAlterations
+        self.containsIncorrectPuName = containsIncorrectPuName
+        self.contributorUsername = contributorUsername
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.documentHash = documentHash
+        self.documentSize = documentSize
+        self.documentType = documentType
+        self.documentUpdatedAt = documentUpdatedAt
+        self.documentUrl = documentUrl
+        self.electionSession = electionSession
+        self.id = id
+        self.isInecStampAbsent = isInecStampAbsent
+        self.isNoneEceightForm = isNoneEceightForm
+        self.isPuNameCorrect = isPuNameCorrect
+        self.isResultIllegible = isResultIllegible
+        self.isResultLegible = isResultLegible
+        self.lgaId = lgaId
+        self.lgaName = lgaName
+        self.name = name
+        self.numberOfPrevDocuments = numberOfPrevDocuments
+        self.puCode = puCode
+        self.puId = puId
+        self.stateId = stateId
+        self.stateName = stateName
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+        self.votersAccredited = votersAccredited
+        self.votesApc = votesApc
+        self.votesCast = votesCast
+        self.votesLp = votesLp
+        self.votesNnpp = votesNnpp
+        self.votesPdp = votesPdp
+        self.wardId = wardId
+        self.wardName = wardName
     }
 }

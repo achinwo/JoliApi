@@ -27,6 +27,7 @@ public typealias StikrExperienceDataRecord = Builder<StikrExperienceData>
 public typealias VisualCodeRecord = Builder<VisualCode>
 public typealias StikrExperienceDataItemRecord = Builder<StikrExperienceDataItem>
 public typealias ProductSummaryRecord = Builder<ProductSummary>
+public typealias PuDataRecord = Builder<PuData>
 
 
 extension AuthTokenRecord {
@@ -1579,6 +1580,18 @@ extension StikrExperienceDataRecord {
         get { properties[.brandContactEmail] as? String}
         set { properties[.brandContactEmail] = newValue as AnyObject }
     }
+    public var cardTitle: String? {
+        get { properties[.cardTitle] as? String}
+        set { properties[.cardTitle] = newValue as AnyObject }
+    }
+    public var cardSubtitle: String? {
+        get { properties[.cardSubtitle] as? String}
+        set { properties[.cardSubtitle] = newValue as AnyObject }
+    }
+    public var cardImageUrl: String? {
+        get { properties[.cardImageUrl] as? String}
+        set { properties[.cardImageUrl] = newValue as AnyObject }
+    }
     public var brandName: String? {
         get { properties[.brandName] as? String}
         set { properties[.brandName] = newValue as AnyObject }
@@ -1866,6 +1879,154 @@ extension ProductSummaryRecord {
     public var subscriptionPeriodUnits: Int? {
         get { properties[.subscriptionPeriodUnits] as? Int}
         set { properties[.subscriptionPeriodUnits] = newValue as AnyObject }
+    }
+    
+}
+extension PuDataRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var name: String? {
+        get { properties[.name] as? String}
+        set { properties[.name] = newValue as AnyObject }
+    }
+    public var puId: String? {
+        get { properties[.puId] as? String}
+        set { properties[.puId] = newValue as AnyObject }
+    }
+    public var puCode: String? {
+        get { properties[.puCode] as? String}
+        set { properties[.puCode] = newValue as AnyObject }
+    }
+    public var wardId: String? {
+        get { properties[.wardId] as? String}
+        set { properties[.wardId] = newValue as AnyObject }
+    }
+    public var wardName: String? {
+        get { properties[.wardName] as? String}
+        set { properties[.wardName] = newValue as AnyObject }
+    }
+    public var stateId: String? {
+        get { properties[.stateId] as? String}
+        set { properties[.stateId] = newValue as AnyObject }
+    }
+    public var stateName: String? {
+        get { properties[.stateName] as? String}
+        set { properties[.stateName] = newValue as AnyObject }
+    }
+    public var lgaId: Int? {
+        get { properties[.lgaId] as? Int}
+        set { properties[.lgaId] = newValue as AnyObject }
+    }
+    public var lgaName: String? {
+        get { properties[.lgaName] as? String}
+        set { properties[.lgaName] = newValue as AnyObject }
+    }
+    public var documentUrl: String? {
+        get { properties[.documentUrl] as? String}
+        set { properties[.documentUrl] = newValue as AnyObject }
+    }
+    public var documentType: String? {
+        get { properties[.documentType] as? String}
+        set { properties[.documentType] = newValue as AnyObject }
+    }
+    public var documentSize: Int? {
+        get { properties[.documentSize] as? Int}
+        set { properties[.documentSize] = newValue as AnyObject }
+    }
+    public var documentUpdatedAt: Date? {
+        get { properties[.documentUpdatedAt] as? Date}
+        set { properties[.documentUpdatedAt] = newValue as AnyObject }
+    }
+    public var documentHash: String? {
+        get { properties[.documentHash] as? String}
+        set { properties[.documentHash] = newValue as AnyObject }
+    }
+    public var numberOfPrevDocuments: Int? {
+        get { properties[.numberOfPrevDocuments] as? Int}
+        set { properties[.numberOfPrevDocuments] = newValue as AnyObject }
+    }
+    public var votersAccredited: Int? {
+        get { properties[.votersAccredited] as? Int}
+        set { properties[.votersAccredited] = newValue as AnyObject }
+    }
+    public var votesCast: Int? {
+        get { properties[.votesCast] as? Int}
+        set { properties[.votesCast] = newValue as AnyObject }
+    }
+    public var votesLp: Int? {
+        get { properties[.votesLp] as? Int}
+        set { properties[.votesLp] = newValue as AnyObject }
+    }
+    public var votesApc: Int? {
+        get { properties[.votesApc] as? Int}
+        set { properties[.votesApc] = newValue as AnyObject }
+    }
+    public var votesPdp: Int? {
+        get { properties[.votesPdp] as? Int}
+        set { properties[.votesPdp] = newValue as AnyObject }
+    }
+    public var votesNnpp: Int? {
+        get { properties[.votesNnpp] as? Int}
+        set { properties[.votesNnpp] = newValue as AnyObject }
+    }
+    public var isResultLegible: Bool? {
+        get { properties[.isResultLegible] as? Bool}
+        set { properties[.isResultLegible] = newValue as AnyObject }
+    }
+    public var isPuNameCorrect: Bool? {
+        get { properties[.isPuNameCorrect] as? Bool}
+        set { properties[.isPuNameCorrect] = newValue as AnyObject }
+    }
+    public var isResultIllegible: Bool? {
+        get { properties[.isResultIllegible] as? Bool}
+        set { properties[.isResultIllegible] = newValue as AnyObject }
+    }
+    public var containsIncorrectPuName: Bool? {
+        get { properties[.containsIncorrectPuName] as? Bool}
+        set { properties[.containsIncorrectPuName] = newValue as AnyObject }
+    }
+    public var containsAlterations: Bool? {
+        get { properties[.containsAlterations] as? Bool}
+        set { properties[.containsAlterations] = newValue as AnyObject }
+    }
+    public var isInecStampAbsent: Bool? {
+        get { properties[.isInecStampAbsent] as? Bool}
+        set { properties[.isInecStampAbsent] = newValue as AnyObject }
+    }
+    public var isNoneEceightForm: Bool? {
+        get { properties[.isNoneEceightForm] as? Bool}
+        set { properties[.isNoneEceightForm] = newValue as AnyObject }
+    }
+    public var contributorUsername: String? {
+        get { properties[.contributorUsername] as? String}
+        set { properties[.contributorUsername] = newValue as AnyObject }
+    }
+    public var electionSession: Int? {
+        get { properties[.electionSession] as? Int}
+        set { properties[.electionSession] = newValue as AnyObject }
     }
     
 }
