@@ -1564,6 +1564,14 @@ extension StikrExperienceDataRecord {
         get { properties[.socialTiktokUsername] as? String}
         set { properties[.socialTiktokUsername] = newValue as AnyObject }
     }
+    public var storeUbereatsUrl: String? {
+        get { properties[.storeUbereatsUrl] as? String}
+        set { properties[.storeUbereatsUrl] = newValue as AnyObject }
+    }
+    public var storeDeliverooUrl: String? {
+        get { properties[.storeDeliverooUrl] as? String}
+        set { properties[.storeDeliverooUrl] = newValue as AnyObject }
+    }
     public var websiteUrl: String? {
         get { properties[.websiteUrl] as? String}
         set { properties[.websiteUrl] = newValue as AnyObject }
@@ -1579,6 +1587,10 @@ extension StikrExperienceDataRecord {
     public var brandContactEmail: String? {
         get { properties[.brandContactEmail] as? String}
         set { properties[.brandContactEmail] = newValue as AnyObject }
+    }
+    public var brandContactPhoneNumber: String? {
+        get { properties[.brandContactPhoneNumber] as? String}
+        set { properties[.brandContactPhoneNumber] = newValue as AnyObject }
     }
     public var cardTitle: String? {
         get { properties[.cardTitle] as? String}
@@ -1807,6 +1819,10 @@ extension StikrExperienceDataItemRecord {
     public var defaultPrice: Int? {
         get { properties[.defaultPrice] as? Int}
         set { properties[.defaultPrice] = newValue as AnyObject }
+    }
+    public var quantityAvailable: Int? {
+        get { properties[.quantityAvailable] as? Int}
+        set { properties[.quantityAvailable] = newValue as AnyObject }
     }
     public var imageName: String? {
         get { properties[.imageName] as? String}
