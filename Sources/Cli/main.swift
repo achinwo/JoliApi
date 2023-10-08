@@ -12,9 +12,18 @@ import SwiftSyntax
 import JoliCore
 import JoliApi
 import UIImageColors
+import Macros
 
 // swift build -c release --package-path "${JOLI}JoliApi" && cp -f "${JOLI}JoliApi/.build/release/joli" /usr/local/bin/joli
 
+print(#stringify(1 + 5))
+
+let a = 17
+let b = 25
+
+let (result, code) = #stringify(a + b)
+
+print("The value \(result) was produced by the code \"\(code)\"")
 
 //let TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvbGlAam9saW1jLmFwcCIsImNyZWF0ZWRBdCI6IjIwMjAtMDgtMjJUMTM6NDQ6NTUuODY2WiIsImV4cGlyZXNJbiI6MTQ0MDAwMH0.OhxodQ0Zl0E_k_Su8CDwSB2scqteqfmyfUSMHwlfN00"
 //
