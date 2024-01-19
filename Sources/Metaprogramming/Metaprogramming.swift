@@ -31,6 +31,18 @@ public struct StringifyMacro: ExpressionMacro {
     
 }
 
+public struct DdRecordMacro: MemberMacro {
+    
+    public static func expansion(of node: SwiftSyntax.AttributeSyntax, providingMembersOf declaration: some SwiftSyntax.DeclGroupSyntax, in context: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
+        
+        
+        
+        return []
+    }
+    
+    
+}
+
 @main
 struct MaqroPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [

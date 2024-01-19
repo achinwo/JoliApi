@@ -16,6 +16,24 @@ import Macros
 
 // swift build -c release --package-path "${JOLI}JoliApi" && cp -f "${JOLI}JoliApi/.build/release/joli" /usr/local/bin/joli
 
+    // Define an attributed string with Markdown attributes
+
+    // Function to convert an attributed string to plain text
+func convertToPlainText(_ string: String) -> String {
+        // Create a mutable string to store the plain text
+    
+    guard let markdownAttributedString = try? AttributedString(markdown: string) else {
+        return string
+    }
+    
+    let string: [String] = markdownAttributedString.characters.map({ String($0) })
+    return string.joined()
+}
+
+    // Convert the Markdown attributed string to plain text
+let plainText = convertToPlainText("This is *bold* and _italic_ text")
+print(plainText) // Output: "This is bold and italic text"
+
 print(#stringify(1 + 5))
 
 let a = 17

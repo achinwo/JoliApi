@@ -7,7 +7,7 @@ import CompilerPluginSupport
 let package = Package(
     name: "JoliApi",
     platforms: [
-        .macOS(.v11),
+        .macOS(.v12),
         .iOS(.v14),
         .watchOS(.v7),
         .tvOS(.v14),
