@@ -151,6 +151,15 @@ public extension Color {
             opacity: rgba.alpha
         )
     }
+    
+    init?(_ hex: String?) {
+        
+        guard let hex else {
+            return nil
+        }
+        
+        self.init(hex: hex)
+    }
 }
 
 extension Color: Encodable {
