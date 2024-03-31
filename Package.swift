@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -27,7 +27,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/kylef/JSONSchema.swift.git", from: "0.5.0"),
         .package(url: "https://github.com/kylef/Commander.git", from: "0.9.1"),
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.0"),
+        .package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.1"),
         .package(url: "https://github.com/daltoniam/Starscream.git", .upToNextMajor(from: "4.0.4")),
         .package(url: "https://github.com/mxcl/Version.git", .upToNextMajor(from: "2.0.0")),
         .package(url: "https://github.com/jathu/UIImageColors.git", .upToNextMajor(from: "2.2.0")),

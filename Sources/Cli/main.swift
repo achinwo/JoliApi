@@ -22,12 +22,20 @@ import Macros
 func convertToPlainText(_ string: String) -> String {
         // Create a mutable string to store the plain text
     
-    guard let markdownAttributedString = try? AttributedString(markdown: string) else {
+    if #available(iOS 15, *) {
+        guard let markdownAttributedString = try? AttributedString(markdown: string) else {
+            return string
+        }
+        
+        let string: [String] = markdownAttributedString.characters.map({ String($0) })
+        return string.joined()
+        
+    } else {
+         
         return string
     }
     
-    let string: [String] = markdownAttributedString.characters.map({ String($0) })
-    return string.joined()
+    
 }
 
     // Convert the Markdown attributed string to plain text
