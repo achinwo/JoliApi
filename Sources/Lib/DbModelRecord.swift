@@ -2,6 +2,7 @@
 import Foundation
 
 public typealias AuthTokenRecord = Builder<AuthToken>
+public typealias ContentAttributeRecord = Builder<ContentAttribute>
 public typealias RewardRecord = Builder<Reward>
 public typealias MealChoiceRecord = Builder<MealChoice>
 public typealias UserRecord = Builder<User>
@@ -107,6 +108,50 @@ extension AuthTokenRecord {
     public var parentId: Int? {
         get { properties[.parentId] as? Int}
         set { properties[.parentId] = newValue as AnyObject }
+    }
+    
+}
+extension ContentAttributeRecord {
+    
+    public var createdById: Int? {
+        get { properties[.createdById] as? Int}
+        set { properties[.createdById] = newValue as AnyObject }
+    }
+    public var deletedById: Int? {
+        get { properties[.deletedById] as? Int}
+        set { properties[.deletedById] = newValue as AnyObject }
+    }
+    public var updatedById: Int? {
+        get { properties[.updatedById] as? Int}
+        set { properties[.updatedById] = newValue as AnyObject }
+    }
+    public var createdAt: Date? {
+        get { properties[.createdAt] as? Date}
+        set { properties[.createdAt] = newValue as AnyObject }
+    }
+    public var deletedAt: Date? {
+        get { properties[.deletedAt] as? Date}
+        set { properties[.deletedAt] = newValue as AnyObject }
+    }
+    public var updatedAt: Date? {
+        get { properties[.updatedAt] as? Date}
+        set { properties[.updatedAt] = newValue as AnyObject }
+    }
+    public var targetModel: String? {
+        get { properties[.targetModel] as? String}
+        set { properties[.targetModel] = newValue as AnyObject }
+    }
+    public var targetRecordId: Int? {
+        get { properties[.targetRecordId] as? Int}
+        set { properties[.targetRecordId] = newValue as AnyObject }
+    }
+    public var name: String? {
+        get { properties[.name] as? String}
+        set { properties[.name] = newValue as AnyObject }
+    }
+    public var data: ContentAttributeData? {
+        get { properties[.data] as? ContentAttributeData}
+        set { properties[.data] = newValue as AnyObject }
     }
     
 }

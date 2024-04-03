@@ -2,6 +2,7 @@
 // To parse the JSON, add this file to your project and do:
 //
 //   let authToken = try? JSONDecoder().decode(AuthToken.self, from: jsonData)
+//   let contentAttribute = try? JSONDecoder().decode(ContentAttribute.self, from: jsonData)
 //   let reward = try? JSONDecoder().decode(Reward.self, from: jsonData)
 //   let mealChoice = try? JSONDecoder().decode(MealChoice.self, from: jsonData)
 //   let user = try? JSONDecoder().decode(User.self, from: jsonData)
@@ -99,6 +100,87 @@ public struct AuthToken: Persisted, DataConvertible {
         self.updatedAt = updatedAt
         self.updatedById = updatedById
         self.userName = userName
+    }
+}
+
+/// ContentAttribute
+// MARK: - ContentAttribute
+public struct ContentAttribute: Persisted, DataConvertible {
+    public var createdAt: Date
+    public var createdById: Int
+    public var data: ContentAttributeData
+    public var deletedAt: Date?
+    public var deletedById: Int?
+    public var id: Int
+    public var name: String
+    public var targetModel: String
+    public var targetRecordId: Int
+    public var updatedAt: Date
+    public var updatedById: Int
+
+    public enum CodingKeys: String, CodingKey {
+        case createdAt = "createdAt"
+        case createdById = "createdById"
+        case data = "data"
+        case deletedAt = "deletedAt"
+        case deletedById = "deletedById"
+        case id = "id"
+        case name = "name"
+        case targetModel = "targetModel"
+        case targetRecordId = "targetRecordId"
+        case updatedAt = "updatedAt"
+        case updatedById = "updatedById"
+    }
+
+    public init(createdAt: Date, createdById: Int, data: ContentAttributeData, deletedAt: Date?, deletedById: Int?, id: Int, name: String, targetModel: String, targetRecordId: Int, updatedAt: Date, updatedById: Int) {
+        self.createdAt = createdAt
+        self.createdById = createdById
+        self.data = data
+        self.deletedAt = deletedAt
+        self.deletedById = deletedById
+        self.id = id
+        self.name = name
+        self.targetModel = targetModel
+        self.targetRecordId = targetRecordId
+        self.updatedAt = updatedAt
+        self.updatedById = updatedById
+    }
+}
+
+// MARK: - ContentAttributeData
+public struct ContentAttributeData: Codable, Equatable, Hashable {
+    public var backgroundColor: String?
+    public var backgroundColor2: String?
+    public var backgroundImageUrl: String?
+    public var backgroundMode: String?
+    public var backgroundOpacity: Double?
+    public var bold: Bool?
+    public var color: String?
+    public var fontName: String?
+    public var fontSize: Double?
+
+    public enum CodingKeys: String, CodingKey {
+        case backgroundColor = "backgroundColor"
+        case backgroundColor2 = "backgroundColor2"
+        case backgroundImageUrl = "backgroundImageUrl"
+        case backgroundMode = "backgroundMode"
+        case backgroundOpacity = "backgroundOpacity"
+        case bold = "bold"
+        case color = "color"
+        case fontName = "fontName"
+        case fontSize = "fontSize"
+    }
+
+    public init(backgroundColor: String?, backgroundColor2: String?, backgroundImageUrl: String?, backgroundMode: String?, backgroundOpacity: Double?, bold: Bool?, color: String?, fontName: String?, fontSize: Double?) {
+        self.backgroundColor = backgroundColor
+        self.backgroundColor2 = backgroundColor2
+        self.backgroundImageUrl = backgroundImageUrl
+        self.backgroundMode = backgroundMode
+        self.backgroundOpacity = backgroundOpacity
+        self.bold = bold
+        self.color = color
+        self.fontName = fontName
+        self.fontSize = fontSize
     }
 }
 
