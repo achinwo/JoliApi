@@ -26,6 +26,22 @@ public protocol HttpApi {
     
 }
 
+public extension ContentAttributeData {
+    
+    init(_ props: [CodingKeys: Codable]){
+        self.init(backgroundColor: props[.backgroundColor] as? String,
+                  backgroundColor2: props[.backgroundColor2] as? String,
+                  backgroundImageUrl: props[.backgroundImageUrl] as? String,
+                  backgroundMode: props[.backgroundMode] as? String,
+                  backgroundOpacity: props[.backgroundOpacity] as? Double,
+                  bold: props[.bold] as? Bool,
+                  color: props[.color] as? String,
+                  fontName: props[.fontName] as? String,
+                  fontSize: props[.fontSize] as? Double)
+    }
+    
+}
+
 public struct LocalhostApi: HttpApi {
     
     public var baseUrlHttp: URL {
