@@ -137,6 +137,10 @@ extension ContentAttributeRecord {
         get { properties[.updatedAt] as? Date}
         set { properties[.updatedAt] = newValue as AnyObject }
     }
+    public var uuid: String? {
+        get { properties[.uuid] as? String}
+        set { properties[.uuid] = newValue as AnyObject }
+    }
     public var targetModel: String? {
         get { properties[.targetModel] as? String}
         set { properties[.targetModel] = newValue as AnyObject }

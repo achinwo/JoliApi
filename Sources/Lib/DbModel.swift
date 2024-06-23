@@ -117,6 +117,7 @@ public struct ContentAttribute: Persisted, DataConvertible {
     public var targetRecordId: Int
     public var updatedAt: Date
     public var updatedById: Int
+    public var uuid: String
 
     public enum CodingKeys: String, CodingKey {
         case createdAt = "createdAt"
@@ -130,9 +131,10 @@ public struct ContentAttribute: Persisted, DataConvertible {
         case targetRecordId = "targetRecordId"
         case updatedAt = "updatedAt"
         case updatedById = "updatedById"
+        case uuid = "uuid"
     }
 
-    public init(createdAt: Date, createdById: Int, data: ContentAttributeData, deletedAt: Date?, deletedById: Int?, id: Int, name: String, targetModel: String, targetRecordId: Int, updatedAt: Date, updatedById: Int) {
+    public init(createdAt: Date, createdById: Int, data: ContentAttributeData, deletedAt: Date?, deletedById: Int?, id: Int, name: String, targetModel: String, targetRecordId: Int, updatedAt: Date, updatedById: Int, uuid: String) {
         self.createdAt = createdAt
         self.createdById = createdById
         self.data = data
@@ -144,6 +146,7 @@ public struct ContentAttribute: Persisted, DataConvertible {
         self.targetRecordId = targetRecordId
         self.updatedAt = updatedAt
         self.updatedById = updatedById
+        self.uuid = uuid
     }
 }
 
@@ -156,6 +159,7 @@ public struct ContentAttributeData: Codable, Equatable, Hashable {
     public var backgroundOpacity: Double?
     public var bold: Bool?
     public var color: String?
+    public var contentAttributeUuid: String?
     public var fontName: String?
     public var fontSize: Double?
 
@@ -167,11 +171,12 @@ public struct ContentAttributeData: Codable, Equatable, Hashable {
         case backgroundOpacity = "backgroundOpacity"
         case bold = "bold"
         case color = "color"
+        case contentAttributeUuid = "contentAttributeUuid"
         case fontName = "fontName"
         case fontSize = "fontSize"
     }
 
-    public init(backgroundColor: String?, backgroundColor2: String?, backgroundImageUrl: String?, backgroundMode: String?, backgroundOpacity: Double?, bold: Bool?, color: String?, fontName: String?, fontSize: Double?) {
+    public init(backgroundColor: String?, backgroundColor2: String?, backgroundImageUrl: String?, backgroundMode: String?, backgroundOpacity: Double?, bold: Bool?, color: String?, contentAttributeUuid: String?, fontName: String?, fontSize: Double?) {
         self.backgroundColor = backgroundColor
         self.backgroundColor2 = backgroundColor2
         self.backgroundImageUrl = backgroundImageUrl
@@ -179,6 +184,7 @@ public struct ContentAttributeData: Codable, Equatable, Hashable {
         self.backgroundOpacity = backgroundOpacity
         self.bold = bold
         self.color = color
+        self.contentAttributeUuid = contentAttributeUuid
         self.fontName = fontName
         self.fontSize = fontSize
     }
