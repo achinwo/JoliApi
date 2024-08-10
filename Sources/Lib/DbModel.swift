@@ -159,9 +159,11 @@ public struct ContentAttributeData: Codable, Equatable, Hashable {
     public var backgroundOpacity: Double?
     public var bold: Bool?
     public var color: String?
+    public var contentAttributeName: String?
     public var contentAttributeUuid: String?
     public var fontName: String?
     public var fontSize: Double?
+    public var textContent: String?
 
     public enum CodingKeys: String, CodingKey {
         case backgroundColor = "backgroundColor"
@@ -171,12 +173,14 @@ public struct ContentAttributeData: Codable, Equatable, Hashable {
         case backgroundOpacity = "backgroundOpacity"
         case bold = "bold"
         case color = "color"
+        case contentAttributeName = "contentAttributeName"
         case contentAttributeUuid = "contentAttributeUuid"
         case fontName = "fontName"
         case fontSize = "fontSize"
+        case textContent = "textContent"
     }
 
-    public init(backgroundColor: String?, backgroundColor2: String?, backgroundImageUrl: String?, backgroundMode: String?, backgroundOpacity: Double?, bold: Bool?, color: String?, contentAttributeUuid: String?, fontName: String?, fontSize: Double?) {
+    public init(backgroundColor: String?, backgroundColor2: String?, backgroundImageUrl: String?, backgroundMode: String?, backgroundOpacity: Double?, bold: Bool?, color: String?, contentAttributeName: String?, contentAttributeUuid: String?, fontName: String?, fontSize: Double?, textContent: String?) {
         self.backgroundColor = backgroundColor
         self.backgroundColor2 = backgroundColor2
         self.backgroundImageUrl = backgroundImageUrl
@@ -184,9 +188,11 @@ public struct ContentAttributeData: Codable, Equatable, Hashable {
         self.backgroundOpacity = backgroundOpacity
         self.bold = bold
         self.color = color
+        self.contentAttributeName = contentAttributeName
         self.contentAttributeUuid = contentAttributeUuid
         self.fontName = fontName
         self.fontSize = fontSize
+        self.textContent = textContent
     }
 }
 

@@ -35,10 +35,12 @@ public extension ContentAttributeData {
                   backgroundMode: props[.backgroundMode] as? String,
                   backgroundOpacity: props[.backgroundOpacity] as? Double,
                   bold: props[.bold] as? Bool,
-                  color: props[.color] as? String,
+                  color: props[.color] as? String, 
+                  contentAttributeName: props[.contentAttributeName] as? String,
                   contentAttributeUuid: props[.contentAttributeUuid] as? String,
                   fontName: props[.fontName] as? String,
-                  fontSize: props[.fontSize] as? Double)
+                  fontSize: props[.fontSize] as? Double,
+                  textContent: props[.textContent] as? String)
     }
     
 }

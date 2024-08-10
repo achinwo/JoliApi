@@ -454,6 +454,7 @@ public class JoliApi: ObservableObject, HttpApi {
        URL(staticString: "https://192.168.1.26:8080").host!,
        URL(staticString: "https://192.168.1.233:8080").host!,
        URL(staticString: "https://192.168.1.105:8080").host!,
+       URL(staticString: "https://192.168.1.182:8080").host!,
     ])
     
     public static var sharedUrlSession = URLSession.init(configuration: URLSessionConfiguration.default,
