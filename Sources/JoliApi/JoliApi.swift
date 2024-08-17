@@ -593,7 +593,7 @@ public extension JoliApi {
     }
     
     @available(iOS 14.0, *)
-    static func upload(_ image: UIImage, fileName: String? = nil, ext: ImageExtension = .jpeg, timeout: TimeInterval = 60.0, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> URL {
+    static func upload(_ image: UIImage, fileName: String? = nil, ext: ImageExtension = .jpeg, timeout: TimeInterval = 60.0, baseUrl: URL? = nil, urlSession: URLSession? = nil, on: DispatchQueue? = nil) async throws -> (fileUrl: URL, responseJson: Json) {
         
         let fileName = fileName ?? "\(ShortCodeGenerator.getCode().lowercased()).\(ext.rawValue)"
         
@@ -636,12 +636,13 @@ public extension JoliApi {
                 guard let data = data,
                       let json = try? JSONSerialization.jsonObject(with: data, options: []) as? Json,
                       let fileName = json["fileName"] as? String,
-                      let url = URL(string: fileName, relativeTo: baseUrl) else {
+                      let url = URL(string: fileName, relativeTo: baseUrl?.appendingPathComponent("images", isDirectory: true)) else {
                     continuation.resume(throwing: NetworkError.badResponse("Deserialization error - image upload \(ext) \(String(describing: String(data: data ?? Data(), encoding: .utf8)))"))
                     return
                 }
                 
-                continuation.resume(returning: url)
+                print("response data: \(json)")
+                continuation.resume(returning: (url, json))
             }
             
             task.resume()
