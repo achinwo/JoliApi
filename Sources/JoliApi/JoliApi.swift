@@ -126,6 +126,7 @@ public class JoliApi: ObservableObject, HttpApi {
             return String(describing: rawValue)
         }
         
+        //MARK: Trusted hosts
         public var rawValue: (http: URL, ws: URL) {
             switch self {
             case .dev:
@@ -137,7 +138,7 @@ public class JoliApi: ObservableObject, HttpApi {
             case .homeLaptop:
                 return (http: URL(staticString: "https://192.168.1.173:8080"), ws: URL(staticString: "wss://192.168.1.173:8080"))
             case .homeDesktop:
-                return (http: URL(staticString: "https://192.168.1.188:8080"), ws: URL(staticString: "wss://192.168.1.188:8080"))
+                return (http: URL(staticString: "https://192.168.1.246:8080"), ws: URL(staticString: "wss://192.168.1.246:8080"))
             case .mobileHotspot:
                 return (http: URL(staticString: "https://172.20.10.2:8080"), ws: URL(staticString: "wss://172.20.10.2:8080"))
             case .host(let urlString):
